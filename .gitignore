@@ -19,3 +19,5 @@ recentf
 *.elc
 projectile-bookmarks.eld
 *.html
+/network-security.data
+/projectile.cache
