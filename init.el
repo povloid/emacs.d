@@ -109,6 +109,111 @@
   :config
   (load-theme 'leuven t))
 
+
+;; helm ---------------------------------------------------------------------------
+
+(use-package ag
+  :ensure t
+  :commands (ag ag-regexp ag-project))
+
+(use-package helm
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ("C-x b" . helm-buffers-list)
+         ("C-M-y" . helm-show-kill-ring)
+         ;;([S-f10] . helm-recentf)
+         ))
+
+(use-package helm-descbinds
+  :ensure t
+  :bind ("C-c b b" . helm-descbinds))
+
+(use-package helm-swoop
+  :ensure t
+  :bind (("C-s" . helm-swoop)
+         ("C-c s p" . helm-swoop-back-to-last-point)
+         ("C-c s m" . helm-multi-swoop)
+         ("C-c s a" . helm-multi-swoop-all)))
+
+(use-package helm-ag
+  :ensure helm-ag
+  :bind ("M-p" . helm-projectile-ag)
+  :commands (helm-ag helm-projectile-ag)
+  :init (setq helm-ag-insert-at-point 'symbol
+              helm-ag-command-option "--path-to-ignore ~/.agignore"))
+
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode)
+  (setq projectile-enable-caching t))
+
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on))
+
+;; paredit mode -------------------------------------------------------------------
+
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  ;; enable in the *scratch* buffer
+  (add-hook 'clojure-mode-hook           #'paredit-mode)
+  (add-hook 'clojurescript-mode-hook     #'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook        #'paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
+  (add-hook 'ielm-mode-hook #'paredit-mode)
+  (add-hook 'scheme-mode-hook            #'paredit-mode)
+  (add-hook 'lisp-mode-hook #'paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'paredit-mode))
+
+;; multiple cursore
+(use-package multiple-cursors
+  :bind (:map modi-mode-map
+              ("M-\\" . mc/edit-lines)
+              ("M--" . mc/mark-all-like-this))
+
+  :bind (:map region-bindings-mode-map
+              ("C-M--" . mc/mark-all-in-region))
+
+  :init
+  (progn
+    (global-set-key (kbd "M-\\") 'mc/edit-lines)
+    (global-set-key (kbd "M--") 'mc/mark-all-like-this)
+    (global-set-key (kbd "C-M--") 'mc/mark-all-in-region)
+
+    (setq mc/cmds-to-run-for-all
+          '(company-indent-or-complete-common
+            electric-newline-and-maybe-indent
+            helm-M-x
+            kill-region
+            mark-sexp
+            org-beginning-of-line
+            org-end-of-line
+            org-self-insert-command
+            paredit-close-round
+            paredit-doublequote
+            paredit-forward
+            paredit-forward-delete
+            paredit-forward-slurp-sexp
+            paredit-kill
+            paredit-open-round  ;; круглые скобки
+            paredit-open-curly  ;; фигурные скобки
+            paredit-open-square ;; квадратные скобки
+            paredit-semicolon
+            paredit-splice-sexp
+            paredit-backslash
+            sgml-slash
+            yaml-electric-backspace))
+
+    (setq mc/cmds-to-run-once
+          '(delete-window
+            handle-switch-frame
+            helm-buffers-list
+            helm-projectile-find-file))))
+
 ;;(load-file (concat user-emacs-directory "internal.el"))
 
 ;; (use-package paradox
@@ -358,8 +463,7 @@
                  (ibuffer-do-sort-by-alphabetic)))))
 
 (use-package magit
-  ;;:custom
-  ;;(magit-completing-read-function 'ivy-completing-read "Force Ivy usage.")
+  :ensure t
   )
 
 ;; (use-package magithub
@@ -378,11 +482,11 @@
 
 
 (use-package git-gutter
+  :ensure t
   :config
   (progn
-    (global-git-gutter-mode t)
+    (global-git-gutter-mode +1)
     (git-gutter:linum-setup)
-    (add-hook 'python-mode-hook 'git-gutter-mode)
     (custom-set-variables
      '(git-gutter:window-width 2)
      '(git-gutter:modified-sign "☁")
@@ -404,12 +508,13 @@
          ("C-x v s" . git-gutter:stage-hunk)
          ("C-x v r" . git-gutter:revert-hunk)))
 
+(global-git-gutter-mode +1)
+
 (use-package git-gutter+
+  :ensure t
   :config
   (progn
-    (global-git-gutter+-mode t)
-    (add-hook 'python-mode-hook 'git-gutter+-mode)
-    (add-hook 'web-mode-hook 'git-gutter+-mode)
+    (global-git-gutter+-mode +1)
     ;;; Jump between hunks
     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
@@ -427,6 +532,7 @@
   :bind (("C-x g" . git-gutter+-mode)
          ("C-x G" . global-git-gutter+-mode)))
 
+(global-git-gutter+-mode +1)
 
 ;; (use-package edit-indirect)
 
@@ -466,15 +572,57 @@
 
 ;; (use-package geiser)
 
-(use-package clojure-mode)
-(use-package clojure-mode-extra-font-locking)
-(use-package clojure-snippets)
-(use-package cider
-  :pin "melpa-stable"
+;; clojure =-------------------------------------------------------------------------------------------
+
+(defun clojure-write-tags ()
+  (when (or (eq 'clojure-mode major-mode)
+            (eq 'clojurescript-mode major-mode)
+            (eq 'clojurec-mode major-mode))
+    (when-let ((project-dir (clojure-project-dir)))
+      (let ((default-directory project-dir))
+        (shell-command "find src/ -type f | xargs etags --regex='/[ \\t\\(]*def[a-z\\-]* \\([a-z-!]+\\)/\\1/' --regex='/[ \\t\\(]*ns \\([a-z.]+\\)/\\1/'")))))
+
+(defun clojure-tags-navigate ()
+  (interactive)
+  (require 'helm-tags)
+  (when (not (helm-etags-get-tag-file))
+    (clojure-write-tags))
+  (helm-etags-select '(4)))
+
+
+(use-package clojure-mode
+  :ensure t
+  :mode (("clj\\'" . clojure-mode)
+         ("cljs\\'" . clojurescript-mode)
+         ("cljc\\'" . clojurec-mode)
+         (".lein-env\\'" . clojure-mode))
   :config
-  ;; sadly, we can't use :diminish keyword here, yet
-  (diminish 'cider-mode
-            '(:eval (format " 🍏%s" (cider--modeline-info))))
+  (add-hook 'after-save-hook 'clojure-write-tags)
+  (add-hook 'clojure-mode-hook #'paredit-mode)
+  (add-hook 'clojure-mode-hook #'subword-mode)
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+  (setq tags-revert-without-query t)
+  (setq tags-add-tables nil)
+  ;; (setq clojure-indent-style :align-arguments)
+  ;; (put-clojure-indent 'ch/modify-column 1)
+  ;; (put-clojure-indent 's/fdef 1)
+  ;; (put-clojure-indent 'ch/add-columns 1)
+  ;; (put-clojure-indent 'ch/add-foreign-key-constraint 1)
+  ;; (put-clojure-indent 'ch/create-index 1)
+  ;; (put-clojure-indent 'ch/create-table 1)
+  ;; (put-clojure-indent 'ch/insert-data 1)
+  ;; (put-clojure-indent 'ch/update-data 1)
+  ;; (put-clojure-indent 'ch/add-unique-constraint 1)
+  ;; (put-clojure-indent 'ch/add-foreign-key-constraint 1)
+  )
+
+(use-package clojure-mode-extra-font-locking
+  :ensure t)
+
+(use-package cider
+  :ensure t
+  :pin melpa-stable
+  :commands cider-mode cider-jack-in-clojurescript
   :init
   (progn
     (defun figwheel-repl ()
@@ -485,10 +633,82 @@
       (interactive)
       (save-some-buffers)
       (goto-char (point-max))
-      (insert "(do (use 'figwheel-sidecar.repl-api) (cljs-repl))"))))
+      (insert "(do (use 'figwheel-sidecar.repl-api) (cljs-repl))"))
+    (setq cider-auto-jump-to-error 'errors-only))
+  :config
+  (setq nrepl-log-messages t)
+  (setq nrepl-sync-request-timeout 60)
+  (define-key cider-mode-map (kbd "C-c M-J") 'cider-jack-in-clojurescript)
+  (define-key cider-mode-map (kbd "C-x c e") 'clojure-tags-navigate)
+  (setq cider-prefer-local-resources t)
+  (setq nrepl-hide-special-buffers nil)
+  (setq cider-font-lock-dynamically nil)
+  (setq cider-repl-use-pretty-printing t)
+  (setq cider-repl-result-prefix ";; => ")
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook #'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook #'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
 
+(use-package clj-refactor
+  :ensure t
+  :commands clj-refactor-mode
+  :init
+  (setq cljr-warn-on-eval nil)
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  :hook
+  ((cider-mode . clj-refactor-mode)))
 
-(use-package kibit-helper)
+(use-package cljr-helm
+  :ensure t
+  :commands cljr-helm
+  :init (define-key clojure-mode-map (kbd "M-RET") 'cljr-helm))
+
+(use-package 4clojure
+  :ensure t
+  :commands (4clojure-check-answers 4clojure-open-question))
+
+(use-package typed-clojure-mode
+  :ensure t
+  :commands typed-clojure-mode
+  :hook
+  ((clojure-mode . typed-clojure-mode)))
+
+(use-package flycheck-clojure
+  :ensure t
+  :disabled t
+  :config
+  (flycheck-clojure-setup)
+  :hook
+  ((clojure-mode . (lambda ()
+                     ;; currently not working with cljs
+                     (add-to-list 'flycheck-disabled-checkers 'clojure-cider-typed)
+                     (add-to-list 'flycheck-disabled-checkers 'clojure-cider-kibit)
+                     (add-to-list 'flycheck-disabled-checkers 'clojure-cider-eastwood)))))
+
+(use-package clojure-snippets
+  :ensure t
+  :config (clojure-snippets-initialize))
+
+(use-package align-cljlet
+  :ensure t
+  :config
+  (define-key clojure-mode-map (kbd "C-M-<tab>") 'align-cljlet))
+
+(use-package cljsbuild-mode
+  :ensure t
+  :commands cljsbuild-start)
+
+(use-package kibit-helper
+  :ensure t
+  :commands kibit kibit-current-file
+  :bind (("C-x C-`" . kibit-accept-proposed-change)))
+
+(use-package sotclojure
+  :ensure t :disabled t)
+
+;; clojure =-------------------------------------------------------------------------------------------
+
 
 (use-package slime
   :disabled
@@ -500,7 +720,7 @@
   (slime-setup '(slime-fancy))
   (setq slime-net-coding-system 'utf-8-unix))
 
-(use-package scala-mode)
+;;(use-package scala-mode)
 
 ;; (use-package sbt-mode
 ;;   :commands sbt-start sbt-command
@@ -774,7 +994,7 @@
   :bind
   (("C-z" . nil))
   :init
-  (defvar default-font "PT Mono")
+  (defvar default-font "PT Mono-13")
   :config
   (set-frame-font default-font)
   (add-to-list 'default-frame-alist `(font . ,default-font))
@@ -1093,106 +1313,25 @@
 ;;   (find-file . auto-insert))
 
 
-;; helm
 
-(use-package ag
-  :ensure t
-  :commands (ag ag-regexp ag-project))
-
-(use-package helm
-  :bind (("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
-         ("C-x b" . helm-buffers-list)
-         ("C-M-y" . helm-show-kill-ring)
-         ;;([S-f10] . helm-recentf)
-         ))
-
-(use-package helm-descbinds
-  :ensure t
-  :bind ("C-c b b" . helm-descbinds))
-
-(use-package helm-swoop
-  :ensure t
-  :bind (("C-s" . helm-swoop)
-         ("C-c s p" . helm-swoop-back-to-last-point)
-         ("C-c s m" . helm-multi-swoop)
-         ("C-c s a" . helm-multi-swoop-all)))
-
-(use-package helm-ag
-  :ensure helm-ag
-  :bind ("M-p" . helm-projectile-ag)
-  :commands (helm-ag helm-projectile-ag)
-  :init (setq helm-ag-insert-at-point 'symbol
-              helm-ag-command-option "--path-to-ignore ~/.agignore"))
-
-(use-package projectile
-  :ensure t
-  :config
-  (projectile-global-mode)
-  (setq projectile-enable-caching t))
-
-(use-package helm-projectile
-  :ensure t
-  :config
-  (helm-projectile-on))
-
-;; paredit mode
-
-(use-package paredit
-  :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  ;; enable in the *scratch* buffer
-  (add-hook 'clojure-mode-hook           #'paredit-mode)
-  (add-hook 'clojurescript-mode-hook     #'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook        #'paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
-  (add-hook 'ielm-mode-hook #'paredit-mode)
-  (add-hook 'scheme-mode-hook            #'paredit-mode)
-  (add-hook 'lisp-mode-hook #'paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook #'paredit-mode))
-
-;; multiple cursore
-(use-package multiple-cursors
-  :bind (:map modi-mode-map
-              ("M-\\" . mc/edit-lines)
-              ("M--" . mc/mark-all-like-this))
-
-  :bind (:map region-bindings-mode-map
-              ("C-M--" . mc/mark-all-in-region))
-
-  :init
-  (progn
-    (global-set-key (kbd "M-\\") 'mc/edit-lines)
-    (global-set-key (kbd "M--") 'mc/mark-all-like-this)
-    (global-set-key (kbd "C-M--") 'mc/mark-all-in-region)
-
-    (setq mc/cmds-to-run-for-all
-          '(company-indent-or-complete-common
-            electric-newline-and-maybe-indent
-            helm-M-x
-            kill-region
-            mark-sexp
-            org-beginning-of-line
-            org-end-of-line
-            org-self-insert-command
-            paredit-close-round
-            paredit-doublequote
-            paredit-forward
-            paredit-forward-delete
-            paredit-forward-slurp-sexp
-            paredit-kill
-            paredit-open-round  ;; круглые скобки
-            paredit-open-curly  ;; фигурные скобки
-            paredit-open-square ;; квадратные скобки
-            paredit-semicolon
-            paredit-splice-sexp
-            paredit-backslash
-            sgml-slash
-            yaml-electric-backspace))
-
-    (setq mc/cmds-to-run-once
-          '(delete-window
-            handle-switch-frame
-            helm-buffers-list
-            helm-projectile-find-file))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(package-selected-packages
+   (quote
+    (cljsbuild-mode 4clojure scala-mode reverse-im rainbow-mode rainbow-identifiers rainbow-delimiters quelpa-use-package paredit multiple-cursors magithub lua-mode leuven-theme kibit-helper ibuffer-vc helm-swoop helm-projectile helm-descbinds helm-ag git-gutter git-gutter+ font-lock+ dockerfile-mode docker-compose-mode docker diminish company-shell company-quickhelp company-emoji clojure-snippets clojure-mode-extra-font-locking cider avy-flycheck ag))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
