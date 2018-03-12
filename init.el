@@ -159,6 +159,9 @@
   :init (setq helm-ag-insert-at-point 'symbol
               helm-ag-command-option "--path-to-ignore ~/.agignore"))
 
+(use-package perspective
+  :init (persp-mode))
+
 (use-package projectile
   :ensure t
   :config
@@ -648,14 +651,14 @@
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
   (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-	(defun figwheel-repl ()
-		(interactive)
-		(run-clojure "lein figwheel"))
-	(defun cider-repl-to-figwhell-repl ()
-		(interactive)
-		(save-some-buffers)
-		(goto-char (point-max))
-		(insert "(do (use 'figwheel-sidecar.repl-api) (cljs-repl))")))
+  (defun figwheel-repl ()
+    (interactive)
+    (run-clojure "lein figwheel"))
+  (defun cider-repl-to-figwhell-repl ()
+    (interactive)
+    (save-some-buffers)
+    (goto-char (point-max))
+    (insert "(do (use 'figwheel-sidecar.repl-api) (cljs-repl))")))
 
 (use-package clj-refactor
   :ensure t
@@ -1177,14 +1180,13 @@
   :config
   (setq flyspell-delay 1))
 
-
-;; use-package sh-script
-;;   :ensure nil
-;;   :mode (("zshecl" . sh-mode)
-;;          ("\\.zsh\\'" . sh-mode))
-;;   :config
-;;   ;; zsh
-;;   (setq system-uses-terminfo nil))
+(use-package sh-script
+  :ensure nil
+  :mode (("zshecl" . sh-mode)
+         ("\\.zsh\\'" . sh-mode))
+  :config
+  ;; zsh
+  (setq system-uses-terminfo nil))
 
 ;; ;; dired and eshell
 
@@ -1335,3 +1337,69 @@
 ;; (use-package autoinsert
 ;;   :hook
 ;;   (find-file . auto-insert))
+
+
+(use-package erlang
+  :ensure t
+  :config
+  (when (eq system-type 'windows-nt)
+    (setq erlang-root-dir "C:/Program Files/erl7.2")
+    (add-to-list 'exec-path "C:/Program Files/erl7.2/bin")))
+
+(use-package markdown-mode
+  :ensure t)
+
+(use-package yaml-mode
+	:ensure t
+  :commands (yaml-mode)
+  :mode "\\.yml\\'")
+
+(use-package js2-mode
+  :ensure t :mode "\\.js\\'")
+
+(use-package json-reformat
+  :ensure t
+  :commands json-reformat-region
+  :init (progn (setq json-reformat:indent-width 2)
+               (setq json-reformat:pretty-string? t)))
+
+(use-package json-mode
+  :ensure t
+  :mode ("\\.json$" . json-mode)
+  :init
+	(progn
+		(add-hook 'json-mode
+							(lambda ()
+								(make-local-variable 'js-indent-level)
+								(setq js-indent-level 2)))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(package-selected-packages
+	 (quote
+		(perspective typed-clojure-mode scala-mode reverse-im rainbow-mode rainbow-identifiers rainbow-delimiters quelpa-use-package markdown-mode magit lua-mode leuven-theme kibit-helper js2-mode ibuffer-vc helm-swoop helm-projectile helm-descbinds helm-cider helm-ag git-gutter git-gutter+ font-lock+ erlang dockerfile-mode docker-compose-mode docker diminish company-shell company-quickhelp company-emoji clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm avy-flycheck align-cljlet ag 4clojure))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight normal :height 140 :width normal))))
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
+ '(helm-selection-line ((t (:background "#FFF876" :underline t))))
+ '(tabbar-default ((t (:height 1.2)))))
