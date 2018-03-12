@@ -21,3 +21,4 @@ projectile-bookmarks.eld
 *.html
 /network-security.data
 /projectile.cache
+/.mc-lists.el

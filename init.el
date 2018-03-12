@@ -38,6 +38,8 @@
 (electric-indent-mode 1)
 (setq font-lock-maximum-decoration t)
 (show-paren-mode 1)
+(setq default-tab-width 2)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -117,12 +119,27 @@
   :commands (ag ag-regexp ag-project))
 
 (use-package helm
+  :ensure t
   :bind (("M-x" . helm-M-x)
          ("C-x C-f" . helm-find-files)
          ("C-x b" . helm-buffers-list)
          ("C-M-y" . helm-show-kill-ring)
          ;;([S-f10] . helm-recentf)
-         ))
+         )
+  :config
+  (setq helm-split-window-in-side-p           nil ; open helm buffer inside current window, not occupy whole other window
+        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        ;;helm-ff-search-library-in-sexp      t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        ;;helm-ff-file-name-history-use-recentf t
+        helm-echo-input-in-header-line t
+        helm-buffer-max-length 60 ;; размер в ширину
+        ;;helm-always-two-windows t
+        ;;helm-split-window-default-side 'right
+        helm-autoresize-max-height 30
+        helm-autoresize-min-height 30)
+  (helm-autoresize-mode 1)
+  (helm-mode 1))
 
 (use-package helm-descbinds
   :ensure t
@@ -463,8 +480,7 @@
                  (ibuffer-do-sort-by-alphabetic)))))
 
 (use-package magit
-  :ensure t
-  )
+  :ensure t)
 
 ;; (use-package magithub
 ;;   :after magit
@@ -622,24 +638,7 @@
 (use-package cider
   :ensure t
   :pin melpa-stable
-  :commands cider-mode cider-jack-in-clojurescript
-  :init
-  (progn
-    (defun figwheel-repl ()
-      (interactive)
-      (run-clojure "lein figwheel"))
-
-    (defun cider-repl-to-figwhell-repl ()
-      (interactive)
-      (save-some-buffers)
-      (goto-char (point-max))
-      (insert "(do (use 'figwheel-sidecar.repl-api) (cljs-repl))"))
-    (setq cider-auto-jump-to-error 'errors-only))
   :config
-  (setq nrepl-log-messages t)
-  (setq nrepl-sync-request-timeout 60)
-  (define-key cider-mode-map (kbd "C-c M-J") 'cider-jack-in-clojurescript)
-  (define-key cider-mode-map (kbd "C-x c e") 'clojure-tags-navigate)
   (setq cider-prefer-local-resources t)
   (setq nrepl-hide-special-buffers nil)
   (setq cider-font-lock-dynamically nil)
@@ -648,7 +647,15 @@
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
-  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
+  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+	(defun figwheel-repl ()
+		(interactive)
+		(run-clojure "lein figwheel"))
+	(defun cider-repl-to-figwhell-repl ()
+		(interactive)
+		(save-some-buffers)
+		(goto-char (point-max))
+		(insert "(do (use 'figwheel-sidecar.repl-api) (cljs-repl))")))
 
 (use-package clj-refactor
   :ensure t
@@ -993,15 +1000,32 @@
   ;; disable suspending on C-z
   :bind
   (("C-z" . nil))
-  :init
-  (defvar default-font "PT Mono-13")
+  ;;:init
+  ;;(defvar default-font "PT Mono-14")
   :config
-  (set-frame-font default-font)
-  (add-to-list 'default-frame-alist `(font . ,default-font))
+  ;;(set-frame-font default-font)
+  ;;(add-to-list 'default-frame-alist `(font . ,default-font))
   (setq initial-frame-alist default-frame-alist)
   (setq display-buffer-alist default-frame-alist)
   (set-fontset-font "fontset-default" 'cyrillic
-                    (font-spec :registry "iso10646-1" :script 'cyrillic)))
+                    (font-spec :registry "iso10646-1" :script 'cyrillic))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight normal :height
+                          140 :width normal))))
+   '(font-lock-builtin-face ((t (:weight bold))))
+   '(font-lock-constant-face ((t (:weight bold))))
+   '(font-lock-function-name-face ((t (:weight bold))))
+   '(font-lock-keyword-face ((t (:weight bold))))
+   '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+   '(font-lock-type-face ((t (:weight bold))))
+   '(font-lock-variable-name-face ((t (:weight bold))))
+   '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
+   '(helm-selection-line ((t (:background "#FFF876" :underline t))))
+   '(tabbar-default ((t (:height 1.2))))))
 
 ;; (use-package custom
 ;;   :ensure nil
@@ -1020,7 +1044,7 @@
 (use-package hl-line
   :ensure nil
   :config
-  (global-hl-line-mode 1))
+  (global-hl-line-mode -1))
 
 ;; (use-package man
 ;;   :ensure nil
@@ -1311,27 +1335,3 @@
 ;; (use-package autoinsert
 ;;   :hook
 ;;   (find-file . auto-insert))
-
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(git-gutter:added-sign "☀")
- '(git-gutter:deleted-sign "☂")
- '(git-gutter:hide-gutter t)
- '(git-gutter:modified-sign "☁")
- '(git-gutter:separator-sign "|")
- '(git-gutter:unchanged-sign " ")
- '(git-gutter:window-width 2)
- '(package-selected-packages
-   (quote
-    (cljsbuild-mode 4clojure scala-mode reverse-im rainbow-mode rainbow-identifiers rainbow-delimiters quelpa-use-package paredit multiple-cursors magithub lua-mode leuven-theme kibit-helper ibuffer-vc helm-swoop helm-projectile helm-descbinds helm-ag git-gutter git-gutter+ font-lock+ dockerfile-mode docker-compose-mode docker diminish company-shell company-quickhelp company-emoji clojure-snippets clojure-mode-extra-font-locking cider avy-flycheck ag))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
