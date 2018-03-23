@@ -1,0 +1,21 @@
+# name: aws-do-callback-end
+# key: aws-do-callback-end
+# --
+
+// STEP END
+function $2(data, context, callback) {
+
+  var params = {
+  };
+
+  $3.$4(params, (error, data) => {
+    if (error) {
+      console.log(error, error.stack);
+      callback(null, {result: "error", error: error});
+			} else {
+			callback(null, {result:       "ok",
+                      data:         params,
+                      cognito_user: cognitoUser});
+    }
+  });
+}

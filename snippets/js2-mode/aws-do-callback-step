@@ -1,0 +1,20 @@
+# name: aws-do-callback-step
+# key: aws-do-callback-step
+# --
+
+// STEP $1
+function $2(event, context, callback) {
+
+  var params = {
+  };
+
+  $3.$4(params, (error, data) => {
+    if (error) {
+      console.log(error, error.stack);
+      callback(null, {result: "error", error: error});
+		} else {
+		  event ["$2_result"] = data;	
+      $5(event, context, callback);
+    }
+  });
+}

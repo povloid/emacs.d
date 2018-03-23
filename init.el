@@ -173,6 +173,12 @@
   :config
   (helm-projectile-on))
 
+(use-package helm-c-yasnippet
+	:ensure t
+	:config
+	(setq helm-yas-space-match-any-greedy t)
+	(global-set-key (kbd "C-c y y") 'helm-yas-complete))
+
 ;; paredit mode -------------------------------------------------------------------
 
 (use-package paredit
@@ -561,21 +567,19 @@
 ;;   (dumb-jump-prefer-searcher 'ag))
 
 (use-package yasnippet
-  :diminish yas-minor-mode
   :config
+	(add-to-list 'load-path "~/.emacs.d/yasnippet")
   (yas-reload-all)
-  (setq yas-prompt-functions '(yas-completing-prompt yas-ido-prompt))
-  :hook
-  (prog-mode  . yas-minor-mode))
+	(yas-global-mode 1))
 
 (use-package flycheck
   :diminish flycheck-mode
   :hook
   (prog-mode . flycheck-mode))
 
-(use-package avy-flycheck
-  :config
-  (avy-flycheck-setup))
+;; (use-package avy-flycheck
+;;   :config
+;;   (avy-flycheck-setup))
 
 ;; (use-package nameless
 ;;   :hook
@@ -1036,7 +1040,6 @@
 ;;   (setq custom-enabled-themes '(deeper-blue))
 ;;   (load-theme 'deeper-blue))
 
-
 ;;; highlighting
 
 (use-package paren
@@ -1069,8 +1072,6 @@
   (setq kept-new-versions 6)
   (setq kept-old-versions 2)
   (setq version-control t))
-
-
 
 ;; (use-package uniquify
 ;;   :ensure nil
@@ -1350,12 +1351,18 @@
   :ensure t)
 
 (use-package yaml-mode
-	:ensure t
+  :ensure t
   :commands (yaml-mode)
   :mode "\\.yml\\'")
 
 (use-package js2-mode
-  :ensure t :mode "\\.js\\'")
+  :ensure t
+  :mode "\\.js\\'"
+  :config
+  ;; Turn off js2 mode errors & warnings (we lean on eslint/standard)
+  ;;(setq js2-mode-show-parse-errors nil)
+  ;;(setq js2-mode-show-strict-warnings nil)
+  (setq js2-strict-missing-semi-warning nil))
 
 (use-package json-reformat
   :ensure t
@@ -1367,39 +1374,58 @@
   :ensure t
   :mode ("\\.json$" . json-mode)
   :init
-	(progn
-		(add-hook 'json-mode
-							(lambda ()
-								(make-local-variable 'js-indent-level)
-								(setq js-indent-level 2)))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(git-gutter:added-sign "☀")
- '(git-gutter:deleted-sign "☂")
- '(git-gutter:hide-gutter t)
- '(git-gutter:modified-sign "☁")
- '(git-gutter:separator-sign "|")
- '(git-gutter:unchanged-sign " ")
- '(git-gutter:window-width 2)
- '(package-selected-packages
-	 (quote
-		(perspective typed-clojure-mode scala-mode reverse-im rainbow-mode rainbow-identifiers rainbow-delimiters quelpa-use-package markdown-mode magit lua-mode leuven-theme kibit-helper js2-mode ibuffer-vc helm-swoop helm-projectile helm-descbinds helm-cider helm-ag git-gutter git-gutter+ font-lock+ erlang dockerfile-mode docker-compose-mode docker diminish company-shell company-quickhelp company-emoji clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm avy-flycheck align-cljlet ag 4clojure))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight normal :height 140 :width normal))))
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
- '(helm-selection-line ((t (:background "#FFF876" :underline t))))
- '(tabbar-default ((t (:height 1.2)))))
+  (progn
+    (add-hook 'json-mode
+              (lambda ()
+                (make-local-variable 'js-indent-level)
+                (setq js-indent-level 2)))))
+
+;; termial --------------------------------------------------------
+
+(use-package xterm-color
+  :ensure t
+  :config
+  (setq compilation-environment '("TERM=xterm-256color"))
+  (add-hook 'compilation-start-hook
+            (lambda (proc)
+              ;; We need to differentiate between compilation-mode buffers
+              ;; and running as part of comint (which at this point we assume
+              ;; has been configured separately for xterm-color)
+              (when (eq (process-filter proc) 'compilation-filter)
+                ;; This is a process associated with a compilation-mode buffer.
+                ;; We may call `xterm-color-filter' before its own filter function.
+                (set-process-filter
+                 proc
+                 (lambda (proc string)
+                   (funcall 'compilation-filter proc
+                            (xterm-color-filter string))))))))
+
+
+(defun transit-keys-combination-to-term (keys-combination)
+  (let ((k (kbd keys-combination)))
+    (define-key term-raw-map k
+      (lookup-key (current-global-map) k))))
+
+(add-hook 'term-load-hook
+          (lambda ()
+            (transit-keys-combination-to-term "M-x")
+            (transit-keys-combination-to-term "C-x")))
+
+(setq tt-id 0)
+(defun get-tts-id ()
+  (concat "term-" (number-to-string (setq tt-id (+ 1 tt-id)))))
+
+(defun tt-0 (name)
+  (interactive "sbuffername:")
+  (ansi-term "/bin/bash")
+  (insert "export LANG=en_US.UTF-8; source ~/.bash_profile")
+  (term-send-input)
+  (rename-buffer (concat "ttt: " name)))
+
+(defun ttt (name)
+  (interactive "sbuffername:")
+  (tt-0 name))
+
+(defun tti ()
+  (interactive)
+  (tt-0 (get-tts-id)))

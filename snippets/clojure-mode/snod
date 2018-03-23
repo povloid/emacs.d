@@ -1,0 +1,4 @@
+# name: snod
+# key: snod
+# --
+(sub-node :$2 {:ru "$1"})
