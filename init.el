@@ -14,7 +14,6 @@
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
-
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 50MB of allocated data (the default is on every 0.76MB)
 (setq gc-cons-threshold 50000000)
@@ -72,13 +71,10 @@
 ;; PACKAGE
 
 (require 'package)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+(setq package-archives '(;;("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
-                         ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
-                         ;; ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ;; ("sunrise" . "http://joseito.republika.pl/sunrise-commander/")
-                         ))
+                         ("melpa-stable" . "https://melpa-stable.milkbox.net/packages/")
+                         ("org" . "https://orgmode.org/elpa/")))
 
 (package-initialize)
 
@@ -95,22 +91,40 @@
 (put 'use-package 'lisp-indent-function 1)
 (setq use-package-always-ensure t)
 
+
+;; Emacs server mode
+
+(use-package server
+  :ensure t
+  :init
+  (server-mode 1)
+  :config
+  (unless (server-running-p)
+    (server-start)))
+
+
 ;; :diminish keyword
 (use-package diminish)
 
 ;; :bind keyword
-;;(use-package bind-key)
+;;(use-package bind-key
+;;	:ensure t
+;;	:pin melpa-stable)
 
 ;; :quelpa keyword
 (use-package quelpa)
 (use-package quelpa-use-package)
 
 
-(use-package leuven-theme
-  :ensure t
-  :config
-  (load-theme 'leuven t))
+;; (use-package leuven-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'leuven t))
 
+(use-package solarized-theme
+  :if (display-graphic-p)
+  :custom (solarized-use-variable-pitch nil)
+  :config (load-theme 'solarized-dark t))
 
 ;; helm ---------------------------------------------------------------------------
 
@@ -174,10 +188,10 @@
   (helm-projectile-on))
 
 (use-package helm-c-yasnippet
-	:ensure t
-	:config
-	(setq helm-yas-space-match-any-greedy t)
-	(global-set-key (kbd "C-c y y") 'helm-yas-complete))
+  :ensure t
+  :config
+  (setq helm-yas-space-match-any-greedy t)
+  (global-set-key (kbd "C-c y y") 'helm-yas-complete))
 
 ;; paredit mode -------------------------------------------------------------------
 
@@ -568,9 +582,9 @@
 
 (use-package yasnippet
   :config
-	(add-to-list 'load-path "~/.emacs.d/yasnippet")
+  (add-to-list 'load-path "~/.emacs.d/yasnippet")
   (yas-reload-all)
-	(yas-global-mode 1))
+  (yas-global-mode 1))
 
 (use-package flycheck
   :diminish flycheck-mode
@@ -623,7 +637,7 @@
   (add-hook 'after-save-hook 'clojure-write-tags)
   (add-hook 'clojure-mode-hook #'paredit-mode)
   (add-hook 'clojure-mode-hook #'subword-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+  ;;(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
   (setq tags-revert-without-query t)
   (setq tags-add-tables nil)
   ;; (setq clojure-indent-style :align-arguments)
@@ -654,7 +668,7 @@
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
-  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+  ;;(add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
   (defun figwheel-repl ()
     (interactive)
     (run-clojure "lein figwheel"))
@@ -722,7 +736,6 @@
   :ensure t :disabled t)
 
 ;; clojure =-------------------------------------------------------------------------------------------
-
 
 (use-package slime
   :disabled
@@ -828,17 +841,19 @@
 ;;   :config
 ;;   (global-page-break-lines-mode))
 
-(use-package rainbow-delimiters
-  :hook
-  (prog-mode . rainbow-delimiters-mode))
+;; ------------------------------------------------
+;; (use-package rainbow-delimiters
+;;   :hook
+;;   (prog-mode . rainbow-delimiters-mode))
 
-(use-package rainbow-identifiers
-  :hook
-  (prog-mode . rainbow-identifiers-mode))
+;; (use-package rainbow-identifiers
+;;   :hook
+;;   (prog-mode . rainbow-identifiers-mode))
 
-(use-package rainbow-mode
-  :diminish rainbow-mode
-  :hook prog-mode)
+;; (use-package rainbow-mode
+;;   :diminish rainbow-mode
+;;   :hook prog-mode)
+;; ------------------------------------------------
 
 ;; (use-package spaceline
 ;;   :config
@@ -999,7 +1014,6 @@
 ;;   (setq display-time-24hr-format t)
 ;;   (display-time-mode t))
 
-
 ;;; fonts & colors
 
 (use-package frame
@@ -1021,8 +1035,8 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight normal :height
-                          140 :width normal))))
+   '(default ((t (:family "Fira Code" :foundry "PARA" :slant normal :weight normal :height
+                          150 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -1382,25 +1396,6 @@
 
 ;; termial --------------------------------------------------------
 
-(use-package xterm-color
-  :ensure t
-  :config
-  (setq compilation-environment '("TERM=xterm-256color"))
-  (add-hook 'compilation-start-hook
-            (lambda (proc)
-              ;; We need to differentiate between compilation-mode buffers
-              ;; and running as part of comint (which at this point we assume
-              ;; has been configured separately for xterm-color)
-              (when (eq (process-filter proc) 'compilation-filter)
-                ;; This is a process associated with a compilation-mode buffer.
-                ;; We may call `xterm-color-filter' before its own filter function.
-                (set-process-filter
-                 proc
-                 (lambda (proc string)
-                   (funcall 'compilation-filter proc
-                            (xterm-color-filter string))))))))
-
-
 (defun transit-keys-combination-to-term (keys-combination)
   (let ((k (kbd keys-combination)))
     (define-key term-raw-map k
@@ -1409,7 +1404,28 @@
 (add-hook 'term-load-hook
           (lambda ()
             (transit-keys-combination-to-term "M-x")
-            (transit-keys-combination-to-term "C-x")))
+            (transit-keys-combination-to-term "C-x")
+            ;;(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
+            ;; (Let ((base03 "#002b36")
+            ;;       (base02 "#073642")
+            ;;       (base01 "#586e75")
+            ;;       (base00 "#657b83")
+            ;;       (base0 "#839496")
+            ;;       (base1 "#93a1a1")
+            ;;       (base2 "#eee8d5")
+            ;;       (base3 "#fdf6e3")
+            ;;       (yellow "#b58900")
+            ;;       (orange "#cb4b16")
+            ;;       (red "#dc322f")
+            ;;       (magenta "#d33682")
+            ;;       (violet "#6c71c4")
+            ;;       (blue "#268bd2")
+            ;;       (cyan "#2aa198")
+            ;;       (green "#859900"))
+            ;;   (setq ansi-term-color-vector
+            ;;         (vconcat `(unspecified ,base02 ,red ,green ,yellow ,blue
+            ;;                                ,magenta ,cyan ,base2))))
+            ))
 
 (setq tt-id 0)
 (defun get-tts-id ()
@@ -1429,3 +1445,14 @@
 (defun tti ()
   (interactive)
   (tt-0 (get-tts-id)))
+
+;; devops -----------------------------------------------------------------------
+
+(use-package terraform-mode
+  :ensure t
+  :mode "\\.tf\\'")
+
+(use-package company-terraform
+	:ensure t)
+
+;; ------------------------------------------------------------------------
