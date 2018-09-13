@@ -71,10 +71,11 @@
 ;; PACKAGE
 
 (require 'package)
-(setq package-archives '(;;("gnu" . "https://elpa.gnu.org/packages/")
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("melpa-stable" . "https://melpa-stable.milkbox.net/packages/")
-                         ("org" . "https://orgmode.org/elpa/")))
+                         ;;("org" . "https://orgmode.org/elpa/")
+                         ))
 
 (package-initialize)
 
@@ -108,8 +109,8 @@
 
 ;; :bind keyword
 ;;(use-package bind-key
-;;	:ensure t
-;;	:pin melpa-stable)
+;;  :ensure t
+;;  :pin melpa-stable)
 
 ;; :quelpa keyword
 (use-package quelpa)
@@ -124,7 +125,7 @@
 (use-package solarized-theme
   :if (display-graphic-p)
   :custom (solarized-use-variable-pitch nil)
-  :config (load-theme 'solarized-dark t))
+  :config (load-theme 'solarized-light t))
 
 ;; helm ---------------------------------------------------------------------------
 
@@ -171,6 +172,7 @@
   :bind ("M-p" . helm-projectile-ag)
   :commands (helm-ag helm-projectile-ag)
   :init (setq helm-ag-insert-at-point 'symbol
+              helm-ag-use-agignore 1
               helm-ag-command-option "--path-to-ignore ~/.agignore"))
 
 (use-package perspective
@@ -1035,7 +1037,7 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(default ((t (:family "Fira Code" :foundry "PARA" :slant normal :weight normal :height
+   '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height
                           150 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
@@ -1047,6 +1049,9 @@
    '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
    '(helm-selection-line ((t (:background "#FFF876" :underline t))))
    '(tabbar-default ((t (:height 1.2))))))
+
+;; ligatures fonts
+(global-prettify-symbols-mode 1)
 
 ;; (use-package custom
 ;;   :ensure nil
@@ -1369,6 +1374,9 @@
   :commands (yaml-mode)
   :mode "\\.yml\\'")
 
+
+;; JavaScript ---------------------------------------------------------------------------------------------------
+
 (use-package js2-mode
   :ensure t
   :mode "\\.js\\'"
@@ -1376,7 +1384,22 @@
   ;; Turn off js2 mode errors & warnings (we lean on eslint/standard)
   ;;(setq js2-mode-show-parse-errors nil)
   ;;(setq js2-mode-show-strict-warnings nil)
-  (setq js2-strict-missing-semi-warning nil))
+  (setq js2-strict-missing-semi-warning nil)
+  (add-hook 'js2-mode-hook #'js2-imenu-extras-mode))
+
+(use-package js2-refactor
+  :ensure t
+  :config
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  (js2r-add-keybindings-with-prefix "C-c C-r")
+  (define-key js2-mode-map (kbd "C-k") #'js2r-kill))
+
+;; (use-package xref-js2
+;;  :ensure t
+;;  :config
+;;  (define-key js2-mode-map (kbd "M-.") nil)
+;;  (add-hook 'js2-mode-hook (lambda ()
+;;                             (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
 
 (use-package json-reformat
   :ensure t
@@ -1393,6 +1416,11 @@
               (lambda ()
                 (make-local-variable 'js-indent-level)
                 (setq js-indent-level 2)))))
+
+;; SQL -----------------------------------------------------------------------------------------------------------
+
+(use-package sql-indent
+  :ensure t)
 
 ;; termial --------------------------------------------------------
 
@@ -1453,6 +1481,6 @@
   :mode "\\.tf\\'")
 
 (use-package company-terraform
-	:ensure t)
+  :ensure t)
 
 ;; ------------------------------------------------------------------------
