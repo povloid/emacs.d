@@ -127,6 +127,13 @@
   :custom (solarized-use-variable-pitch nil)
   :config (load-theme 'solarized-light t))
 
+;; tree ---------------------------------------------------------------------------
+
+(use-package neotree
+  :ensure t
+  :config
+  (global-set-key (kbd "C-c d") 'neotree-toggle))
+
 ;; helm ---------------------------------------------------------------------------
 
 (use-package ag
@@ -593,6 +600,18 @@
   :hook
   (prog-mode . flycheck-mode))
 
+(use-package flycheck-color-mode-line
+  :ensure t
+  :config
+  (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+(use-package flycheck-pos-tip
+  :ensure t
+  :config
+  (eval-after-load 'flycheck
+    '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+
+
 ;; (use-package avy-flycheck
 ;;   :config
 ;;   (avy-flycheck-setup))
@@ -796,6 +815,9 @@
                                    "Apple Color Emoji"
                                  "Symbola"))
                     nil 'prepend))
+
+(use-package company-web
+  :ensure t)
 
 ;; (use-package org
 ;;   :ensure org-plus-contrib
@@ -1484,3 +1506,161 @@
   :ensure t)
 
 ;; ------------------------------------------------------------------------
+
+
+;; RUST -------------------------------------------------------------------
+
+(use-package rust-mode
+  :mode "\\.rs\\'"
+  :config
+  (setq rust-format-on-save t)
+  (add-hook 'rust-mode-hook 'racer-mode)
+  (add-hook 'racer-mode-hook 'eldoc-mode)
+  (add-hook 'rust-mode-hook 'company-mode)
+  (add-hook 'rust-mode-hook 'flycheck-mode)
+  (setq company-tooltip-align-annotations t))
+
+(use-package racer
+  :ensure t
+  :pin melpa-stable
+  :commands (racer-mode)
+  :init
+  (setq racer-rust-src-path (shell-command-to-string "echo -n $(rustc --print sysroot)/lib/rustlib/src/rust/src"))
+  :config
+  (add-hook-exec 'racer-mode #'eldoc-mode)
+  (add-hook-exec 'racer-mode #'company-mode)
+  (add-hook-exec 'racer-mode #'cargo-minor-mode))
+
+(use-package cargo
+  :ensure t
+  :pin melpa-stable
+  :commands cargo-minor-mode)
+
+(use-package flycheck-rust
+  :ensure t
+  :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+
+;; TAIL CONFIG ------------------------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+	 [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+	 (vector "#003f8e" "#ff9da4" "#d1f1a9" "#ffeead" "#bbdaff" "#ebbbff" "#99ffff" "#ffffff"))
+ '(beacon-color "#ff9da4")
+ '(compilation-message-face (quote default))
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#839496")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
+ '(custom-safe-themes
+	 (quote
+		("b34636117b62837b3c0c149260dfebe12c5dad3d1177a758bb41c4b15259ed7e" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+ '(fci-rule-color "#003f8e")
+ '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
+ '(frame-background-mode (quote dark))
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-symbol-colors
+	 (--map
+		(solarized-color-blend it "#002b36" 0.25)
+		(quote
+		 ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+ '(highlight-symbol-foreground-color "#93a1a1")
+ '(highlight-tail-colors
+	 (quote
+		(("#073642" . 0)
+		 ("#546E00" . 20)
+		 ("#00736F" . 30)
+		 ("#00629D" . 50)
+		 ("#7B6000" . 60)
+		 ("#8B2C02" . 70)
+		 ("#93115C" . 85)
+		 ("#073642" . 100))))
+ '(hl-bg-colors
+	 (quote
+		("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
+ '(hl-fg-colors
+	 (quote
+		("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
+ '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")))
+ '(ibuffer-formats
+	 (quote
+		((mark modified read-only vc-status-mini " "
+					 (name 18 18 :left :elide)
+					 " "
+					 (size 9 -1 :right)
+					 " "
+					 (mode 16 16 :left :elide)
+					 " "
+					 (vc-status 10 10 :left)
+					 " " filename-and-process))))
+ '(magit-diff-use-overlays nil)
+ '(nrepl-message-colors
+	 (quote
+		("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
+ '(package-selected-packages
+	 (quote
+		(cargo racer xref-js2 typed-clojure-mode subatomic-theme sql-indent solarized-theme rust-mode reverse-im quelpa-use-package perspective neotree monokai-theme markdown-mode magit lua-mode kibit-helper js2-refactor indium ibuffer-vc ialign helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ font-lock+ flycheck-pos-tip flycheck-color-mode-line erlang dockerfile-mode docker-compose-mode docker diminish cyberpunk-theme company-web company-terraform company-tern company-shell company-quickhelp company-emoji color-theme-sanityinc-tomorrow clojure-snippets clojure-mode-extra-font-locking clojure-cheatsheet cljsbuild-mode cljr-helm atom-dark-theme align-cljlet ag ac-js2 4clojure)))
+ '(pos-tip-background-color "#073642")
+ '(pos-tip-foreground-color "#93a1a1")
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
+ '(solarized-use-variable-pitch nil)
+ '(term-default-bg-color "#002b36")
+ '(term-default-fg-color "#839496")
+ '(vc-annotate-background nil)
+ '(vc-annotate-background-mode nil)
+ '(vc-annotate-color-map
+	 (quote
+		((20 . "#ff9da4")
+		 (40 . "#ffc58f")
+		 (60 . "#ffeead")
+		 (80 . "#d1f1a9")
+		 (100 . "#99ffff")
+		 (120 . "#bbdaff")
+		 (140 . "#ebbbff")
+		 (160 . "#ff9da4")
+		 (180 . "#ffc58f")
+		 (200 . "#ffeead")
+		 (220 . "#d1f1a9")
+		 (240 . "#99ffff")
+		 (260 . "#bbdaff")
+		 (280 . "#ebbbff")
+		 (300 . "#ff9da4")
+		 (320 . "#ffc58f")
+		 (340 . "#ffeead")
+		 (360 . "#d1f1a9"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+	 (quote
+		(unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
+ '(xterm-color-names
+	 ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
+ '(xterm-color-names-bright
+	 ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 150 :width normal))))
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
+ '(helm-selection-line ((t (:background "#FFF876" :underline t))))
+ '(tabbar-default ((t (:height 1.2)))))
