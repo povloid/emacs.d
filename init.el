@@ -29,7 +29,7 @@
       `((".*" ,temporary-file-directory t)))
 
 ;; nice scrolling
-(setq scroll-margin 0
+(setq scroll-margin 4
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
@@ -297,12 +297,12 @@
   :ensure t
   :config
   (helm-projectile-on)
-	:bind (("C-c p p" . helm-projectile-switch-project)
-				 ("C-c p f" . helm-projectile-find-file)
-				 ("C-c p k" . helm-projectile-find-file-in-known-projects)
-				 ("C-c p s" . helm-projectile-ag)
-				 ("C-c p g" . helm-projectile-grep)
-				 ("C-c p b" . helm-projectile-switch-to-buffer)))
+  :bind (("C-c p p" . helm-projectile-switch-project)
+         ("C-c p f" . helm-projectile-find-file)
+         ("C-c p k" . helm-projectile-find-file-in-known-projects)
+         ("C-c p s" . helm-projectile-ag)
+         ("C-c p g" . helm-projectile-grep)
+         ("C-c p b" . helm-projectile-switch-to-buffer)))
 
 (use-package helm-c-yasnippet
   :ensure t
@@ -311,10 +311,10 @@
   (global-set-key (kbd "C-c y y") 'helm-yas-complete))
 
 (use-package helm-themes
-	:ensure t)
+  :ensure t)
 
 (use-package kaolin-themes
-	:ensure t)
+  :ensure t)
 
 ;; paredit mode -------------------------------------------------------------------
 
@@ -683,25 +683,39 @@
   (interactive)
   (tt-0 (get-tts-id)))
 
+;; Spell checker ----------------------------------------------------------
+
+(use-package mule
+  :ensure nil
+  :config
+  (prefer-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-language-environment "UTF-8"))
+
+(use-package ispell
+  :defer t
+  :ensure nil)
+
+(use-package flyspell
+  :defer t
+  :ensure nil
+	:hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode))
+  :custom
+  (flyspell-delay 4))
+
+;; Install Homebrew
+;; brew install emacs --with-cocoa --with-gnutls
+;; brew install aspell --with-all-langs
+;; open -a Emacs
+;; M-x ispell
+
 ;; TAIL CONFIG ------------------------------------------------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-	 [default default default italic underline success warning error])
- '(ansi-color-names-vector
-	 ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(compilation-message-face (quote default))
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#657b83")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
- '(custom-safe-themes
-	 (quote
-		("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
- '(fci-rule-color "#eee8d5")
  '(git-gutter:added-sign "☀")
  '(git-gutter:deleted-sign "☂")
  '(git-gutter:hide-gutter t)
@@ -709,90 +723,16 @@
  '(git-gutter:separator-sign "|")
  '(git-gutter:unchanged-sign " ")
  '(git-gutter:window-width 2)
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
- '(highlight-symbol-colors
-	 (--map
-		(solarized-color-blend it "#fdf6e3" 0.25)
-		(quote
-		 ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
- '(highlight-symbol-foreground-color "#586e75")
- '(highlight-tail-colors
-	 (quote
-		(("#eee8d5" . 0)
-		 ("#B4C342" . 20)
-		 ("#69CABF" . 30)
-		 ("#69B7F0" . 50)
-		 ("#DEB542" . 60)
-		 ("#F2804F" . 70)
-		 ("#F771AC" . 85)
-		 ("#eee8d5" . 100))))
- '(hl-bg-colors
-	 (quote
-		("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
- '(hl-fg-colors
-	 (quote
-		("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
- '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")))
- '(ibuffer-formats
-	 (quote
-		((mark modified read-only vc-status-mini " "
-					 (name 18 18 :left :elide)
-					 " "
-					 (size 9 -1 :right)
-					 " "
-					 (mode 16 16 :left :elide)
-					 " "
-					 (vc-status 10 10 :left)
-					 " " filename-and-process))))
- '(magit-diff-use-overlays nil)
- '(nrepl-message-colors
-	 (quote
-		("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
-	 (quote
-		(kaolin-themes helm-themes sql-indent json-mode json-reformat js2-refactor js2-mode yaml-mode markdown-mode erlang reverse-im company kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode flycheck-color-mode-line flycheck git-gutter+ git-gutter magit ibuffer-vc multiple-cursors paredit helm-c-yasnippet helm-projectile projectile perspective helm-ag helm-swoop helm-descbinds helm ag neotree solarized-theme quelpa-use-package quelpa diminish use-package)))
- '(pos-tip-background-color "#eee8d5")
- '(pos-tip-foreground-color "#586e75")
- '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
- '(solarized-use-variable-pitch nil)
- '(term-default-bg-color "#fdf6e3")
- '(term-default-fg-color "#657b83")
- '(vc-annotate-background nil)
- '(vc-annotate-background-mode nil)
- '(vc-annotate-color-map
-	 (quote
-		((20 . "#dc322f")
-		 (40 . "#c85d17")
-		 (60 . "#be730b")
-		 (80 . "#b58900")
-		 (100 . "#a58e00")
-		 (120 . "#9d9100")
-		 (140 . "#959300")
-		 (160 . "#8d9600")
-		 (180 . "#859900")
-		 (200 . "#669b32")
-		 (220 . "#579d4c")
-		 (240 . "#489e65")
-		 (260 . "#399f7e")
-		 (280 . "#2aa198")
-		 (300 . "#2898af")
-		 (320 . "#2793ba")
-		 (340 . "#268fc6")
-		 (360 . "#268bd2"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-	 (quote
-		(unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496")))
- '(xterm-color-names
-	 ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
- '(xterm-color-names-bright
-	 ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
+   (quote
+    (sql-indent json-mode json-reformat js2-refactor js2-mode yaml-mode markdown-mode erlang reverse-im company kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode flycheck-color-mode-line flycheck git-gutter+ git-gutter magit ibuffer-vc multiple-cursors paredit kaolin-themes helm-themes helm-c-yasnippet helm-projectile projectile perspective helm-ag helm-swoop helm-descbinds helm ag neotree solarized-theme quelpa-use-package quelpa diminish use-package)))
+ '(solarized-use-variable-pitch nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 150 :width normal))))
+ '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
  '(font-lock-builtin-face ((t (:weight bold))))
  '(font-lock-constant-face ((t (:weight bold))))
  '(font-lock-function-name-face ((t (:weight bold))))
