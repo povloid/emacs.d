@@ -1,8 +1,17 @@
-;; SYSTEM
+;;;**************************************************************************************************
+;;;* BEGIN System
+;;;* tag: <system >
+;;;*
+;;;* description: Какието описания для операционных систем
+;;;*
+;;;**************************************************************************************************
+
+;; Поведение клавиш на разных операционках
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'super)
   (setq mac-command-modifier 'meta))
 
+;; OSX
 (when (eq system-type 'darwin)
   (setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH")))
   (setenv "PATH" (shell-command-to-string "source $HOME/.bashrc && printf $PATH"))
@@ -11,9 +20,21 @@
                    "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
         (setenv "PATH" path))))
 
+;; PATH's
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 (add-to-list 'exec-path "~/bin/")
+
+;;; END System
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN common configuration
+;;;* tag: <common>
+;;;*
+;;;* description: Общие параметры
+;;;*
+;;;**************************************************************************************************
 
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 50MB of allocated data (the default is on every 0.76MB)
@@ -40,7 +61,6 @@
 (show-paren-mode 1)
 (setq default-tab-width 2)
 (fset 'yes-or-no-p 'y-or-n-p)
-
 (setq-default truncate-lines nil)
 
 (prefer-coding-system 'utf-8)
@@ -48,30 +68,11 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
-(defun buffer-format ()
-  "INDENT whole buffer - отформатировать весь буфер"
-  (interactive)
-  (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max)))
-
-(global-set-key [f4] 'buffer-format)
-(global-set-key [f5] 'toggle-truncate-lines)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-h") 'backward-kill-word)
-
-(defun duplicate-line ()
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (next-line 1)
-  (yank))
-
-(global-set-key (kbd "C-;") 'duplicate-line)
-
-;; PACKAGE
+;;------------------------------------------------------------------------------
+;; BEGIN: Use packages and repositories
+;; tag: <use-package repository>
+;; description: Пакеты и репозитории
+;;------------------------------------------------------------------------------
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -95,7 +96,18 @@
 (put 'use-package 'lisp-indent-function 1)
 (setq use-package-always-ensure t)
 
-;; Emacs server mode
+;; :quelpa keyword
+(use-package quelpa)
+(use-package quelpa-use-package)
+
+;; END Use packages and repositories
+;;..............................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: Emacs server
+;; tag: <server>
+;; description: Старт сервера
+;;------------------------------------------------------------------------------
 
 (use-package server
   :ensure t
@@ -105,26 +117,19 @@
   (unless (server-running-p)
     (server-start)))
 
-;; :diminish keyword
-(use-package diminish)
-
-;; :bind keyword
-;;(use-package bind-key
-;;  :ensure t
-;;  :pin melpa-stable)
-
-;; :quelpa keyword
-(use-package quelpa)
-(use-package quelpa-use-package)
+;; END Emacs server
+;;..............................................................................
 
 
-
+;;------------------------------------------------------------------------------
+;; BEGIN: interface
+;; tag: <interface>
+;; description: Интерфей и тема
+;;------------------------------------------------------------------------------
 
 (setq scroll-step 1)
 (setq inhibit-splash-screen t)
 (setq use-dialog-box nil)
-
-;;; interface
 
 (use-package tool-bar
   :ensure nil
@@ -142,8 +147,6 @@
   (menu-bar-mode -1)
   :bind
   (([S-f10] . menu-bar-mode)))
-
-;;; fonts & colors
 
 (use-package frame
   :ensure nil
@@ -165,7 +168,7 @@
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height
-                          130 :width normal))))
+                          140 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -185,6 +188,28 @@
   :config
   (global-hl-line-mode -1))
 
+(use-package kaolin-themes
+  :ensure t)
+
+;; (use-package leuven-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'leuven t))
+
+(use-package solarized-theme
+  :if (display-graphic-p)
+  :custom (solarized-use-variable-pitch nil)
+  :config (load-theme 'solarized-light t))
+
+;; END Themes
+;;..............................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: files
+;; tag: <files>
+;; description: Файлы
+;;------------------------------------------------------------------------------
+
 (use-package files
   :ensure nil
   :hook
@@ -200,17 +225,6 @@
   (setq kept-old-versions 2)
   (setq version-control t))
 
-(use-package ibuffer
-  :ensure nil
-  :bind
-  ([remap list-buffers] . ibuffer))
-
-(use-package isearch
-  :ensure nil
-  :bind
-  (:map isearch-mode-map
-        ("C-h" . isearch-delete-char)))
-
 (use-package dired
   :ensure nil
   :bind
@@ -218,105 +232,43 @@
   :hook
   (dired-mode . dired-hide-details-mode))
 
-
-;; (use-package leuven-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'leuven t))
-
-(use-package solarized-theme
-  :if (display-graphic-p)
-  :custom (solarized-use-variable-pitch nil)
-  :config (load-theme 'solarized-light t))
-
-;; tree ---------------------------------------------------------------------------
-
 (use-package neotree
   :ensure t
   :config
   (global-set-key (kbd "C-c d") 'neotree-toggle))
 
-;; helm ---------------------------------------------------------------------------
+;; END files
+;;..............................................................................
 
-(use-package ag
-  :ensure t
-  :commands (ag ag-regexp ag-project))
+;;------------------------------------------------------------------------------
+;; BEGIN: Russian lang
+;; tag: <russian lang>
+;; description: Великий и Могучий
+;;------------------------------------------------------------------------------
 
-(use-package helm
-  :ensure t
-  :bind (("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
-         ("C-x b" . helm-buffers-list)
-         ("C-M-y" . helm-show-kill-ring)
-         ;;([S-f10] . helm-recentf)
-         )
+(use-package reverse-im
   :config
-  (setq helm-split-window-in-side-p           nil ; open helm buffer inside current window, not occupy whole other window
-        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-        ;;helm-ff-search-library-in-sexp      t ; search for library in `require' and `declare-function' sexp.
-        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-        ;;helm-ff-file-name-history-use-recentf t
-        helm-echo-input-in-header-line t
-        helm-buffer-max-length 60 ;; размер в ширину
-        ;;helm-always-two-windows t
-        ;;helm-split-window-default-side 'right
-        helm-autoresize-max-height 30
-        helm-autoresize-min-height 30)
-  (helm-autoresize-mode 1)
-  (helm-mode 1))
+  ;;(add-to-list 'load-path "~/.xkb/contrib")
+  (add-to-list 'reverse-im-modifiers 'super)
+  (add-to-list 'reverse-im-input-methods
+               (if (require 'unipunct nil t)
+                   "russian-unipunct"
+                 "russian-computer"))
+  (reverse-im-mode t))
 
-(use-package helm-descbinds
-  :ensure t
-  :bind ("C-c b b" . helm-descbinds))
+;; END Russian lang
+;;..............................................................................
 
-(use-package helm-swoop
-  :ensure t
-  :bind (("C-s" . helm-swoop)
-         ("C-c s p" . helm-swoop-back-to-last-point)
-         ("C-c s m" . helm-multi-swoop)
-         ("C-c s a" . helm-multi-swoop-all)))
+;;; END common configuration
+;;;..................................................................................................
 
-(use-package helm-ag
-  :ensure helm-ag
-  :bind ("M-p" . helm-projectile-ag)
-  :commands (helm-ag helm-projectile-ag)
-  :init (setq helm-ag-insert-at-point 'symbol
-              helm-ag-use-agignore 1
-              helm-ag-command-option "--path-to-ignore ~/.agignore"))
-
-(use-package perspective
-  :init (persp-mode))
-
-(use-package projectile
-  :ensure t
-  :config
-  (projectile-global-mode)
-  (setq projectile-enable-caching t))
-
-(use-package helm-projectile
-  :ensure t
-  :config
-  (helm-projectile-on)
-  :bind (("C-c p p" . helm-projectile-switch-project)
-         ("C-c p f" . helm-projectile-find-file)
-         ("C-c p k" . helm-projectile-find-file-in-known-projects)
-         ("C-c p s" . helm-projectile-ag)
-         ("C-c p g" . helm-projectile-grep)
-         ("C-c p b" . helm-projectile-switch-to-buffer)))
-
-(use-package helm-c-yasnippet
-  :ensure t
-  :config
-  (setq helm-yas-space-match-any-greedy t)
-  (global-set-key (kbd "C-c y y") 'helm-yas-complete))
-
-(use-package helm-themes
-  :ensure t)
-
-(use-package kaolin-themes
-  :ensure t)
-
-;; paredit mode -------------------------------------------------------------------
+;;;**************************************************************************************************
+;;;* BEGIN Cursor and edit fetures
+;;;* tag: <cursor edit>
+;;;*
+;;;* description: Фичи для редактирования текста
+;;;*
+;;;**************************************************************************************************
 
 (use-package paredit
   :ensure t
@@ -377,6 +329,22 @@
             helm-buffers-list
             helm-projectile-find-file))))
 
+;;; END Cursor and edit fetures
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Buffer
+;;;* tag: <buffer>
+;;;*
+;;;* description: Управление буферами
+;;;*
+;;;**************************************************************************************************
+
+(use-package ibuffer
+  :ensure nil
+  :bind
+  ([remap list-buffers] . ibuffer))
+
 
 (use-package ibuffer-vc
   :custom
@@ -396,6 +364,194 @@
                (ibuffer-vc-set-filter-groups-by-vc-root)
                (unless (eq ibuffer-sorting-mode 'alphabetic)
                  (ibuffer-do-sort-by-alphabetic)))))
+
+;;; END Buffer
+;;;..................................................................................................
+
+
+;;;**************************************************************************************************
+;;;* BEGIN Autocomplete
+;;;* tag: <autocomplete>
+;;;*
+;;;* description: Автодополнение
+;;;*
+;;;**************************************************************************************************
+
+(use-package company
+  :diminish company-mode
+  :hook
+  (after-init . global-company-mode))
+
+;;; END Autocomplete
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN FlyCheck
+;;;* tag: <flycheck>
+;;;*
+;;;* description: Проверка на лету
+;;;*
+;;;**************************************************************************************************
+
+(use-package flycheck
+  :diminish flycheck-mode
+  :hook
+  (prog-mode . flycheck-mode))
+
+(use-package flycheck-color-mode-line
+  :ensure t
+  :config
+  (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+;;; END FlyCheck
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Helm
+;;;* tag: <helm>
+;;;*
+;;;* description: Штурвал
+;;;*
+;;;**************************************************************************************************
+
+(use-package helm
+  :ensure t
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ("C-x b" . helm-buffers-list)
+         ("C-M-y" . helm-show-kill-ring)
+         ;;([S-f10] . helm-recentf)
+         )
+  :config
+  (setq helm-split-window-in-side-p           nil ; open helm buffer inside current window, not occupy whole other window
+        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        ;;helm-ff-search-library-in-sexp      t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        ;;helm-ff-file-name-history-use-recentf t
+        helm-echo-input-in-header-line t
+        helm-buffer-max-length 60 ;; размер в ширину
+        ;;helm-always-two-windows t
+        ;;helm-split-window-default-side 'right
+        helm-autoresize-max-height 30
+        helm-autoresize-min-height 30)
+  (helm-autoresize-mode 1)
+  (helm-mode 1))
+
+(use-package helm-descbinds
+  :ensure t
+  :bind ("C-c b b" . helm-descbinds))
+
+(use-package helm-swoop
+  :ensure t
+  :bind (("C-s" . helm-swoop)
+         ("C-c s p" . helm-swoop-back-to-last-point)
+         ("C-c s m" . helm-multi-swoop)
+         ("C-c s a" . helm-multi-swoop-all)))
+
+(use-package helm-themes
+  :ensure t)
+
+;;; END Helm
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Search files and strings
+;;;* tag: <search files and strings>
+;;;*
+;;;* description: Инструменты поиска
+;;;*
+;;;**************************************************************************************************
+
+(use-package isearch
+  :ensure nil
+  :bind
+  (:map isearch-mode-map
+        ("C-h" . isearch-delete-char)))
+
+(use-package ag
+  :ensure t
+  :commands (ag ag-regexp ag-project))
+
+(use-package helm-ag
+  :ensure helm-ag
+  :bind ("M-p" . helm-projectile-ag)
+  :commands (helm-ag helm-projectile-ag)
+  :init (setq helm-ag-insert-at-point 'symbol
+              helm-ag-use-agignore 1
+              helm-ag-command-option "--path-to-ignore ~/.agignore"))
+
+;;; END Search files and strings
+;;;..................................................................................................
+
+
+;;;**************************************************************************************************
+;;;* BEGIN Project and perspective
+;;;* tag: <project and perspective>
+;;;*
+;;;* description: Управление проектом и перспектвами
+;;;*
+;;;**************************************************************************************************
+
+(use-package perspective
+  :init (persp-mode))
+
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode)
+  (setq projectile-enable-caching t))
+
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on)
+  :bind (("C-c p p" . helm-projectile-switch-project)
+         ("C-c p f" . helm-projectile-find-file)
+         ("C-c p k" . helm-projectile-find-file-in-known-projects)
+         ("C-c p s" . helm-projectile-ag)
+         ("C-c p g" . helm-projectile-grep)
+         ("C-c p b" . helm-projectile-switch-to-buffer)))
+
+
+;;; END Project and perspective
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Snippets
+;;;* tag: <snippets>
+;;;*
+;;;* description: Сниппеты
+;;;*
+;;;**************************************************************************************************
+
+(use-package yasnippet
+  :config
+  (add-to-list 'load-path "~/.emacs.d/yasnippet")
+  (yas-reload-all)
+  (yas-global-mode 1))
+
+(use-package helm-c-yasnippet
+  :ensure t
+  :config
+  (setq helm-yas-space-match-any-greedy t)
+  (global-set-key (kbd "C-c y y") 'helm-yas-complete))
+
+;;; END Snippets
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Version controls
+;;;* tag: <versions control>
+;;;*
+;;;* description: Контроль версий
+;;;*
+;;;**************************************************************************************************
+
+;;------------------------------------------------------------------------------
+;; BEGIN: Git
+;; tag: <git>
+;; description: Управление версиями через git
+;;------------------------------------------------------------------------------
 
 (use-package magit
   :ensure t)
@@ -453,21 +609,20 @@
 
 (global-git-gutter+-mode +1)
 
-(use-package yasnippet
-  :config
-  (add-to-list 'load-path "~/.emacs.d/yasnippet")
-  (yas-reload-all)
-  (yas-global-mode 1))
+;; END Git
+;;..............................................................................
 
-(use-package flycheck
-  :diminish flycheck-mode
-  :hook
-  (prog-mode . flycheck-mode))
 
-(use-package flycheck-color-mode-line
-  :ensure t
-  :config
-  (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+;;; END Version controls
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Clojure
+;;;* tag: <clojure>
+;;;*
+;;;* description: Язык программирования CLOJURE
+;;;*
+;;;**************************************************************************************************
 
 ;; clojure =-------------------------------------------------------------------------------------------
 
@@ -501,6 +656,7 @@
 
 (use-package cider
   :ensure t
+  ;; :pin melpa-stable
   :config
   (setq cider-prefer-local-resources t)
   (setq nrepl-hide-special-buffers nil)
@@ -550,48 +706,22 @@
 (use-package sotclojure
   :ensure t :disabled t)
 
-;; clojure =-------------------------------------------------------------------------------------------
+;;; END Clojure
+;;;..................................................................................................
 
-(use-package company
-  :diminish company-mode
-  :hook
-  (after-init . global-company-mode))
+;;;**************************************************************************************************
+;;;* BEGIN Javascript and json
+;;;* tag: <javascript json>
+;;;*
+;;;* description: Язык программирования JavaScript и формат JSON
+;;;*
+;;;**************************************************************************************************
 
-(use-package reverse-im
-  :config
-  ;;(add-to-list 'load-path "~/.xkb/contrib")
-  (add-to-list 'reverse-im-modifiers 'super)
-  (add-to-list 'reverse-im-input-methods
-               (if (require 'unipunct nil t)
-                   "russian-unipunct"
-                 "russian-computer"))
-  (reverse-im-mode t))
-
-
-
-;; erlang -------------------------------------------------------------------------------------------------------
-
-(use-package erlang
-  :ensure t
-  :config
-  (when (eq system-type 'windows-nt)
-    (setq erlang-root-dir "C:/Program Files/erl7.2")
-    (add-to-list 'exec-path "C:/Program Files/erl7.2/bin")))
-
-;; markdown -----------------------------------------------------------------------------------------------------
-
-(use-package markdown-mode
-  :ensure t)
-
-;; yaml ---------------------------------------------------------------------------------------------------------
-
-(use-package yaml-mode
-  :ensure t
-  :commands (yaml-mode)
-  :mode "\\.yml\\'")
-
-
-;; JavaScript ---------------------------------------------------------------------------------------------------
+;;------------------------------------------------------------------------------
+;; BEGIN: JavaScript
+;; tag: <javascript>
+;; description: Язык программирвоания JavaScript
+;;------------------------------------------------------------------------------
 
 (use-package js2-mode
   :ensure t
@@ -603,6 +733,21 @@
   (setq js2-strict-missing-semi-warning nil)
   (add-hook 'js2-mode-hook #'js2-imenu-extras-mode))
 
+(use-package xref-js2
+  :ensure t
+  :after js2-mode
+  :config
+
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
+
+(use-package indium
+  :ensure t
+  :diminish indium-interaction-mode
+  :init
+  (setq indium-update-script-on-save t))
+
 (use-package js2-refactor
   :ensure t
   :config
@@ -610,11 +755,14 @@
   (js2r-add-keybindings-with-prefix "C-c C-r")
   (define-key js2-mode-map (kbd "C-k") #'js2r-kill))
 
-(use-package json-reformat
-  :ensure t
-  :commands json-reformat-region
-  :init (progn (setq json-reformat:indent-width 2)
-               (setq json-reformat:pretty-string? t)))
+;; END JavaScript
+;;..............................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: JSON
+;; tag: <json>
+;; description: Формат JSON
+;;------------------------------------------------------------------------------
 
 (use-package json-mode
   :ensure t
@@ -626,12 +774,124 @@
                 (make-local-variable 'js-indent-level)
                 (setq js-indent-level 2)))))
 
-;; SQL -----------------------------------------------------------------------------------------------------------
+(use-package json-reformat
+  :ensure t
+  :commands json-reformat-region
+  :init (progn (setq json-reformat:indent-width 2)
+               (setq json-reformat:pretty-string? t)))
+
+;; END JSON
+;;..............................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: Yaml
+;; tag: <yaml>
+;; description: Формат YAML
+;;------------------------------------------------------------------------------
+
+(use-package yaml-mode
+  :ensure t
+  :commands (yaml-mode)
+  :mode "\\.yml\\'")
+
+;; END Yams
+;;..............................................................................
+
+;;; END Javascript and json
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Erlang/OTP
+;;;* tag: <erlang otp>
+;;;*
+;;;* description: Язык программирования и платформа Erlang/OTP
+;;;*
+;;;**************************************************************************************************
+
+(use-package erlang
+  :ensure t
+  :config
+  (when (eq system-type 'windows-nt)
+    ;; TODO: надо сделать условие от операционной системы
+    (setq erlang-root-dir "C:/Program Files/erl7.2")
+    (add-to-list 'exec-path "C:/Program Files/erl7.2/bin")))
+
+;;; END Erlang
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Markdown
+;;;* tag: <markdown>
+;;;*
+;;;* description: формат Markdown
+;;;*
+;;;**************************************************************************************************
+
+(use-package markdown-mode
+  :ensure t)
+
+;;; END Markdown
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN SQL
+;;;* tag: <sql>
+;;;*
+;;;* description: Реляционные базы данных
+;;;*
+;;;**************************************************************************************************
 
 (use-package sql-indent
   :ensure t)
 
-;; termial --------------------------------------------------------
+;;; END SQL
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN My definition
+;;;* tag: <my definition>
+;;;*
+;;;* description: Мои определения
+;;;*
+;;;**************************************************************************************************
+
+;;------------------------------------------------------------------------------
+;; BEGIN: My Edit
+;; tag: <my edit definition>
+;; description:
+;;------------------------------------------------------------------------------
+
+(defun duplicate-line ()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank))
+
+(global-set-key (kbd "C-;") 'duplicate-line)
+
+(defun buffer-format ()
+  "INDENT whole buffer - отформатировать весь буфер"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
+(global-set-key [f4] 'buffer-format)
+(global-set-key [f5] 'toggle-truncate-lines)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+
+;; END My Edit
+;;..............................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: TTT Terminal
+;; tag: <ansiterm ttt>
+;; description: Терминал на основе ansi-term
+;;------------------------------------------------------------------------------
 
 (defun transit-keys-combination-to-term (keys-combination)
   (let ((k (kbd keys-combination)))
@@ -683,32 +943,12 @@
   (interactive)
   (tt-0 (get-tts-id)))
 
-;; Spell checker ----------------------------------------------------------
+;; END TTT Terminal
+;;..............................................................................
 
-(use-package mule
-  :ensure nil
-  :config
-  (prefer-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-language-environment "UTF-8"))
+;;; END My definition
+;;;..................................................................................................
 
-(use-package ispell
-  :defer t
-  :ensure nil)
-
-(use-package flyspell
-  :defer t
-  :ensure nil
-	:hook ((text-mode . flyspell-mode)
-         (prog-mode . flyspell-prog-mode))
-  :custom
-  (flyspell-delay 4))
-
-;; Install Homebrew
-;; brew install emacs --with-cocoa --with-gnutls
-;; brew install aspell --with-all-langs
-;; open -a Emacs
-;; M-x ispell
 
 ;; TAIL CONFIG ------------------------------------------------------------
 (custom-set-variables
@@ -725,14 +965,14 @@
  '(git-gutter:window-width 2)
  '(package-selected-packages
    (quote
-    (sql-indent json-mode json-reformat js2-refactor js2-mode yaml-mode markdown-mode erlang reverse-im company kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode flycheck-color-mode-line flycheck git-gutter+ git-gutter magit ibuffer-vc multiple-cursors paredit kaolin-themes helm-themes helm-c-yasnippet helm-projectile projectile perspective helm-ag helm-swoop helm-descbinds helm ag neotree solarized-theme quelpa-use-package quelpa diminish use-package)))
+    (markdown-mode erlang yaml-mode json-reformat indium xref-js2 kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider sql-indent solarized-theme reverse-im quelpa-use-package perspective paredit neotree multiple-cursors magit kaolin-themes json-mode js2-mode ibuffer-vc helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ flycheck-color-mode-line company clojure-mode-extra-font-locking ag)))
  '(solarized-use-variable-pitch nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
+ '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
  '(font-lock-builtin-face ((t (:weight bold))))
  '(font-lock-constant-face ((t (:weight bold))))
  '(font-lock-function-name-face ((t (:weight bold))))
