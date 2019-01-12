@@ -77,7 +77,7 @@
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
-                         ;; ("melpa-stable" . "https://melpa-stable.milkbox.net/packages/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ;; ("org" . "https://orgmode.org/elpa/")
                          ))
 
@@ -528,6 +528,7 @@
   :config
   (add-to-list 'load-path "~/.emacs.d/yasnippet")
   (yas-reload-all)
+  ;; Activate global
   (yas-global-mode 1))
 
 (use-package helm-c-yasnippet
@@ -535,6 +536,9 @@
   :config
   (setq helm-yas-space-match-any-greedy t)
   (global-set-key (kbd "C-c y y") 'helm-yas-complete))
+
+(use-package yasnippet-snippets
+  :ensure t)
 
 ;;; END Snippets
 ;;;..................................................................................................
@@ -656,7 +660,7 @@
 
 (use-package cider
   :ensure t
-  ;; :pin melpa-stable
+  :pin melpa-stable
   :config
   (setq cider-prefer-local-resources t)
   (setq nrepl-hide-special-buffers nil)
@@ -708,6 +712,54 @@
 
 ;;; END Clojure
 ;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN HTML and CSS
+;;;* tag: <web html css>
+;;;*
+;;;* description: CSS
+;;;*
+;;;**************************************************************************************************
+
+(use-package web-mode
+  :ensure t
+  :mode
+  ("\\.phtml\\'" "\\.tpl\\.php\\'" "\\.[agj]sp\\'" "\\.as[cp]x\\'"
+  "\\.erb\\'" "\\.mustache\\'" "\\.djhtml\\'" "\\.html?\\'")
+
+  :init
+  (setq web-mode-markup-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-css-indent-offset 2
+
+        web-mode-enable-auto-pairing t
+        web-mode-enable-auto-expanding t
+        web-mode-enable-css-colorization t)
+
+  :config
+  ;; Template
+  (setq web-mode-engines-alist
+        '(("php"    . "\\.phtml\\'")
+          ("blade"  . "\\.blade\\."))
+        )
+
+  )
+
+(use-package web-beautify
+  :ensure t
+  :commands (web-beautify-css
+             web-beautify-css-buffer
+             web-beautify-html
+             web-beautify-html-buffer
+             web-beautify-js
+             web-beautify-js-buffer))
+
+(use-package web-completion-data :ensure t)
+(use-package web-mode-edit-element :ensure t)
+
+;;; END HTML and CSS
+;;;..................................................................................................
+
 
 ;;;**************************************************************************************************
 ;;;* BEGIN Javascript and json
@@ -794,10 +846,98 @@
   :commands (yaml-mode)
   :mode "\\.yml\\'")
 
-;; END Yams
+(use-package yaml-tomato
+  :ensure t)
+
+;; END Yaml
 ;;..............................................................................
 
 ;;; END Javascript and json
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN EDIT CONFIGS
+;;;* tag: <configw>
+;;;*
+;;;* description: Configuration and log files
+;;;*
+;;;**************************************************************************************************
+
+;; Default unix configuration
+;; Config-general-mode is applied for all unix configuration files.
+
+(use-package config-general-mode
+  :ensure t
+  :mode ("\\.conf$" "\\.*rc$"))
+
+;; Apache
+
+(use-package apache-mode
+  :ensure t
+  :mode ("\\.htaccess\\'" "httpd\\.conf\\'" "srm\\.conf\\'"
+         "access\\.conf\\'" "sites-\\(available\\|enabled\\)/"))
+
+;; SSH configuration
+
+(use-package ssh-config-mode
+  :ensure t
+  :mode ("/\\.ssh/config\\'" "/system/ssh\\'" "/sshd?_config\\'" "/known_hosts\\'" "/authorized_keys2?\\'")
+  :hook (ssh-config-mode . turn-on-font-lock)
+
+  :config
+  (autoload 'ssh-config-mode "ssh-config-mode" t))
+
+;; Logview
+
+(use-package logview
+  :ensure t
+  :mode ("syslog\\(?:\\.[0-9]+\\)" "\\.log\\(?:\\.[0-9]+\\)?\\'"))
+
+;;; END EDIT CONFIGS
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Graphviz
+;;;* tag: <graphviz>
+;;;*
+;;;* description: Графики
+;;;*
+;;;**************************************************************************************************
+
+(use-package graphviz-dot-mode
+  :ensure t
+  :init
+  (defvar default-tab-width nil)
+
+  :mode ("\\.dot\\'"))
+
+;;; END Graphviz
+;;;..................................................................................................
+
+
+;;;**************************************************************************************************
+;;;* BEGIN CSV
+;;;* tag: <csv>
+;;;*
+;;;* description: Формат CSV
+;;;*
+;;;**************************************************************************************************
+
+(use-package csv-mode
+  :ensure t
+  :defer t
+  :config
+
+  ;; Define separators
+  (setq csv-separators '("," ";" ":" " ")))
+
+
+  ;; Subpackages
+(use-package csv-nav
+  :ensure t
+  :disabled t)
+
+;;; END CSV
 ;;;..................................................................................................
 
 ;;;**************************************************************************************************
@@ -828,7 +968,13 @@
 ;;;**************************************************************************************************
 
 (use-package markdown-mode
-  :ensure t)
+  :ensure t
+  :mode ("\\.md$"))
+
+(use-package markdown-mode+
+  :ensure t
+  :after markdown-mode
+  :defer t)
 
 ;;; END Markdown
 ;;;..................................................................................................
@@ -949,6 +1095,191 @@
 ;;; END My definition
 ;;;..................................................................................................
 
+;;;**************************************************************************************************
+;;;* BEGIN DOCKER
+;;;* tag: <docker>
+;;;*
+;;;* description: Поддрежка doker
+;;;*
+;;;**************************************************************************************************
+
+(use-package docker :ensure t)
+(use-package docker-api :ensure t)
+(use-package docker-tramp :ensure t)
+(use-package dockerfile-mode :ensure t)
+
+;;; END DOCKER
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN SSH
+;;;* tag: <ssh>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+(use-package ssh :ensure t)
+(use-package ssh-deploy :ensure t)
+
+;;; END SSH
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN SEARCHING
+;;;* tag: <searching>
+;;;*
+;;;* description: Searching and translate
+;;;*
+;;;**************************************************************************************************
+
+;;----------------------------------------------------------
+;; BEGIN: Google
+;; tag: <google>
+;; description:
+;;----------------------------------------------------------
+
+(use-package google :ensure t)
+(use-package google-maps :ensure t)
+(use-package google-translate :ensure t)
+
+;; END Google
+;;..........................................................
+
+;; END Codesearch
+;;..........................................................
+
+
+;;; END SEARCHING
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN C/C++
+;;;* tag: <c c++>
+;;;*
+;;;* description: С/C++
+;;;*
+;;;**************************************************************************************************
+
+(use-package irony
+  :ensure t
+  :defer t
+  :hook ((c-mode . irony-mode)
+         (objc-mode . irony-mode)
+         (c++-mode .irony-mode)))
+
+;; Checking/documentation
+
+(use-package flycheck-irony
+  :ensure t
+  :after (flycheck irony)
+  :defer t)
+
+(use-package irony-eldoc
+  :ensure t
+  :after (irony)
+  :defer t)
+
+;; Completion
+
+(use-package company-irony
+  :ensure t
+  :hook (irony-mode . (lambda () (add-to-list (make-local-variable 'company-backends) '(company-irony)))))
+
+(use-package company-irony-c-headers
+  :ensure t
+  :hook (irony-mode . (lambda () (add-to-list (make-local-variable 'company-backends) '(company-irony-c-headers)))))
+
+;; Adapt compilation
+
+(add-hook 'c-mode-hook
+          (lambda ()
+            (unless (or (file-exists-p "Makefile") (boundp 'buffer-file-name))
+              (set (make-local-variable 'compile-command)
+                   (let ((file (file-name-nondirectory buffer-file-name)))
+                     (concat "gcc -g -Wall -Wextra -o " (file-name-sans-extension file) " " file))))))
+
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (unless (file-exists-p "Makefile")
+              (set (make-local-variable 'compile-command)
+                   (let ((file (file-name-nondirectory buffer-file-name)))
+                     (concat "g++ -g -Wall -Wextra -o " (file-name-sans-extension file) " " file))))))
+
+;; C++ specificities
+
+(use-package modern-cpp-font-lock :ensure t)
+
+;;; END C/C++
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN JAVA
+;;;* tag: <java>
+;;;*
+;;;* description: Язык и платформа JAVA
+;;;*
+;;;**************************************************************************************************
+
+;; Global (lsp-java)
+
+(use-package lsp-java
+  :ensure t
+  :requires (lsp-ui-flycheck lsp-ui-sideline)
+  :hook
+  (java-mode . (lambda () (add-to-list (make-local-variable 'company-backends) 'company-lsp)))
+  (java-mode . lsp-java-enable)
+  (java-mode . flycheck-mode)
+  (java-mode . (lambda () (lsp-ui-flycheck-enable t)))
+  (java-mode . lsp-ui-sideline-mode)
+  :config
+  (setq lsp-java-save-action-organize-imports nil))
+
+;; Snippets
+
+(use-package java-snippets
+  :ensure t)
+
+;; Javadoc
+
+(use-package javadoc-lookup
+  :ensure t
+  :config
+  (when (file-exists-p "/usr/share/doc/openjdk-8-jdk/api")
+    (javadoc-add-roots "/usr/share/doc/openjdk-8-jdk/api"))
+
+  (javadoc-add-artifacts [org.lwjgl.lwjgl lwjgl "2.8.2"]
+                         [com.nullprogram native-guide "0.2"]
+                         [org.apache.commons commons-math3 "3.0"]
+                         ;; [de.dfki.lt.jtok jtok-core "1.9.3"]
+                         ))
+
+;; Groovy
+
+(use-package groovy-mode
+  :ensure t
+  :mode ("\.groovy$" "\.gradle$")
+  :interpreter ("gradle" "groovy")
+  :config
+  (autoload 'run-groovy "inf-groovy" "Run an inferior Groovy process")
+  (autoload 'inf-groovy-keys "inf-groovy" "Set local key defs for inf-groovy in groovy-mode")
+
+  ;; Some keys for
+  (add-hook 'groovy-mode-hook
+            '(lambda ()
+               (inf-groovy-keys))))
+
+;; Subpackages
+(use-package groovy-imports :ensure t)
+
+(use-package flycheck-gradle
+  :ensure t
+  :defer t)
+
+;;; END JAVA
+;;;..................................................................................................
+
+
 
 ;; TAIL CONFIG ------------------------------------------------------------
 (custom-set-variables
@@ -965,7 +1296,7 @@
  '(git-gutter:window-width 2)
  '(package-selected-packages
    (quote
-    (markdown-mode erlang yaml-mode json-reformat indium xref-js2 kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider sql-indent solarized-theme reverse-im quelpa-use-package perspective paredit neotree multiple-cursors magit kaolin-themes json-mode js2-mode ibuffer-vc helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ flycheck-color-mode-line company clojure-mode-extra-font-locking ag)))
+    (flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato modern-cpp-font-lock company-irony-c-headers company-irony irony-eldoc flycheck-irony irony gradle-mode google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker yasnippet-snippets web-mode-edit-element web-completion-data web-beautify web-mode scss csv-mode polymode markdown-mode+ markdown-mode erlang yaml-mode json-reformat indium xref-js2 kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor sql-indent solarized-theme reverse-im quelpa-use-package perspective paredit neotree multiple-cursors magit kaolin-themes json-mode js2-mode ibuffer-vc helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ flycheck-color-mode-line company clojure-mode-extra-font-locking ag)))
  '(solarized-use-variable-pitch nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
