@@ -1,3 +1,4 @@
+;;; package --- Pacmans config
 ;;;**************************************************************************************************
 ;;;* BEGIN System
 ;;;* tag: <system >
@@ -77,7 +78,7 @@
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
-			 ("melpa-stable" . "https://stable.melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ;; ("org" . "https://orgmode.org/elpa/")
                          ))
 
@@ -535,6 +536,18 @@
          ("C-c p g" . helm-projectile-grep)
          ("C-c p b" . helm-projectile-switch-to-buffer)))
 
+;; Todos/projectile
+
+(use-package org-projectile
+  :ensure t
+  :after org
+  :after projectile
+  :config
+  (setq org-projectile-per-project-filepath "pacmans_todo.org")
+  (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-c n p") 'org-projectile-project-todo-completing-read))
+
 
 ;;; END Project and perspective
 ;;;..................................................................................................
@@ -637,8 +650,54 @@
 
 (global-git-gutter+-mode +1)
 
+;; GitHub
+
+;; Github api
+(use-package gh :ensure t)
+(use-package gh-md :ensure t)
+
+;; Search on github
+(use-package github-search :ensure t)
+
+;; Mapping github with magit
+(use-package ghub :ensure t)
+(use-package ghub+ :ensure t)
+
+(use-package magithub
+  :ensure t
+  :after (:all magit ghub ghub+)
+  :config (magithub-feature-autoinject t))
+
+;; GIST
+
+(use-package gist :ensure t)
+
+;; GitLag
+
+(use-package gitlab :ensure t)
+
 ;; END Git
 ;;..............................................................................
+
+
+;;------------------------------------------------------------------------------
+;; BEGIN: Mercurial
+;; tag: <mercurial>
+;; description:
+;;------------------------------------------------------------------------------
+
+;; Monky
+
+(use-package monky :ensure t)
+
+;; Configuration
+
+(use-package hgignore-mode :ensure t)
+(use-package hgrc-mode :ensure t)
+
+;; END Mercurial
+;;..............................................................................
+
 
 
 ;;; END Version controls
@@ -694,7 +753,7 @@
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
-  ;;(add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+  ;; (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode) ;; разноцветные скобки
   (defun figwheel-repl ()
     (interactive)
     (run-clojure "lein figwheel"))
@@ -749,7 +808,7 @@
   :ensure t
   :mode
   ("\\.phtml\\'" "\\.tpl\\.php\\'" "\\.[agj]sp\\'" "\\.as[cp]x\\'"
-  "\\.erb\\'" "\\.mustache\\'" "\\.djhtml\\'" "\\.html?\\'")
+   "\\.erb\\'" "\\.mustache\\'" "\\.djhtml\\'" "\\.html?\\'")
 
   :init
   (setq web-mode-markup-indent-offset 2
@@ -956,7 +1015,7 @@
   (setq csv-separators '("," ";" ":" " ")))
 
 
-  ;; Subpackages
+;; Subpackages
 (use-package csv-nav
   :ensure t
   :disabled t)
@@ -1031,7 +1090,7 @@
 ;; description:
 ;;------------------------------------------------------------------------------
 
-(defun duplicate-line ()
+(defun dublicate-line ()
   (interactive)
   (move-beginning-of-line 1)
   (kill-line)
@@ -1040,7 +1099,7 @@
   (next-line 1)
   (yank))
 
-(global-set-key (kbd "C-;") 'duplicate-line)
+(global-set-key (kbd "C-;") 'dublicate-line)
 
 (defun buffer-format ()
   "INDENT whole buffer - отформатировать весь буфер"
@@ -1339,7 +1398,7 @@
  '(git-gutter:window-width 2)
  '(package-selected-packages
    (quote
-    (yatemplate org-web-tools darkroom fic-mode flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato modern-cpp-font-lock company-irony-c-headers company-irony irony-eldoc flycheck-irony irony gradle-mode google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker yasnippet-snippets web-mode-edit-element web-completion-data web-beautify web-mode scss csv-mode polymode markdown-mode+ markdown-mode erlang yaml-mode json-reformat indium xref-js2 kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor sql-indent solarized-theme reverse-im quelpa-use-package perspective paredit neotree multiple-cursors magit kaolin-themes json-mode js2-mode ibuffer-vc helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ flycheck-color-mode-line company clojure-mode-extra-font-locking ag)))
+    (org-projectile hgrc-mode hgignore-mode monky magithub ghub+ ghub github-search gh-md gist glab gitlab yatemplate org-web-tools darkroom fic-mode flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato modern-cpp-font-lock company-irony-c-headers company-irony irony-eldoc flycheck-irony irony gradle-mode google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker yasnippet-snippets web-mode-edit-element web-completion-data web-beautify web-mode scss csv-mode polymode markdown-mode+ markdown-mode erlang yaml-mode json-reformat indium xref-js2 kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor sql-indent solarized-theme reverse-im quelpa-use-package perspective paredit neotree multiple-cursors magit kaolin-themes json-mode js2-mode ibuffer-vc helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ flycheck-color-mode-line company clojure-mode-extra-font-locking ag)))
  '(solarized-use-variable-pitch nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
