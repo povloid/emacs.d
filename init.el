@@ -407,6 +407,29 @@
 ;;;..................................................................................................
 
 ;;;**************************************************************************************************
+;;;* BEGIN TODO
+;;;* tag: <todo>
+;;;*
+;;;* description: Списки что надо сделать
+;;;*
+;;;**************************************************************************************************
+
+(use-package fic-mode
+  :commands fic-mode
+  :ensure t
+  :init (add-hook 'prog-mode-hook 'fic-mode)
+  :config
+
+  (defun fic-view-listing ()
+    "Use occur to list related FIXME keywords"
+    (interactive)
+    (occur "\\<\\(FIXME\\|WRITEME\\|WRITEME!\\|TODO\\|BUG\\):?"))
+  )
+
+;;; END TODO
+;;;..................................................................................................
+
+;;;**************************************************************************************************
 ;;;* BEGIN Helm
 ;;;* tag: <helm>
 ;;;*
@@ -539,6 +562,7 @@
 
 (use-package yasnippet-snippets
   :ensure t)
+
 
 ;;; END Snippets
 ;;;..................................................................................................
@@ -1279,6 +1303,25 @@
 ;;; END JAVA
 ;;;..................................................................................................
 
+;;;**************************************************************************************************
+;;;* BEGIN Productivity
+;;;* tag: <productivity>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+;; Dark room
+;; Sometimes I just want to ignore everything except the current document. Darkroom is exactly designed for that
+(use-package darkroom :ensure t)
+
+;; ORG/Web tools
+;; Org-web-tools is a nice package which allows to sniff a webpage and convert it into org-mode format. This is really useful to homogeneise documentation.
+
+(use-package org-web-tools :ensure t)
+
+;;; END Productivity
+;;;..................................................................................................
 
 
 ;; TAIL CONFIG ------------------------------------------------------------
@@ -1296,7 +1339,7 @@
  '(git-gutter:window-width 2)
  '(package-selected-packages
    (quote
-    (flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato modern-cpp-font-lock company-irony-c-headers company-irony irony-eldoc flycheck-irony irony gradle-mode google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker yasnippet-snippets web-mode-edit-element web-completion-data web-beautify web-mode scss csv-mode polymode markdown-mode+ markdown-mode erlang yaml-mode json-reformat indium xref-js2 kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor sql-indent solarized-theme reverse-im quelpa-use-package perspective paredit neotree multiple-cursors magit kaolin-themes json-mode js2-mode ibuffer-vc helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ flycheck-color-mode-line company clojure-mode-extra-font-locking ag)))
+    (yatemplate org-web-tools darkroom fic-mode flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato modern-cpp-font-lock company-irony-c-headers company-irony irony-eldoc flycheck-irony irony gradle-mode google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker yasnippet-snippets web-mode-edit-element web-completion-data web-beautify web-mode scss csv-mode polymode markdown-mode+ markdown-mode erlang yaml-mode json-reformat indium xref-js2 kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor sql-indent solarized-theme reverse-im quelpa-use-package perspective paredit neotree multiple-cursors magit kaolin-themes json-mode js2-mode ibuffer-vc helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ flycheck-color-mode-line company clojure-mode-extra-font-locking ag)))
  '(solarized-use-variable-pitch nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
