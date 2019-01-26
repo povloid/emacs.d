@@ -26,6 +26,10 @@
 (setq exec-path (append exec-path '("/usr/local/bin")))
 (add-to-list 'exec-path "~/bin/")
 
+(setenv "LC_ALL" "en_US.UTF-8")
+(setenv "LANG" "en_US.UTF-8")
+(setenv "LANGUAGE" "en_US.UTF-8")
+
 ;;; END System
 ;;;..................................................................................................
 
@@ -51,7 +55,7 @@
       `((".*" ,temporary-file-directory t)))
 
 ;; nice scrolling
-(setq scroll-margin 4
+(setq scroll-margin 0
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
@@ -62,7 +66,7 @@
 (show-paren-mode 1)
 (setq default-tab-width 2)
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq-default truncate-lines nil)
+(set-default 'truncate-lines -1)
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -406,6 +410,30 @@
 
 ;;; END FlyCheck
 ;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Spell checking
+;;;* tag: <spell>
+;;;*
+;;;* description: Проверка правописания
+;;;*
+;;;**************************************************************************************************
+
+(use-package ispell
+  :defer t
+  :ensure nil)
+
+(use-package flyspell
+  :defer t
+  :ensure nil
+	:hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode))
+  :custom
+  (flyspell-delay 4))
+
+;;; END Spell checking
+;;;..................................................................................................
+
 
 ;;;**************************************************************************************************
 ;;;* BEGIN TODO
@@ -753,6 +781,8 @@
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
+  (add-hook 'cider-repl-mode-hook (lambda ()
+				    (setq truncate-lines t)))
   ;; (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode) ;; разноцветные скобки
   (defun figwheel-repl ()
     (interactive)
@@ -1073,6 +1103,27 @@
 (use-package sql-indent
   :ensure t)
 
+;; sudo gem install anbt-sql-formatter
+
+(defun sql-beautify-region (beg end)
+  "Beautify SQL in region between beg and END."
+  (interactive "r")
+  (save-excursion
+    (shell-command-on-region beg end "anbt-sql-formatter" nil t)))
+
+    ;; change sqlbeautify to anbt-sql-formatter if you
+    ;;ended up using the ruby gem
+
+(defun sql-beautify-buffer ()
+ "Beautify SQL in buffer."
+ (interactive)
+ (sql-beautify-region (point-min) (point-max)))
+
+(use-package sql
+  :defer t
+  :config
+  (setq sql-postgres-program "/Applications/Postgres.app/Contents/Versions/latest/bin/psql"))
+
 ;;; END SQL
 ;;;..................................................................................................
 
@@ -1384,35 +1435,3 @@
 
 
 ;; TAIL CONFIG ------------------------------------------------------------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(git-gutter:added-sign "☀")
- '(git-gutter:deleted-sign "☂")
- '(git-gutter:hide-gutter t)
- '(git-gutter:modified-sign "☁")
- '(git-gutter:separator-sign "|")
- '(git-gutter:unchanged-sign " ")
- '(git-gutter:window-width 2)
- '(package-selected-packages
-   (quote
-    (org-projectile hgrc-mode hgignore-mode monky magithub ghub+ ghub github-search gh-md gist glab gitlab yatemplate org-web-tools darkroom fic-mode flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato modern-cpp-font-lock company-irony-c-headers company-irony irony-eldoc flycheck-irony irony gradle-mode google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker yasnippet-snippets web-mode-edit-element web-completion-data web-beautify web-mode scss csv-mode polymode markdown-mode+ markdown-mode erlang yaml-mode json-reformat indium xref-js2 kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor sql-indent solarized-theme reverse-im quelpa-use-package perspective paredit neotree multiple-cursors magit kaolin-themes json-mode js2-mode ibuffer-vc helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag git-gutter git-gutter+ flycheck-color-mode-line company clojure-mode-extra-font-locking ag)))
- '(solarized-use-variable-pitch nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
- '(helm-selection-line ((t (:background "#FFF876" :underline t))))
- '(tabbar-default ((t (:height 1.2)))))
