@@ -190,7 +190,7 @@
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height
-                          140 :width normal))))
+                          130 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -544,8 +544,7 @@
   (defun fic-view-listing ()
     "Use occur to list related FIXME keywords"
     (interactive)
-    (occur "\\<\\(FIXME\\|WRITEME\\|WRITEME!\\|TODO\\|BUG\\):?"))
-  )
+    (occur "\\<\\(FIXME\\|WRITEME\\|WRITEME!\\|TODO\\|BUG\\):?")))
 
 ;;; END TODO
 ;;;..................................................................................................
@@ -699,7 +698,6 @@
 (use-package yasnippet-snippets
   :ensure t)
 
-
 ;;; END Snippets
 ;;;..................................................................................................
 
@@ -802,7 +800,6 @@
 ;; END Git
 ;;..............................................................................
 
-
 ;;------------------------------------------------------------------------------
 ;; BEGIN: Mercurial
 ;; tag: <mercurial>
@@ -889,6 +886,7 @@
     (insert "(do (use 'figwheel-sidecar.repl-api) (cljs-repl))")))
 
 (use-package clj-refactor
+  :diminish clj-refactor-mode
   :ensure t
   :commands clj-refactor-mode
   :init
@@ -934,24 +932,18 @@
   :mode
   ("\\.phtml\\'" "\\.tpl\\.php\\'" "\\.[agj]sp\\'" "\\.as[cp]x\\'"
    "\\.erb\\'" "\\.mustache\\'" "\\.djhtml\\'" "\\.html?\\'")
-
   :init
   (setq web-mode-markup-indent-offset 2
         web-mode-code-indent-offset 2
         web-mode-css-indent-offset 2
-
         web-mode-enable-auto-pairing t
         web-mode-enable-auto-expanding t
         web-mode-enable-css-colorization t)
-
   :config
   ;; Template
   (setq web-mode-engines-alist
         '(("php"    . "\\.phtml\\'")
-          ("blade"  . "\\.blade\\."))
-        )
-
-  )
+          ("blade"  . "\\.blade\\."))))
 
 (use-package web-beautify
   :ensure t
@@ -1766,60 +1758,3 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------------------------------------------------------------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(beacon-color "#ed0547ad8099")
- '(evil-emacs-state-cursor (quote ("#E57373" hbar)))
- '(evil-insert-state-cursor (quote ("#E57373" bar)))
- '(evil-normal-state-cursor (quote ("#FFEE58" box)))
- '(evil-visual-state-cursor (quote ("#C5E1A5" box)))
- '(flyspell-delay 4)
- '(git-gutter:added-sign "☀")
- '(git-gutter:deleted-sign "☂")
- '(git-gutter:hide-gutter t)
- '(git-gutter:modified-sign "☁")
- '(git-gutter:separator-sign "|")
- '(git-gutter:unchanged-sign " ")
- '(git-gutter:window-width 2)
- '(highlight-indent-guides-auto-enabled nil)
- '(highlight-symbol-colors
-   (quote
-    ("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80")))
- '(highlight-symbol-foreground-color "#E0E0E0")
- '(highlight-tail-colors (quote (("#ed0547ad8099" . 0) ("#424242" . 100))))
- '(ibuffer-formats
-   (quote
-    ((mark modified read-only vc-status-mini " "
-	   (name 18 18 :left :elide)
-	   " "
-	   (size 9 -1 :right)
-	   " "
-	   (mode 16 16 :left :elide)
-	   " "
-	   (vc-status 10 10 :left)
-	   " " filename-and-process))))
- '(package-selected-packages
-   (quote
-    (sublime-themes tao-theme zerodark-theme zenburn-theme yasnippet-snippets yaml-tomato yaml-mode xref-js2 which-key web-mode-edit-element web-completion-data web-beautify switch-window ssh-deploy ssh-config-mode ssh sql-indent spacemacs-theme spaceline solarized-theme reverse-im quelpa-use-package pretty-mode popup-kill-ring perspective org-web-tools org-projectile org-bullets neotree monokai-theme monky moe-theme modern-cpp-font-lock material-theme markdown-mode+ magithub lsp-java logview linum-relative leuven-theme kibit-helper kaolin-themes javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc hungry-delete htmlize hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle flycheck-color-mode-line fic-mode expand-region erlang dracula-theme dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-irony-c-headers company-irony color-theme-sanityinc-tomorrow clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm beacon apropospriate-theme apache-mode alect-themes ag)))
- '(pos-tip-background-color "#3a933a933a93")
- '(pos-tip-foreground-color "#9E9E9E")
- '(tabbar-background-color "#357535753575"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
- '(helm-selection-line ((t (:background "#FFF876" :underline t))))
- '(tabbar-default ((t (:height 1.2)))))
