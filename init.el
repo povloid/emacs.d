@@ -1468,6 +1468,190 @@
 ;;..............................................................................
 
 ;;;**************************************************************************************************
+;;;* BEGIN Windows
+;;;* tag: <window>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+(use-package switch-window
+  :ensure t
+  :config
+    (setq switch-window-input-style 'minibuffer)
+    (setq switch-window-increase 4)
+    (setq switch-window-threshold 2)
+    (setq switch-window-shortcut-style 'qwerty)
+    (setq switch-window-qwerty-shortcuts
+        '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
+  :bind
+    ([remap other-window] . switch-window))
+
+;; Following window splits
+;; After you split a window, your focus remains in the previous one.
+;; This annoyed me so much I wrote these two, they take care of it.
+
+(defun split-and-follow-horizontally ()
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+(global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+
+(defun split-and-follow-vertically ()
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+(global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+
+;;; END Windows
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Minor conveniences
+;;;* tag: <minor conveniences>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+;; Subwords
+;; Emacs treats camelCase strings as a single word by default, this changes said behaviour.
+
+(global-subword-mode 1)
+
+;; Electric
+;; If you write any code, you may enjoy this. Typing the first character in a set of 2,
+;; completes the second one after your cursor. Opening a bracket? It’s closed for you already.
+;; Quoting something? It’s closed for you already.
+;; You can easily add and remove pairs yourself, have a look.
+
+(setq electric-pair-pairs '(
+                           (?\{ . ?\})
+                           (?\( . ?\))
+                           (?\[ . ?\])
+                           (?\" . ?\")
+                           ))
+(electric-pair-mode t)
+
+;; Beacon
+;; While changing buffers or workspaces, the first thing you do is look for your cursor.
+;; Unless you know its position, you can not move it efficiently.
+;; Every time you change buffers, the current position of your cursor will be briefly highlighted now.
+
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1))
+
+;; Expand region
+;; A pretty simple package, takes your cursor and semantically expands the region, so words,
+;; sentences, maybe the contents of some parentheses, it’s awesome, try it out.
+
+(use-package expand-region
+  :ensure t
+  :bind ("C-q" . er/expand-region))
+
+;; Hungry deletion
+;; On the list of things I like doing, deleting big whitespaces is pretty close to the bottom.
+;; Backspace or Delete will get rid of all whitespace until the next non-whitespace character is encountered.
+;; You may not like it, thus disable it if you must, but it’s pretty decent.
+
+(use-package hungry-delete
+  :ensure t
+  :config
+  (global-hungry-delete-mode))
+
+
+
+;;; END Minor conveniences
+;;;..................................................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Kill ring
+;;;* tag: <kill ting>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+;; There is a lot of customization to the kill ring, and while I have not used it much before, I decided that it was time to change that.
+
+;; Maximum entries on the ring
+;; The default is 60, I personally need more sometimes.
+
+(setq kill-ring-max 100)
+
+;; popup-kill-ring
+;; Out of all the packages I tried out, this one, being the simplest, appealed to me most.
+;; With a simple M-y you can now browse your kill-ring like browsing autocompletion items. C-n and C-p totally work for this.
+
+(use-package popup-kill-ring
+  :ensure t
+  :bind ("M-y" . popup-kill-ring))
+
+;;; END Kill ring
+;;;..................................................................................................
+
+
+;;;**************************************************************************************************
+;;;* BEGIN Org
+;;;* tag: <org mode>
+;;;*
+;;;* description: One of the absolute greatest features of emacs is called “org-mode”.
+;;;* This very file has been written in org-mode, a lot of other configurations are written in org-mode,
+;;;* same goes for academic papers, presentations, schedules, blogposts and guides.
+;;;* Org-mode is one of the most complex things ever, lets make it a bit more usable with some basic configuration.
+;;;* Those are all rather self-explanatory.
+;;;*
+;;;**************************************************************************************************
+
+;; Common settings
+(setq org-ellipsis " ")
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+(setq org-confirm-babel-evaluate nil)
+(setq org-export-with-smart-quotes t)
+(setq org-src-window-setup 'current-window)
+(add-hook 'org-mode-hook 'org-indent-mode)
+
+;; Syntax highlighting for documents exported to HTML
+(use-package htmlize
+  :ensure t)
+
+;; Line wrapping
+(add-hook 'org-mode-hook
+	    '(lambda ()
+	       (visual-line-mode 1)))
+
+
+
+;; Keybindings
+
+(global-set-key (kbd "C-c '") 'org-edit-src-code)
+
+;; Org Bullets
+;; Makes it all look a bit nicer, I hate looking at asterisks.
+
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+
+;; Easy-to-add emacs-lisp template
+;; Hitting tab after an “<el” in an org-mode file will create a template for elisp insertion.
+
+(add-to-list 'org-structure-template-alist
+	       '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+
+
+
+;;; END Org
+;;;..................................................................................................
+
+
+;;;**************************************************************************************************
 ;;;* BEGIN My definition
 ;;;* tag: <my definition>
 ;;;*
@@ -1584,7 +1768,7 @@
  '(git-gutter:window-width 2)
  '(package-selected-packages
    (quote
-    (which-key linum-relative diminish spaceline zerodark-theme yasnippet-snippets yaml-tomato yaml-mode xref-js2 web-mode-edit-element web-completion-data web-beautify ssh-deploy ssh-config-mode ssh sql-indent solarized-theme reverse-im quelpa-use-package pretty-mode perspective org-web-tools org-projectile neotree monky modern-cpp-font-lock markdown-mode+ magithub lsp-java logview leuven-theme kibit-helper kaolin-themes javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle flycheck-color-mode-line fic-mode erlang dockerfile-mode docker-api docker darkroom csv-mode config-general-mode company-irony-c-headers company-irony clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm apache-mode ag))))
+    (org-bullets htmlize popup-kill-ring expand-region hungry-delete beacon switch-window which-key linum-relative diminish spaceline zerodark-theme yasnippet-snippets yaml-tomato yaml-mode xref-js2 web-mode-edit-element web-completion-data web-beautify ssh-deploy ssh-config-mode ssh sql-indent solarized-theme reverse-im quelpa-use-package pretty-mode perspective org-web-tools org-projectile neotree monky modern-cpp-font-lock markdown-mode+ magithub lsp-java logview leuven-theme kibit-helper kaolin-themes javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle flycheck-color-mode-line fic-mode erlang dockerfile-mode docker-api docker darkroom csv-mode config-general-mode company-irony-c-headers company-irony clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm apache-mode ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
