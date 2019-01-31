@@ -1,4 +1,5 @@
 ;;; package --- Pacmans config
+;;; Commentary:
 ;;;**************************************************************************************************
 ;;;* BEGIN System
 ;;;* tag: <system >
@@ -7,6 +8,7 @@
 ;;;*
 ;;;**************************************************************************************************
 
+;;; Code:
 ;; Поведение клавиш на разных операционках
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'super)
@@ -32,6 +34,41 @@
 
 ;;; END System
 ;;;..................................................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: Use packages and repositories
+;; tag: <use-package repository>
+;; description: Пакеты и репозитории
+;;------------------------------------------------------------------------------
+
+(require 'package)
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
+                         ;; ("org" . "https://orgmode.org/elpa/")
+                         ))
+
+(package-initialize)
+
+(setq package-enable-at-startup nil)
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
+(put 'use-package 'lisp-indent-function 1)
+(setq use-package-always-ensure t)
+
+;; :quelpa keyword
+(use-package quelpa)
+(use-package quelpa-use-package)
+
+;; END Use packages and repositories
+;;..............................................................................
 
 ;;;**************************************************************************************************
 ;;;* BEGIN common configuration
@@ -68,45 +105,25 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (set-default 'truncate-lines -1)
 
+
+;; Set UTF-8 encoding
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
 
-;;------------------------------------------------------------------------------
-;; BEGIN: Use packages and repositories
-;; tag: <use-package repository>
-;; description: Пакеты и репозитории
-;;------------------------------------------------------------------------------
 
-(require 'package)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ;; ("org" . "https://orgmode.org/elpa/")
-                         ))
+;; Disable bell
+;; This is annoying, remove this line if you like being visually reminded of events.
+(setq ring-bell-function 'ignore)
 
-(package-initialize)
+;; Disable backups and auto-saves
+;; I don’t use either, you might want to turn those from nil to t if you do.
 
-(setq package-enable-at-startup nil)
-
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile
-  (require 'use-package))
-
-(put 'use-package 'lisp-indent-function 1)
-(setq use-package-always-ensure t)
-
-;; :quelpa keyword
-(use-package quelpa)
-(use-package quelpa-use-package)
-
-;; END Use packages and repositories
-;;..............................................................................
+(setq make-backup-files nil)
+(setq auto-save-default nil)
 
 ;;------------------------------------------------------------------------------
 ;; BEGIN: Emacs server
@@ -193,20 +210,62 @@
   :config
   (global-hl-line-mode -1))
 
+;; Highligh current line
+;; hl-line is awesome! It’s not very awesome in the terminal version of emacs though, so we don’t use that. Besides, it’s only used for programming.
+;; (when window-system
+;;   (add-hook 'prog-mode-hook 'hl-line-mode))
+
+;; Pretty symbols
+;; Changes lambda to an actual symbol and a few others as well, only in the GUI version though.
+(when window-system
+  (use-package pretty-mode
+   :ensure t
+   :config
+   (global-pretty-mode t)))
+
+
 (use-package kaolin-themes
   :ensure t)
 
-;; (use-package leuven-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'leuven t))
+(use-package leuven-theme
+  :ensure t)
 
 (use-package solarized-theme
   :if (display-graphic-p)
-  :custom (solarized-use-variable-pitch nil)
-  :config (load-theme 'solarized-light t))
+  :custom (solarized-use-variable-pitch nil))
+
+;; (use-package zerodark-theme
+;;   :ensure t)
 
 ;; END Themes
+;;..............................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: Modeline
+;; tag: <modeline>
+;; description:
+;; The modeline is the heart of emacs, it offers information at all times, it’s persistent and verbose enough to gain a full understanding of modes and states you are in.
+;; Due to the fact that we attempt to use emacs as a desktop environment replacement, and external bar showing the time, the battery percentage and more system info would be great to have. I have however abandoned polybar in favor of a heavily modified modeline, this offers me more space on the screen and better integration.
+;; One modeline-related setting that is missing and is instead placed at the bottom is diminish.
+;;------------------------------------------------------------------------------
+
+;; No separator!
+;; (setq powerline-default-separator nil)
+
+;; Cursor position
+;; Show the current line and column for your cursor. We are not going to have relative-linum-mode in every major mode, so this is useful.
+;; (setq line-number-mode t)
+;; (setq column-number-mode t)
+
+;; Clock
+;; If you prefer the 12hr-format, change the variable to nil instead of t.
+;; Time format
+;;;(setq display-time-24hr-format t)
+;;;(setq display-time-format "%H:%M - %d %B %Y")
+;;Enabling the mode
+;;;(display-time-mode 1)
+
+;; END Modeline
 ;;..............................................................................
 
 ;;------------------------------------------------------------------------------
@@ -552,6 +611,9 @@
   :config
   (projectile-global-mode)
   (setq projectile-enable-caching t))
+
+;; Let projectile call make
+;; (global-set-key (kbd "<f5>") 'projectile-compile-project)
 
 (use-package helm-projectile
   :ensure t
@@ -1432,6 +1494,7 @@
 
 ;;; END Productivity
 ;;;..................................................................................................
+
 
 
 ;; TAIL CONFIG ------------------------------------------------------------
