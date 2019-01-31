@@ -205,23 +205,24 @@
 ;; ligatures fonts
 (global-prettify-symbols-mode 1)
 
-(use-package hl-line
-  :ensure nil
-  :config
-  (global-hl-line-mode -1))
 
 ;; Highligh current line
 ;; hl-line is awesome! It’s not very awesome in the terminal version of emacs though, so we don’t use that. Besides, it’s only used for programming.
-;; (when window-system
-;;   (add-hook 'prog-mode-hook 'hl-line-mode))
+(when window-system
+  (add-hook 'prog-mode-hook 'hl-line-mode))
+
+(use-package hl-line
+  :ensure nil
+  :config
+  (global-hl-line-mode 1))
 
 ;; Pretty symbols
 ;; Changes lambda to an actual symbol and a few others as well, only in the GUI version though.
 (when window-system
   (use-package pretty-mode
-   :ensure t
-   :config
-   (global-pretty-mode t)))
+    :ensure t
+    :config
+    (global-pretty-mode t)))
 
 
 (use-package kaolin-themes
@@ -234,8 +235,8 @@
   :if (display-graphic-p)
   :custom (solarized-use-variable-pitch nil))
 
-;; (use-package zerodark-theme
-;;   :ensure t)
+(use-package zerodark-theme
+  :ensure t)
 
 ;; END Themes
 ;;..............................................................................
@@ -249,21 +250,33 @@
 ;; One modeline-related setting that is missing and is instead placed at the bottom is diminish.
 ;;------------------------------------------------------------------------------
 
+(use-package spaceline
+  :ensure t
+  :pin melpa-stable
+  :config
+  (require 'spaceline-config)
+  (setq spaceline-buffer-encoding-abbrev-p nil)
+  (setq spaceline-line-column-p t)
+  (setq spaceline-line-p t)
+  (setq powerline-default-separator (quote arrow))
+  (spaceline-spacemacs-theme))
+
+
 ;; No separator!
-;; (setq powerline-default-separator nil)
+(setq powerline-default-separator nil)
 
 ;; Cursor position
 ;; Show the current line and column for your cursor. We are not going to have relative-linum-mode in every major mode, so this is useful.
-;; (setq line-number-mode t)
-;; (setq column-number-mode t)
+(setq line-number-mode t)
+(setq column-number-mode t)
 
 ;; Clock
 ;; If you prefer the 12hr-format, change the variable to nil instead of t.
 ;; Time format
-;;;(setq display-time-24hr-format t)
-;;;(setq display-time-format "%H:%M - %d %B %Y")
+(setq display-time-24hr-format t)
+(setq display-time-format "%H:%M - %d %B %Y")
 ;;Enabling the mode
-;;;(display-time-mode 1)
+(display-time-mode -1)
 
 ;; END Modeline
 ;;..............................................................................
@@ -462,10 +475,11 @@
   :hook
   (prog-mode . flycheck-mode))
 
-(use-package flycheck-color-mode-line
-  :ensure t
-  :config
-  (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+;; Fly-check красит mode-line в желтый цвет - неочень хорошо
+;; (use-package flycheck-color-mode-line
+;;   :ensure t
+;;   :config
+;;   (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
 ;;; END FlyCheck
 ;;;..................................................................................................
@@ -485,10 +499,17 @@
 (use-package flyspell
   :defer t
   :ensure nil
-	:hook ((text-mode . flyspell-mode)
+  :hook ((text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :custom
-  (flyspell-delay 4))
+  (flyspell-delay 4)
+  ;;:bind ("C-x ;" . flyspell-auto-correct-previous-word)
+  :init
+      (progn
+        ;; Below variables need to be set before `flyspell' is loaded.
+        (setq flyspell-use-meta-tab nil)
+        ;; Binding for `flyspell-auto-correct-previous-word'.
+        (setq flyspell-auto-correct-binding (kbd "<S-f12>"))))
 
 ;;; END Spell checking
 ;;;..................................................................................................
@@ -844,7 +865,7 @@
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
   (add-hook 'cider-repl-mode-hook (lambda ()
-				    (setq truncate-lines t)))
+                                    (setq truncate-lines t)))
   ;; (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode) ;; разноцветные скобки
   (defun figwheel-repl ()
     (interactive)
@@ -1173,13 +1194,13 @@
   (save-excursion
     (shell-command-on-region beg end "anbt-sql-formatter" nil t)))
 
-    ;; change sqlbeautify to anbt-sql-formatter if you
-    ;;ended up using the ruby gem
+;; change sqlbeautify to anbt-sql-formatter if you
+;;ended up using the ruby gem
 
 (defun sql-beautify-buffer ()
- "Beautify SQL in buffer."
- (interactive)
- (sql-beautify-region (point-min) (point-max)))
+  "Beautify SQL in buffer."
+  (interactive)
+  (sql-beautify-region (point-min) (point-max)))
 
 (use-package sql
   :defer t
@@ -1187,108 +1208,6 @@
   (setq sql-postgres-program "/Applications/Postgres.app/Contents/Versions/latest/bin/psql"))
 
 ;;; END SQL
-;;;..................................................................................................
-
-;;;**************************************************************************************************
-;;;* BEGIN My definition
-;;;* tag: <my definition>
-;;;*
-;;;* description: Мои определения
-;;;*
-;;;**************************************************************************************************
-
-;;------------------------------------------------------------------------------
-;; BEGIN: My Edit
-;; tag: <my edit definition>
-;; description:
-;;------------------------------------------------------------------------------
-
-(defun dublicate-line ()
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (next-line 1)
-  (yank))
-
-(global-set-key (kbd "C-;") 'dublicate-line)
-
-(defun buffer-format ()
-  "INDENT whole buffer - отформатировать весь буфер"
-  (interactive)
-  (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max)))
-
-(global-set-key [f4] 'buffer-format)
-(global-set-key [f5] 'toggle-truncate-lines)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-h") 'backward-kill-word)
-
-;; END My Edit
-;;..............................................................................
-
-;;------------------------------------------------------------------------------
-;; BEGIN: TTT Terminal
-;; tag: <ansiterm ttt>
-;; description: Терминал на основе ansi-term
-;;------------------------------------------------------------------------------
-
-(defun transit-keys-combination-to-term (keys-combination)
-  (let ((k (kbd keys-combination)))
-    (define-key term-raw-map k
-      (lookup-key (current-global-map) k))))
-
-(add-hook 'term-load-hook
-          (lambda ()
-            (transit-keys-combination-to-term "M-x")
-            (transit-keys-combination-to-term "C-x")
-            ;;(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
-            ;; (Let ((base03 "#002b36")
-            ;;       (base02 "#073642")
-            ;;       (base01 "#586e75")
-            ;;       (base00 "#657b83")
-            ;;       (base0 "#839496")
-            ;;       (base1 "#93a1a1")
-            ;;       (base2 "#eee8d5")
-            ;;       (base3 "#fdf6e3")
-            ;;       (yellow "#b58900")
-            ;;       (orange "#cb4b16")
-            ;;       (red "#dc322f")
-            ;;       (magenta "#d33682")
-            ;;       (violet "#6c71c4")
-            ;;       (blue "#268bd2")
-            ;;       (cyan "#2aa198")
-            ;;       (green "#859900"))
-            ;;   (setq ansi-term-color-vector
-            ;;         (vconcat `(unspecified ,base02 ,red ,green ,yellow ,blue
-            ;;                                ,magenta ,cyan ,base2))))
-            ))
-
-(setq tt-id 0)
-(defun get-tts-id ()
-  (concat "term-" (number-to-string (setq tt-id (+ 1 tt-id)))))
-
-(defun tt-0 (name)
-  (interactive "sbuffername:")
-  (ansi-term "/bin/bash")
-  (insert "export LANG=en_US.UTF-8; source ~/.bash_profile")
-  (term-send-input)
-  (rename-buffer (concat "ttt: " name)))
-
-(defun ttt (name)
-  (interactive "sbuffername:")
-  (tt-0 name))
-
-(defun tti ()
-  (interactive)
-  (tt-0 (get-tts-id)))
-
-;; END TTT Terminal
-;;..............................................................................
-
-;;; END My definition
 ;;;..................................................................................................
 
 ;;;**************************************************************************************************
@@ -1495,6 +1414,180 @@
 ;;; END Productivity
 ;;;..................................................................................................
 
+;;;**************************************************************************************************
+;;;* BEGIN  Wick key mode
+;;;* tag: <>
+;;;*
+;;;* description:  which-key and why I love emacs
+;;;*
+;;;* In order to use emacs, you don’t need to know how to use emacs. It’s self documenting,
+;;;* and coupled with this insanely useful package, it’s even easier. In short, after you start the
+;;;* input of a command and stop, pondering what key must follow, it will automatically open
+;;;* a non-intrusive buffer at the bottom of the screen offering you suggestions for completing
+;;;* the command, that’s it, nothing else.
+;;;* It’s beautiful
+;;;**************************************************************************************************
 
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
+;;; END
+;;;..................................................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: Diminish
+;; tag: <diminish>
+;; description:
+;;------------------------------------------------------------------------------
+
+(use-package diminish
+  :ensure t
+  :init
+  (diminish 'which-key-mode)
+  (diminish 'linum-relative-mode)
+  (diminish 'hungry-delete-mode)
+  (diminish 'visual-line-mode)
+  (diminish 'subword-mode)
+  (diminish 'beacon-mode)
+  (diminish 'irony-mode)
+  (diminish 'page-break-lines-mode)
+  (diminish 'auto-revert-mode)
+  (diminish 'rainbow-delimiters-mode)
+  (diminish 'rainbow-mode)
+  (diminish 'paredit-mode)
+  (diminish 'helm-mode)
+  (diminish 'git-gutter-mode)
+  (diminish 'git-gutter+-mode)
+  (diminish 'flyspell-mode)
+  (diminish 'company-mode)
+  (diminish 'eldoc-mode))
+
+;; END Diminish
+;;..............................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN My definition
+;;;* tag: <my definition>
+;;;*
+;;;* description: Мои определения
+;;;*
+;;;**************************************************************************************************
+
+;;------------------------------------------------------------------------------
+;; BEGIN: My Edit
+;; tag: <my edit definition>
+;; description:
+;;------------------------------------------------------------------------------
+
+(defun dublicate-line ()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank))
+
+(global-set-key (kbd "C-;") 'dublicate-line)
+
+(defun buffer-format ()
+  "INDENT whole buffer - отформатировать весь буфер"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
+(global-set-key [f4] 'buffer-format)
+(global-set-key [f5] 'toggle-truncate-lines)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "C-M-h") 'backward-kill-word)
+
+;; END My Edit
+;;..............................................................................
+
+;;------------------------------------------------------------------------------
+;; BEGIN: TTT Terminal
+;; tag: <ansiterm ttt>
+;; description: Терминал на основе ansi-term
+;;------------------------------------------------------------------------------
+
+(defun transit-keys-combination-to-term (keys-combination)
+  (let ((k (kbd keys-combination)))
+    (define-key term-raw-map k
+      (lookup-key (current-global-map) k))))
+
+(add-hook 'term-load-hook
+          (lambda ()
+            (transit-keys-combination-to-term "M-x")
+            (transit-keys-combination-to-term "C-x")
+            ;;(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
+            ;; (Let ((base03 "#002b36")
+            ;;       (base02 "#073642")
+            ;;       (base01 "#586e75")
+            ;;       (base00 "#657b83")
+            ;;       (base0 "#839496")
+            ;;       (base1 "#93a1a1")
+            ;;       (base2 "#eee8d5")
+            ;;       (base3 "#fdf6e3")
+            ;;       (yellow "#b58900")
+            ;;       (orange "#cb4b16")
+            ;;       (red "#dc322f")
+            ;;       (magenta "#d33682")
+            ;;       (violet "#6c71c4")
+            ;;       (blue "#268bd2")
+            ;;       (cyan "#2aa198")
+            ;;       (green "#859900"))
+            ;;   (setq ansi-term-color-vector
+            ;;         (vconcat `(unspecified ,base02 ,red ,green ,yellow ,blue
+            ;;                                ,magenta ,cyan ,base2))))
+            ))
+
+(setq tt-id 0)
+(defun get-tts-id ()
+  (concat "term-" (number-to-string (setq tt-id (+ 1 tt-id)))))
+
+(defun tt-0 (name)
+  (interactive "sbuffername:")
+  (ansi-term "/bin/bash")
+  (insert "export LANG=en_US.UTF-8; source ~/.bash_profile")
+  (term-send-input)
+  (rename-buffer (concat "ttt: " name)))
+
+(defun ttt (name)
+  (interactive "sbuffername:")
+  (tt-0 name))
+
+(defun tti ()
+  (interactive)
+  (tt-0 (get-tts-id)))
+
+;; END TTT Terminal
+;;..............................................................................
+
+;;; END My definition
+;;;..................................................................................................
 
 ;; TAIL CONFIG ------------------------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(package-selected-packages
+   (quote
+    (which-key linum-relative diminish spaceline zerodark-theme yasnippet-snippets yaml-tomato yaml-mode xref-js2 web-mode-edit-element web-completion-data web-beautify ssh-deploy ssh-config-mode ssh sql-indent solarized-theme reverse-im quelpa-use-package pretty-mode perspective org-web-tools org-projectile neotree monky modern-cpp-font-lock markdown-mode+ magithub lsp-java logview leuven-theme kibit-helper kaolin-themes javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle flycheck-color-mode-line fic-mode erlang dockerfile-mode docker-api docker darkroom csv-mode config-general-mode company-irony-c-headers company-irony clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm apache-mode ag))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
