@@ -250,6 +250,15 @@
 ;;   :config
 ;;   (load-theme 'sanityinc-tomorrow-night t))
 
+;; (use-package doom-themes
+;;   :init
+;;   (load-theme 'doom-nord t)
+;;   :config
+;;   (progn
+;;     (doom-themes-neotree-config)
+;;     (setq doom-neotree-line-spacing 0)
+;;     (doom-themes-org-config)))
+
 ;; END Themes
 ;;..............................................................................
 
@@ -1654,6 +1663,19 @@
 ;;; END Org
 ;;;..................................................................................................
 
+;;;**************************************************************************************************
+;;;* BEGIN Training
+;;;* tag: <training>
+;;;*
+;;;* description: Тренировочные программы
+;;;*
+;;;**************************************************************************************************
+
+(use-package speed-type
+  :ensure t)
+
+;;; END Traning
+;;;..................................................................................................
 
 ;;;**************************************************************************************************
 ;;;* BEGIN My definition
@@ -1758,3 +1780,46 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------------------------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flyspell-delay 4)
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(ibuffer-formats
+   (quote
+    ((mark modified read-only vc-status-mini " "
+	   (name 18 18 :left :elide)
+	   " "
+	   (size 9 -1 :right)
+	   " "
+	   (mode 16 16 :left :elide)
+	   " "
+	   (vc-status 10 10 :left)
+	   " " filename-and-process))))
+ '(package-selected-packages
+   (quote
+    (indent-guide speed-type multifiles doom-themes zerodark-theme zenburn-theme yasnippet-snippets yaml-tomato yaml-mode xref-js2 which-key web-mode-edit-element web-completion-data web-beautify tao-theme switch-window sublime-themes ssh-deploy ssh-config-mode ssh sql-indent spacemacs-theme spaceline solarized-theme reverse-im quelpa-use-package pretty-mode popup-kill-ring perspective org-web-tools org-projectile org-bullets neotree monokai-theme monky moe-theme modern-cpp-font-lock material-theme markdown-mode+ magithub lsp-java logview linum-relative leuven-theme kibit-helper kaolin-themes javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc hungry-delete htmlize hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle flycheck-color-mode-line fic-mode expand-region erlang dracula-theme dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-irony-c-headers company-irony color-theme-sanityinc-tomorrow clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm beacon apropospriate-theme apache-mode alect-themes ag))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
+ '(helm-selection-line ((t (:background "#FFF876" :underline t))))
+ '(tabbar-default ((t (:height 1.2)))))
