@@ -27,4 +27,5 @@
         :figwheel     {:nrepl-middleware
                        [refactor-nrepl.middleware/wrap-refactor
                         cider.nrepl/cider-middleware
-                        cemerick.piggieback/wrap-cljs-repl]}}}}
+                        ;;cemerick.piggieback/wrap-cljs-repl
+                        ]}}}}
