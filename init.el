@@ -202,8 +202,6 @@
    '(helm-selection-line ((t (:background "#FFF876" :underline t))))
    '(tabbar-default ((t (:height 1.2))))))
 
-;; ligatures fonts
-(global-prettify-symbols-mode 1)
 
 
 ;; Highligh current line
@@ -218,11 +216,14 @@
 
 ;; Pretty symbols
 ;; Changes lambda to an actual symbol and a few others as well, only in the GUI version though.
-(when window-system
-  (use-package pretty-mode
-    :ensure t
-    :config
-    (global-pretty-mode t)))
+;; ligatures fonts
+;; (global-prettify-symbols-mode t)
+;;
+;; (when window-system
+;;   (use-package pretty-mode
+;;     :ensure t
+;;     :config
+;;     (global-pretty-mode t)))
 
 ;; (use-package leuven-theme
 ;;   :ensure t)
@@ -258,6 +259,8 @@
 ;;     (doom-themes-neotree-config)
 ;;     (setq doom-neotree-line-spacing 0)
 ;;     (doom-themes-org-config)))
+
+(set-cursor-color "yellow")
 
 ;; END Themes
 ;;..............................................................................
@@ -367,6 +370,10 @@
 ;;;* description: Фичи для редактирования текста
 ;;;*
 ;;;**************************************************************************************************
+
+;; (setq-default cursor-type 'hbar )
+(setq-default cursor-type '(hbar . 4))
+
 
 (use-package paredit
   :ensure t
@@ -679,7 +686,6 @@
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c n p") 'org-projectile-project-todo-completing-read))
 
-
 ;;; END Project and perspective
 ;;;..................................................................................................
 
@@ -793,10 +799,11 @@
 (use-package ghub :ensure t)
 (use-package ghub+ :ensure t)
 
-(use-package magithub
-  :ensure t
-  :after (:all magit ghub ghub+)
-  :config (magithub-feature-autoinject t))
+;; выдает ошибку
+;; (use-package magithub
+;;   :ensure t
+;;   :after (:all magit ghub ghub+)
+;;   :config (magithub-feature-autoinject t))
 
 ;; GIST
 
@@ -1016,6 +1023,16 @@
   (js2r-add-keybindings-with-prefix "C-c C-r")
   (define-key js2-mode-map (kbd "C-k") #'js2r-kill))
 
+;; Getted from https://github.com/howardabrams/dot-files/blob/master/emacs-javascript.org
+;;
+;; (use-package tern
+;;    :ensure t
+;;    :init (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+;;    :config
+;;      (use-package company-tern
+;;         :ensure t
+;;         :init (add-to-list 'company-backends 'company-tern)))
+
 ;; END JavaScript
 ;;..............................................................................
 
@@ -1101,6 +1118,9 @@
 (use-package logview
   :ensure t
   :mode ("syslog\\(?:\\.[0-9]+\\)" "\\.log\\(?:\\.[0-9]+\\)?\\'"))
+
+;; пример как редактировать через ssh и sudo
+;; /ssh:ubuntu@ec2-54-234-199-41.compute-1.amazonaws.com|sudo:remotehost:/etc/hosts
 
 ;;; END EDIT CONFIGS
 ;;;..................................................................................................
@@ -1269,7 +1289,13 @@
 
 (use-package google :ensure t)
 (use-package google-maps :ensure t)
-(use-package google-translate :ensure t)
+(use-package google-translate
+  :ensure t
+  :init
+  (setq google-translate-default-source-language "en")
+  (setq google-translate-default-target-language "ru")
+  (setq google-translate-translation-directions-alist '(("en" . "ru")))
+  :bind ("C-`" . google-translate-smooth-translate))
 
 ;; END Google
 ;;..........................................................
@@ -1496,7 +1522,9 @@
     (setq switch-window-threshold 2)
     (setq switch-window-shortcut-style 'qwerty)
     (setq switch-window-qwerty-shortcuts
-        '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
+          '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
+    (setq switch-window-auto-resize-window nil)
+    (setq switch-window-default-window-size 0.6)
   :bind
     ([remap other-window] . switch-window))
 
@@ -1571,12 +1599,11 @@
 ;; Backspace or Delete will get rid of all whitespace until the next non-whitespace character is encountered.
 ;; You may not like it, thus disable it if you must, but it’s pretty decent.
 
-(use-package hungry-delete
-  :ensure t
-  :config
-  (global-hungry-delete-mode))
-
-
+;; не очень удобно для меня
+;; (use-package hungry-delete
+;;   :ensure t
+;;   :config
+;;   (global-hungry-delete-mode))
 
 ;;; END Minor conveniences
 ;;;..................................................................................................
@@ -1627,6 +1654,7 @@
 (setq org-confirm-babel-evaluate nil)
 (setq org-export-with-smart-quotes t)
 (setq org-src-window-setup 'current-window)
+(setq org-hide-emphasis-markers t) ;; скрыть спецсимволы для форматирования текста
 (add-hook 'org-mode-hook 'org-indent-mode)
 
 ;; Syntax highlighting for documents exported to HTML
@@ -1759,11 +1787,10 @@
   (concat "term-" (number-to-string (setq tt-id (+ 1 tt-id)))))
 
 (defun tt-0 (name)
-  (interactive "sbuffername:")
   (ansi-term "/bin/bash")
-  (insert "export LANG=en_US.UTF-8; source ~/.bash_profile")
-  (term-send-input)
-  (rename-buffer (concat "ttt: " name)))
+  (rename-buffer (concat "ttt: " name))
+  (term-send-raw-string "export LANG=en_US.UTF-8; source ~/.bash_profile")
+  (term-send-input))
 
 (defun ttt (name)
   (interactive "sbuffername:")
@@ -1806,7 +1833,7 @@
 	   " " filename-and-process))))
  '(package-selected-packages
    (quote
-    (indent-guide speed-type multifiles doom-themes zerodark-theme zenburn-theme yasnippet-snippets yaml-tomato yaml-mode xref-js2 which-key web-mode-edit-element web-completion-data web-beautify tao-theme switch-window sublime-themes ssh-deploy ssh-config-mode ssh sql-indent spacemacs-theme spaceline solarized-theme reverse-im quelpa-use-package pretty-mode popup-kill-ring perspective org-web-tools org-projectile org-bullets neotree monokai-theme monky moe-theme modern-cpp-font-lock material-theme markdown-mode+ magithub lsp-java logview linum-relative leuven-theme kibit-helper kaolin-themes javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc hungry-delete htmlize hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle flycheck-color-mode-line fic-mode expand-region erlang dracula-theme dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-irony-c-headers company-irony color-theme-sanityinc-tomorrow clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm beacon apropospriate-theme apache-mode alect-themes ag))))
+    (persp-projectile company-tern tern indent-guide speed-type multifiles doom-themes zerodark-theme zenburn-theme yasnippet-snippets yaml-tomato yaml-mode xref-js2 which-key web-mode-edit-element web-completion-data web-beautify tao-theme switch-window sublime-themes ssh-deploy ssh-config-mode ssh sql-indent spacemacs-theme spaceline solarized-theme reverse-im quelpa-use-package pretty-mode popup-kill-ring perspective org-web-tools org-projectile org-bullets neotree monokai-theme monky moe-theme modern-cpp-font-lock material-theme markdown-mode+ magithub lsp-java logview linum-relative leuven-theme kibit-helper kaolin-themes javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc hungry-delete htmlize hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle flycheck-color-mode-line fic-mode expand-region erlang dracula-theme dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-irony-c-headers company-irony color-theme-sanityinc-tomorrow clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm beacon apropospriate-theme apache-mode alect-themes ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
