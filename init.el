@@ -190,7 +190,7 @@
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height
-                          130 :width normal))))
+                          160 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -1737,6 +1737,7 @@
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
 
+(global-set-key [f2] 'magit-push-current-to-upstream)
 (global-set-key [f4] 'buffer-format)
 (global-set-key [f5] 'toggle-truncate-lines)
 (global-set-key (kbd "C-h") 'delete-backward-char)
