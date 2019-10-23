@@ -17,7 +17,7 @@
 ;; OSX
 (when (eq system-type 'darwin)
   (setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH")))
-  (setenv "PATH" (shell-command-to-string "source $HOME/.bashrc && printf $PATH"))
+  (setenv "PATH" (shell-command-to-string "source $HOME/.bash_profile && printf $PATH"))
   (if (not (getenv "TERM_PROGRAM"))
       (let ((path (shell-command-to-string
                    "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
@@ -114,6 +114,8 @@
 (set-terminal-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 
+(set-buffer-file-coding-system 'unix)
+
 
 ;; Disable bell
 ;; This is annoying, remove this line if you like being visually reminded of events.
@@ -190,7 +192,7 @@
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height
-                          160 :width normal))))
+                          140 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -434,6 +436,14 @@
             helm-buffers-list
             helm-projectile-find-file))))
 
+(use-package hi-lock
+  :init (global-hi-lock-mode))
+
+(use-package highlight-numbers
+  :ensure t
+  :defer t
+  :init (add-hook 'prog-mode-hook #'highlight-numbers-mode))
+
 ;;; END Cursor and edit fetures
 ;;;..................................................................................................
 
@@ -651,18 +661,6 @@
 ;;;*
 ;;;**************************************************************************************************
 
-(use-package perspective
-  :init (persp-mode))
-
-(use-package projectile
-  :ensure t
-  :config
-  (projectile-global-mode)
-  (setq projectile-enable-caching t))
-
-;; Let projectile call make
-;; (global-set-key (kbd "<f5>") 'projectile-compile-project)
-
 (use-package helm-projectile
   :ensure t
   :config
@@ -673,6 +671,31 @@
          ("C-c p s" . helm-projectile-ag)
          ("C-c p g" . helm-projectile-grep)
          ("C-c p b" . helm-projectile-switch-to-buffer)))
+
+(use-package perspective
+  :init (persp-mode))
+
+(use-package projectile
+  :ensure t
+  :config
+  (setq projectile-completion-system 'helm)
+  (projectile-global-mode)
+  (helm-projectile-on)
+  (setq projectile-enable-caching nil)
+  :bind (("C-c p r" . projectile-replace)
+	 ("C-c p e" . projectile-replace-regexp)))
+
+
+(use-package persp-projectile
+  :ensure t
+  :defer 1
+  ;;:bind (("C-p s" . projectile-persp-switch-project))
+  )
+
+;; Let projectile call make
+;; (global-set-key (kbd "<f5>") 'projectile-compile-project)
+
+
 
 ;; Todos/projectile
 
@@ -973,6 +996,19 @@
 (use-package web-completion-data :ensure t)
 (use-package web-mode-edit-element :ensure t)
 
+;; (use-package sass-mode
+;;   :ensure t)
+
+(use-package scss-mode
+  :ensure t)
+
+(use-package emmet-mode
+  :ensure t
+  :bind (:map emmet-mode-keymap
+	      ("M-e" . emmet-expand-line))
+  :config (add-hook 'web-mode-hook 'emmet-mode))
+
+
 ;;; END HTML and CSS
 ;;;..................................................................................................
 
@@ -1022,6 +1058,25 @@
   (add-hook 'js2-mode-hook #'js2-refactor-mode)
   (js2r-add-keybindings-with-prefix "C-c C-r")
   (define-key js2-mode-map (kbd "C-k") #'js2r-kill))
+
+
+(use-package rjsx-mode
+  :after js2-mode
+  :pin melpa-stable
+  :ensure t
+  :mode (("\\.jsx$" . rjsx-mode)
+         ("components/.+\\.js$" . rjsx-mode))
+  :hook (rjsx-mode . (lambda ()
+                       (flycheck-mode)
+                       ;;(my-tide-setup-hook)
+                       ;;(company-mode)
+                       ;;(indium-interaction-mode -1)
+                       ;;(js2-refactor-mode -1)
+		       )))
+
+(use-package prettier-js
+  :hook ((js2-mode . prettier-js-mode)
+         (rjsx-mode . prettier-js-mode)))
 
 ;; Getted from https://github.com/howardabrams/dot-files/blob/master/emacs-javascript.org
 ;;
@@ -1220,12 +1275,19 @@
   :ensure t)
 
 ;; sudo gem install anbt-sql-formatter
+;; or
+;; brew install pgformatter
+;; or
+;; npm i -g sql-formatter-cli
 
 (defun sql-beautify-region (beg end)
   "Beautify SQL in region between beg and END."
   (interactive "r")
   (save-excursion
-    (shell-command-on-region beg end "anbt-sql-formatter" nil t)))
+    (shell-command-on-region beg end "anbt-sql-formatter" nil t)
+    ;;(shell-command-on-region beg end "pg_format -t" nil t)
+    ;;(shell-command-on-region beg end "sql-formatter-cli " nil t)
+    ))
 
 ;; change sqlbeautify to anbt-sql-formatter if you
 ;;ended up using the ruby gem
@@ -1574,7 +1636,8 @@
                            (?\[ . ?\])
                            (?\" . ?\")
                            ))
-(electric-pair-mode t)
+;; отключил, очень мешает порой редактировать код
+(electric-pair-mode -1)
 
 ;; Beacon
 ;; While changing buffers or workspaces, the first thing you do is look for your cursor.
@@ -1808,46 +1871,3 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------------------------------------------------------------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(flyspell-delay 4)
- '(git-gutter:added-sign "☀")
- '(git-gutter:deleted-sign "☂")
- '(git-gutter:hide-gutter t)
- '(git-gutter:modified-sign "☁")
- '(git-gutter:separator-sign "|")
- '(git-gutter:unchanged-sign " ")
- '(git-gutter:window-width 2)
- '(ibuffer-formats
-   (quote
-    ((mark modified read-only vc-status-mini " "
-	   (name 18 18 :left :elide)
-	   " "
-	   (size 9 -1 :right)
-	   " "
-	   (mode 16 16 :left :elide)
-	   " "
-	   (vc-status 10 10 :left)
-	   " " filename-and-process))))
- '(package-selected-packages
-   (quote
-    (persp-projectile company-tern tern indent-guide speed-type multifiles doom-themes zerodark-theme zenburn-theme yasnippet-snippets yaml-tomato yaml-mode xref-js2 which-key web-mode-edit-element web-completion-data web-beautify tao-theme switch-window sublime-themes ssh-deploy ssh-config-mode ssh sql-indent spacemacs-theme spaceline solarized-theme reverse-im quelpa-use-package pretty-mode popup-kill-ring perspective org-web-tools org-projectile org-bullets neotree monokai-theme monky moe-theme modern-cpp-font-lock material-theme markdown-mode+ magithub lsp-java logview linum-relative leuven-theme kibit-helper kaolin-themes javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc hungry-delete htmlize hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle flycheck-color-mode-line fic-mode expand-region erlang dracula-theme dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-irony-c-headers company-irony color-theme-sanityinc-tomorrow clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm beacon apropospriate-theme apache-mode alect-themes ag))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
- '(helm-selection-line ((t (:background "#FFF876" :underline t))))
- '(tabbar-default ((t (:height 1.2)))))
