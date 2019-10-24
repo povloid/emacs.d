@@ -26,7 +26,11 @@
 ;; PATH's
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
+
+;; check (executable-find "sls") for example
+;; check (executable-find "npm") for example
 (add-to-list 'exec-path "~/bin/")
+(add-to-list 'exec-path "~/node-global-modules/bin/")
 
 (setenv "LC_ALL" "en_US.UTF-8")
 (setenv "LANG" "en_US.UTF-8")
@@ -543,11 +547,11 @@
   (flyspell-delay 4)
   ;;:bind ("C-x ;" . flyspell-auto-correct-previous-word)
   :init
-      (progn
-        ;; Below variables need to be set before `flyspell' is loaded.
-        (setq flyspell-use-meta-tab nil)
-        ;; Binding for `flyspell-auto-correct-previous-word'.
-        (setq flyspell-auto-correct-binding (kbd "<S-f12>"))))
+  (progn
+    ;; Below variables need to be set before `flyspell' is loaded.
+    (setq flyspell-use-meta-tab nil)
+    ;; Binding for `flyspell-auto-correct-previous-word'.
+    (setq flyspell-auto-correct-binding (kbd "<S-f12>"))))
 
 ;;; END Spell checking
 ;;;..................................................................................................
@@ -683,7 +687,7 @@
   (helm-projectile-on)
   (setq projectile-enable-caching nil)
   :bind (("C-c p r" . projectile-replace)
-	 ("C-c p e" . projectile-replace-regexp)))
+         ("C-c p e" . projectile-replace-regexp)))
 
 
 (use-package persp-projectile
@@ -862,6 +866,55 @@
 ;;; END Version controls
 ;;;..................................................................................................
 
+
+;;;**************************************************************************************************
+;;;* BEGIN LSP
+;;;* tag: <lsp>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+(use-package lsp-mode
+  :commands lsp)
+
+;; optionally
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+(use-package company-lsp
+  :commands company-lsp)
+(use-package helm-lsp
+  :commands helm-lsp-workspace-symbol)
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list)
+
+
+(setq lsp-language-id-configuration '((java-mode . "java")
+                                      (python-mode . "python")
+                                      (gfm-view-mode . "markdown")
+                                      (rust-mode . "rust")
+                                      (css-mode . "css")
+                                      (xml-mode . "xml")
+                                      (c-mode . "c")
+                                      (c++-mode . "cpp")
+                                      (objc-mode . "objective-c")
+                                      (web-mode . "html")
+                                      (html-mode . "html")
+                                      (sgml-mode . "html")
+                                      (mhtml-mode . "html")
+                                      (go-mode . "go")
+                                      (haskell-mode . "haskell")
+                                      (php-mode . "php")
+                                      (json-mode . "json")
+                                      (js2-mode . "javascript")
+                                      (rjsx-mode . "javascript")
+                                      (typescript-mode . "typescript")))
+
+;;; END LSP
+;;;..................................................................................................
+
+
+
 ;;;**************************************************************************************************
 ;;;* BEGIN Clojure
 ;;;* tag: <clojure>
@@ -902,7 +955,7 @@
 
 (use-package cider
   :ensure t
-  :pin melpa-stable
+  ;;:pin melpa-stable
   :config
   (setq cider-prefer-local-resources t)
   (setq nrepl-hide-special-buffers nil)
@@ -1005,7 +1058,7 @@
 (use-package emmet-mode
   :ensure t
   :bind (:map emmet-mode-keymap
-	      ("M-e" . emmet-expand-line))
+              ("M-e" . emmet-expand-line))
   :config (add-hook 'web-mode-hook 'emmet-mode))
 
 
@@ -1035,58 +1088,28 @@
   ;;(setq js2-mode-show-parse-errors nil)
   ;;(setq js2-mode-show-strict-warnings nil)
   (setq js2-strict-missing-semi-warning nil)
-  (add-hook 'js2-mode-hook #'js2-imenu-extras-mode))
-
-(use-package xref-js2
-  :ensure t
-  :after js2-mode
-  :config
-
-  (add-hook 'js2-mode-hook
-            (lambda ()
-              (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
-
-(use-package indium
-  :ensure t
-  :diminish indium-interaction-mode
-  :init
-  (setq indium-update-script-on-save t))
-
-(use-package js2-refactor
-  :ensure t
-  :config
-  (add-hook 'js2-mode-hook #'js2-refactor-mode)
-  (js2r-add-keybindings-with-prefix "C-c C-r")
-  (define-key js2-mode-map (kbd "C-k") #'js2r-kill))
+  :hook ((js2-mode . lsp))
+  :bind (:map js2-mode-map
+	 ("M-." . lsp-find-definition)))
 
 
 (use-package rjsx-mode
   :after js2-mode
-  :pin melpa-stable
   :ensure t
   :mode (("\\.jsx$" . rjsx-mode)
          ("components/.+\\.js$" . rjsx-mode))
-  :hook (rjsx-mode . (lambda ()
-                       (flycheck-mode)
-                       ;;(my-tide-setup-hook)
-                       ;;(company-mode)
-                       ;;(indium-interaction-mode -1)
-                       ;;(js2-refactor-mode -1)
-		       )))
+  :hook (rjsx-mode . lsp))
 
+;; before
+;; npm i -g prettier
 (use-package prettier-js
   :hook ((js2-mode . prettier-js-mode)
          (rjsx-mode . prettier-js-mode)))
 
-;; Getted from https://github.com/howardabrams/dot-files/blob/master/emacs-javascript.org
-;;
-;; (use-package tern
-;;    :ensure t
-;;    :init (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-;;    :config
-;;      (use-package company-tern
-;;         :ensure t
-;;         :init (add-to-list 'company-backends 'company-tern)))
+
+(use-package typescript-mode
+  :mode ("\\.ts$" . rjsx-mode)
+  :hook (typescript-mode . lsp))
 
 ;; END JavaScript
 ;;..............................................................................
@@ -1377,54 +1400,18 @@
 ;;;*
 ;;;**************************************************************************************************
 
-(use-package irony
+(use-package ccls
   :ensure t
-  :defer t
-  :hook ((c-mode . irony-mode)
-         (objc-mode . irony-mode)
-         (c++-mode .irony-mode)))
+  :config
+  (setq ccls-executable "ccls")
+  (setq lsp-prefer-flymake nil)
+  (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+  :hook ((c-mode c++-mode objc-mode) .
+         (lambda () (require 'ccls) (lsp))))
 
-;; Checking/documentation
-
-(use-package flycheck-irony
-  :ensure t
-  :after (flycheck irony)
-  :defer t)
-
-(use-package irony-eldoc
-  :ensure t
-  :after (irony)
-  :defer t)
-
-;; Completion
-
-(use-package company-irony
-  :ensure t
-  :hook (irony-mode . (lambda () (add-to-list (make-local-variable 'company-backends) '(company-irony)))))
-
-(use-package company-irony-c-headers
-  :ensure t
-  :hook (irony-mode . (lambda () (add-to-list (make-local-variable 'company-backends) '(company-irony-c-headers)))))
-
-;; Adapt compilation
-
-(add-hook 'c-mode-hook
-          (lambda ()
-            (unless (or (file-exists-p "Makefile") (boundp 'buffer-file-name))
-              (set (make-local-variable 'compile-command)
-                   (let ((file (file-name-nondirectory buffer-file-name)))
-                     (concat "gcc -g -Wall -Wextra -o " (file-name-sans-extension file) " " file))))))
-
-(add-hook 'c++-mode-hook
-          (lambda ()
-            (unless (file-exists-p "Makefile")
-              (set (make-local-variable 'compile-command)
-                   (let ((file (file-name-nondirectory buffer-file-name)))
-                     (concat "g++ -g -Wall -Wextra -o " (file-name-sans-extension file) " " file))))))
-
-;; C++ specificities
-
-(use-package modern-cpp-font-lock :ensure t)
+(use-package cmake-mode
+  :mode (("/CMakeLists\\.txt\\'" . cmake-mode)
+	 ("\\.cmake\\'" . cmake-mode)))
 
 ;;; END C/C++
 ;;;..................................................................................................
@@ -1579,16 +1566,16 @@
 (use-package switch-window
   :ensure t
   :config
-    (setq switch-window-input-style 'minibuffer)
-    (setq switch-window-increase 4)
-    (setq switch-window-threshold 2)
-    (setq switch-window-shortcut-style 'qwerty)
-    (setq switch-window-qwerty-shortcuts
-          '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
-    (setq switch-window-auto-resize-window nil)
-    (setq switch-window-default-window-size 0.6)
+  (setq switch-window-input-style 'minibuffer)
+  (setq switch-window-increase 4)
+  (setq switch-window-threshold 2)
+  (setq switch-window-shortcut-style 'qwerty)
+  (setq switch-window-qwerty-shortcuts
+        '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
+  (setq switch-window-auto-resize-window nil)
+  (setq switch-window-default-window-size 0.6)
   :bind
-    ([remap other-window] . switch-window))
+  ([remap other-window] . switch-window))
 
 ;; Following window splits
 ;; After you split a window, your focus remains in the previous one.
@@ -1631,11 +1618,11 @@
 ;; You can easily add and remove pairs yourself, have a look.
 
 (setq electric-pair-pairs '(
-                           (?\{ . ?\})
-                           (?\( . ?\))
-                           (?\[ . ?\])
-                           (?\" . ?\")
-                           ))
+                            (?\{ . ?\})
+                            (?\( . ?\))
+                            (?\[ . ?\])
+                            (?\" . ?\")
+                            ))
 ;; отключил, очень мешает порой редактировать код
 (electric-pair-mode -1)
 
@@ -1726,8 +1713,8 @@
 
 ;; Line wrapping
 (add-hook 'org-mode-hook
-	    '(lambda ()
-	       (visual-line-mode 1)))
+          '(lambda ()
+             (visual-line-mode 1)))
 
 
 
@@ -1747,7 +1734,7 @@
 ;; Hitting tab after an “<el” in an org-mode file will create a template for elisp insertion.
 
 (add-to-list 'org-structure-template-alist
-	       '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 
 
 
@@ -1871,3 +1858,65 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------------------------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#FAFAFA" "#FF1744" "#66BB6A" "#F57F17" "#42A5F5" "#7E57C2" "#0097A7" "#546E7A"])
+ '(beacon-color "#F8BBD0")
+ '(custom-safe-themes
+   (quote
+    ("5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" "c3e6b52caa77cb09c049d3c973798bc64b5c43cc437d449eacf35b3e776bf85c" default)))
+ '(evil-emacs-state-cursor (quote ("#D50000" hbar)))
+ '(evil-insert-state-cursor (quote ("#D50000" bar)))
+ '(evil-normal-state-cursor (quote ("#F57F17" box)))
+ '(evil-visual-state-cursor (quote ("#66BB6A" box)))
+ '(flyspell-delay 4)
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(highlight-indent-guides-auto-enabled nil)
+ '(highlight-symbol-colors
+   (quote
+    ("#F57F17" "#66BB6A" "#0097A7" "#42A5F5" "#7E57C2" "#D84315")))
+ '(highlight-symbol-foreground-color "#546E7A")
+ '(highlight-tail-colors (quote (("#F8BBD0" . 0) ("#FAFAFA" . 100))))
+ '(ibuffer-formats
+   (quote
+    ((mark modified read-only vc-status-mini " "
+	   (name 18 18 :left :elide)
+	   " "
+	   (size 9 -1 :right)
+	   " "
+	   (mode 16 16 :left :elide)
+	   " "
+	   (vc-status 10 10 :left)
+	   " " filename-and-process))))
+ '(package-selected-packages
+   (quote
+    (typescript-mode cmake-mode ccls lsp-treemacs helm-lsp company-lsp lsp-ui prettier-js rjsx-mode yasnippet-snippets yaml-tomato yaml-mode xref-js2 which-key web-mode-edit-element web-completion-data web-beautify switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type spaceline scss-mode reverse-im quelpa-use-package popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky modern-cpp-font-lock markdown-mode+ magithub lsp-java logview kibit-helper javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag haml-mode groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle fic-mode expand-region erlang emmet-mode dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-irony-c-headers company-irony clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm beacon apropospriate-theme apache-mode ag)))
+ '(pos-tip-background-color "#ffffffffffff")
+ '(pos-tip-foreground-color "#78909C")
+ '(tabbar-background-color "#ffffffffffff"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
+ '(helm-selection-line ((t (:background "#FFF876" :underline t))))
+ '(tabbar-default ((t (:height 1.2)))))
