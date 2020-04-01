@@ -195,8 +195,8 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height
-                          140 :width normal))))
+   '(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight medium :height
+                          150 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -208,6 +208,13 @@
    '(helm-selection-line ((t (:background "#FFF876" :underline t))))
    '(tabbar-default ((t (:height 1.2))))))
 
+
+;; font scaling
+(use-package default-text-scale
+  :ensure t
+  :config
+  (global-set-key (kbd "C-M-<f12>") 'default-text-scale-increase)
+  (global-set-key (kbd "C-M-<f11>") 'default-text-scale-decrease))
 
 
 ;; Highligh current line
@@ -338,6 +345,16 @@
   ([remap list-directory] . dired)
   :hook
   (dired-mode . dired-hide-details-mode))
+
+(use-package diredfl
+  :ensure t
+  :config
+  (diredfl-global-mode 1))
+
+;; (setq
+;;  dired-listing-switches "-lXGh --group-directories-first"
+;;  dired-dwim-target t)
+;; (add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
 (use-package neotree
   :ensure t
@@ -686,6 +703,7 @@
   (projectile-global-mode)
   (helm-projectile-on)
   (setq projectile-enable-caching nil)
+  (setq projectile-project-search-path '("~/git/"))
   :bind (("C-c p r" . projectile-replace)
          ("C-c p e" . projectile-replace-regexp)))
 
@@ -695,6 +713,14 @@
   :defer 1
   ;;:bind (("C-p s" . projectile-persp-switch-project))
   )
+
+(use-package nameframe
+  :ensure t)
+
+(use-package nameframe-projectile
+  :ensure t
+  :config
+  (nameframe-projectile-mode t))
 
 ;; Let projectile call make
 ;; (global-set-key (kbd "<f5>") 'projectile-compile-project)
@@ -738,6 +764,9 @@
   (global-set-key (kbd "C-c y y") 'helm-yas-complete))
 
 (use-package yasnippet-snippets
+  :ensure t)
+
+(use-package yasnippet-classic-snippets
   :ensure t)
 
 ;;; END Snippets
@@ -876,7 +905,8 @@
 ;;;**************************************************************************************************
 
 (use-package lsp-mode
-  :commands lsp)
+  :commands lsp
+  :hook ((python-mode) . lsp))
 
 ;; optionally
 (use-package lsp-ui
@@ -885,9 +915,6 @@
   :commands company-lsp)
 (use-package helm-lsp
   :commands helm-lsp-workspace-symbol)
-(use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list)
-
 
 (setq lsp-language-id-configuration '((java-mode . "java")
                                       (python-mode . "python")
@@ -901,7 +928,7 @@
                                       (web-mode . "html")
                                       (html-mode . "html")
                                       (sgml-mode . "html")
-                                      (mhtml-mode . "html")
+                                      (mfhtml-mode . "html")
                                       (go-mode . "go")
                                       (haskell-mode . "haskell")
                                       (php-mode . "php")
@@ -911,6 +938,35 @@
                                       (typescript-mode . "typescript")))
 
 ;;; END LSP
+;;;..................................................................................................
+
+
+;;;**************************************************************************************************
+;;;* BEGIN Python
+;;;* tag: <python>
+;;;*
+;;;* description: Some definition for python language
+;;;*
+;;;**************************************************************************************************
+
+;; pip3 install 'python-language-server[all]'
+;; pip3 install -U setuptools
+;; pip3 install virtualenvwrapper flake8 pep8 importmagic autopep8 yapf nose
+
+
+(use-package virtualenvwrapper
+  :ensure t
+  :config
+  (venv-initialize-interactive-shells)
+  (venv-initialize-eshell))
+
+(setq lsp-python-executable-cmd "python3")
+
+(setq python-shell-interpreter "python3"
+      python-shell-interpreter-args "-i")
+
+
+;;; END Python
 ;;;..................................................................................................
 
 
@@ -1090,7 +1146,7 @@
   (setq js2-strict-missing-semi-warning nil)
   :hook ((js2-mode . lsp))
   :bind (:map js2-mode-map
-	 ("M-." . lsp-find-definition)))
+              ("M-." . lsp-find-definition)))
 
 
 (use-package rjsx-mode
@@ -1102,7 +1158,24 @@
 
 ;; before
 ;; npm i -g prettier
+
+;; {
+;;     "singleQuote": true,
+;;     "semi": false,
+;;     "tabWidth": 4
+;; }
+
 (use-package prettier-js
+  :config
+  (setq prettier-js-args '(
+                           ;;"--trailing-comma" "es5"
+                           "--single-quote" "true"
+                           "--tab-width" "4"
+                           ;;"--print-width" "120"
+                           ;;"--arrow-parens" "always"
+                           ;;"--use-tabs" "false"
+                           "--semi" "false"
+                           ))
   :hook ((js2-mode . prettier-js-mode)
          (rjsx-mode . prettier-js-mode)))
 
@@ -1302,14 +1375,22 @@
 ;; brew install pgformatter
 ;; or
 ;; npm i -g sql-formatter-cli
+;; or
+;; sqlparse
+;; https://github.com/andialbrecht/sqlparse
+;; pip install sqlparse
+;; It is a Python module that installs the command sqlformat. Usage is simple, e.g.:
+;; sqlformat --reindent --keywords upper --identifiers lower my_file.sql
+;; Use "-" as FILE to read from stdin
 
 (defun sql-beautify-region (beg end)
   "Beautify SQL in region between beg and END."
   (interactive "r")
   (save-excursion
-    (shell-command-on-region beg end "anbt-sql-formatter" nil t)
+    ;;(shell-command-on-region beg end "anbt-sql-formatter" nil t)
     ;;(shell-command-on-region beg end "pg_format -t" nil t)
-    ;;(shell-command-on-region beg end "sql-formatter-cli " nil t)
+    ;;(shell-command-on-region beg end "sql-formatter-cli -s \"pl/sql\" " nil t)
+    (shell-command-on-region beg end "sqlformat --reindent --keywords upper --identifiers lower --comma_first true -" nil t)
     ))
 
 ;; change sqlbeautify to anbt-sql-formatter if you
@@ -1411,7 +1492,7 @@
 
 (use-package cmake-mode
   :mode (("/CMakeLists\\.txt\\'" . cmake-mode)
-	 ("\\.cmake\\'" . cmake-mode)))
+         ("\\.cmake\\'" . cmake-mode)))
 
 ;;; END C/C++
 ;;;..................................................................................................
@@ -1796,6 +1877,42 @@
 ;; END My Edit
 ;;..............................................................................
 
+;;;**************************************************************************************************
+;;;* BEGIN Eshell
+;;;* tag: <eshell>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
+
+(use-package fish-completion
+  :ensure t
+  :config
+  (global-fish-completion-mode))
+
+;; (use-package eshell-prompt-extras
+;; :ensure t
+;; :config
+;; (setq epe-show-python-info nil)
+;; )
+
+(use-package eshell-git-prompt
+  :ensure t
+  :config
+  (eshell-git-prompt-use-theme 'git-radar))
+
+(setq scroll-step 1)
+
+;;; END Eshell
+;;;..................................................................................................
+
+
 ;;------------------------------------------------------------------------------
 ;; BEGIN: TTT Terminal
 ;; tag: <ansiterm ttt>
@@ -1863,17 +1980,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#FAFAFA" "#FF1744" "#66BB6A" "#F57F17" "#42A5F5" "#7E57C2" "#0097A7" "#546E7A"])
- '(beacon-color "#F8BBD0")
- '(custom-safe-themes
-   (quote
-    ("5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" "c3e6b52caa77cb09c049d3c973798bc64b5c43cc437d449eacf35b3e776bf85c" default)))
- '(evil-emacs-state-cursor (quote ("#D50000" hbar)))
- '(evil-insert-state-cursor (quote ("#D50000" bar)))
- '(evil-normal-state-cursor (quote ("#F57F17" box)))
- '(evil-visual-state-cursor (quote ("#66BB6A" box)))
- '(flyspell-delay 4)
  '(git-gutter:added-sign "☀")
  '(git-gutter:deleted-sign "☂")
  '(git-gutter:hide-gutter t)
@@ -1881,35 +1987,15 @@
  '(git-gutter:separator-sign "|")
  '(git-gutter:unchanged-sign " ")
  '(git-gutter:window-width 2)
- '(highlight-indent-guides-auto-enabled nil)
- '(highlight-symbol-colors
-   (quote
-    ("#F57F17" "#66BB6A" "#0097A7" "#42A5F5" "#7E57C2" "#D84315")))
- '(highlight-symbol-foreground-color "#546E7A")
- '(highlight-tail-colors (quote (("#F8BBD0" . 0) ("#FAFAFA" . 100))))
- '(ibuffer-formats
-   (quote
-    ((mark modified read-only vc-status-mini " "
-	   (name 18 18 :left :elide)
-	   " "
-	   (size 9 -1 :right)
-	   " "
-	   (mode 16 16 :left :elide)
-	   " "
-	   (vc-status 10 10 :left)
-	   " " filename-and-process))))
  '(package-selected-packages
    (quote
-    (typescript-mode cmake-mode ccls lsp-treemacs helm-lsp company-lsp lsp-ui prettier-js rjsx-mode yasnippet-snippets yaml-tomato yaml-mode xref-js2 which-key web-mode-edit-element web-completion-data web-beautify switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type spaceline scss-mode reverse-im quelpa-use-package popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky modern-cpp-font-lock markdown-mode+ magithub lsp-java logview kibit-helper javadoc-lookup java-snippets irony-eldoc indium ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-descbinds helm-c-yasnippet helm-ag haml-mode groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist gh-md flycheck-irony flycheck-gradle fic-mode expand-region erlang emmet-mode dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-irony-c-headers company-irony clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm beacon apropospriate-theme apache-mode ag)))
- '(pos-tip-background-color "#ffffffffffff")
- '(pos-tip-foreground-color "#78909C")
- '(tabbar-background-color "#ffffffffffff"))
+    (yasnippet-classic-snippets default-text-scale eshell-git-prompt fish-completion exec-path-from-shell nameframe-projectile nameframe diredfl jedi virtualenvwrapper yasnippet-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify typescript-mode switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type spacemacs-theme spaceline solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky markdown-preview-mode markdown-mode+ magit-popup lsp-ui lsp-treemacs lsp-java logview kibit-helper javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-lsp helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flymd flycheck-gradle fic-mode expand-region erlang emmet-mode dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-lsp cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls beacon apropospriate-theme apache-mode alect-themes ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code Medium" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
+ '(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight medium :height 150 :width normal))))
  '(font-lock-builtin-face ((t (:weight bold))))
  '(font-lock-constant-face ((t (:weight bold))))
  '(font-lock-function-name-face ((t (:weight bold))))
