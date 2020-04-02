@@ -937,6 +937,9 @@
                                       (rjsx-mode . "javascript")
                                       (typescript-mode . "typescript")))
 
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
 ;;; END LSP
 ;;;..................................................................................................
 
@@ -1011,7 +1014,7 @@
 
 (use-package cider
   :ensure t
-  ;;:pin melpa-stable
+  :pin melpa-stable
   :config
   (setq cider-prefer-local-resources t)
   (setq nrepl-hide-special-buffers nil)
@@ -1480,6 +1483,9 @@
 ;;;* description: С/C++
 ;;;*
 ;;;**************************************************************************************************
+
+;; cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+;; ln -s Debug/compile_commands.json .
 
 (use-package ccls
   :ensure t
