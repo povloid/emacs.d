@@ -195,8 +195,8 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight medium :height
-                          150 :width normal))))
+   '(default ((t (:family "Iosevka Type Slab" :foundry "PARA" :slant normal :weight medium :height
+                          160 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -207,7 +207,6 @@
    '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
    '(helm-selection-line ((t (:background "#FFF876" :underline t))))
    '(tabbar-default ((t (:height 1.2))))))
-
 
 ;; font scaling
 (use-package default-text-scale
@@ -1517,10 +1516,12 @@
   :ensure t
   :requires (lsp-ui-flycheck lsp-ui-sideline)
   :hook
-  (java-mode . (lambda () (add-to-list (make-local-variable 'company-backends) 'company-lsp)))
+  (java-mode . (lambda ()
+		 (add-to-list (make-local-variable 'company-backends) 'company-lsp)))
   (java-mode . lsp-java-enable)
   (java-mode . flycheck-mode)
-  (java-mode . (lambda () (lsp-ui-flycheck-enable t)))
+  (java-mode . (lambda ()
+		 (lsp-ui-flycheck-enable t)))
   (java-mode . lsp-ui-sideline-mode)
   :config
   (setq lsp-java-save-action-organize-imports nil))
@@ -1981,34 +1982,3 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------------------------------------------------------------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(git-gutter:added-sign "☀")
- '(git-gutter:deleted-sign "☂")
- '(git-gutter:hide-gutter t)
- '(git-gutter:modified-sign "☁")
- '(git-gutter:separator-sign "|")
- '(git-gutter:unchanged-sign " ")
- '(git-gutter:window-width 2)
- '(package-selected-packages
-   (quote
-    (yasnippet-classic-snippets default-text-scale eshell-git-prompt fish-completion exec-path-from-shell nameframe-projectile nameframe diredfl jedi virtualenvwrapper yasnippet-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify typescript-mode switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type spacemacs-theme spaceline solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky markdown-preview-mode markdown-mode+ magit-popup lsp-ui lsp-treemacs lsp-java logview kibit-helper javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-projectile helm-lsp helm-descbinds helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flymd flycheck-gradle fic-mode expand-region erlang emmet-mode dockerfile-mode docker-api docker diminish darkroom csv-mode config-general-mode company-lsp cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls beacon apropospriate-theme apache-mode alect-themes ag))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight medium :height 150 :width normal))))
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
- '(helm-selection-line ((t (:background "#FFF876" :underline t))))
- '(tabbar-default ((t (:height 1.2)))))
