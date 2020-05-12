@@ -82,6 +82,11 @@
 ;;;*
 ;;;**************************************************************************************************
 
+
+(add-to-list 'default-frame-alist '(height . 36))
+(add-to-list 'default-frame-alist '(width . 120))
+
+
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 50MB of allocated data (the default is on every 0.76MB)
 (setq gc-cons-threshold 50000000)
@@ -399,17 +404,18 @@
 
 (use-package paredit
   :ensure t
+  :pin melpa-stable
   :config
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook                  #'paredit-mode)
   ;; enable in the *scratch* buffer
-  (add-hook 'clojure-mode-hook           #'paredit-mode)
-  (add-hook 'clojurescript-mode-hook     #'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook        #'paredit-mode)
+  (add-hook 'clojure-mode-hook                     #'paredit-mode)
+  (add-hook 'clojurescript-mode-hook               #'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook                  #'paredit-mode)
   (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
-  (add-hook 'ielm-mode-hook #'paredit-mode)
-  (add-hook 'scheme-mode-hook            #'paredit-mode)
-  (add-hook 'lisp-mode-hook #'paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook #'paredit-mode))
+  (add-hook 'ielm-mode-hook                        #'paredit-mode)
+  (add-hook 'scheme-mode-hook                      #'paredit-mode)
+  (add-hook 'lisp-mode-hook                        #'paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook            #'paredit-mode))
 
 ;; multiple cursore
 (use-package multiple-cursors
@@ -692,42 +698,38 @@
          ("C-c p g" . helm-projectile-grep)
          ("C-c p b" . helm-projectile-switch-to-buffer)))
 
-(use-package perspective
-  :init (persp-mode))
-
 (use-package projectile
   :ensure t
   :config
-  (setq projectile-completion-system 'helm)
-  (projectile-global-mode)
-  (helm-projectile-on)
-  (setq projectile-enable-caching nil)
-  (setq projectile-project-search-path '("~/git/"))
-  :bind (("C-c p r" . projectile-replace)
-         ("C-c p e" . projectile-replace-regexp)))
+  (define-key projectile-mode-map (kbd "s-p")   'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1)
+  (setq projectile-completion-system 'helm))
 
+(use-package perspective
+  :init (persp-mode))
 
 (use-package persp-projectile
   :ensure t
   :defer 1
-  ;;:bind (("C-p s" . projectile-persp-switch-project))
-  )
+  :bind (("C-c p w" . projectile-persp-switch-project)))
 
-(use-package nameframe
-  :ensure t)
-
-(use-package nameframe-projectile
-  :ensure t
-  :config
-  (nameframe-projectile-mode t))
+;; Нужно для того чтобы открывать каждый проект в своем фрейме
+;; пока не ончень порой удобно, решено оставить на будущее
+;;
+;; (use-package nameframe
+;;   :ensure t)
+;; (use-package nameframe-projectile
+;;   :ensure t
+;;   :config
+;;   (nameframe-projectile-mode t))
 
 ;; Let projectile call make
 ;; (global-set-key (kbd "<f5>") 'projectile-compile-project)
 
-
-
+;;
 ;; Todos/projectile
-
+;;
 (use-package org-projectile
   :ensure t
   :after org
@@ -1168,16 +1170,17 @@
 ;; }
 
 (use-package prettier-js
-  :config
-  (setq prettier-js-args '(
-                           ;;"--trailing-comma" "es5"
-                           "--single-quote" "true"
-                           "--tab-width" "4"
-                           ;;"--print-width" "120"
-                           ;;"--arrow-parens" "always"
-                           ;;"--use-tabs" "false"
-                           "--semi" "false"
-                           ))
+  ;; Данные форматирования всегда берем из .prettierrc файлов
+  ;; :config
+  ;; (setq prettier-js-args '(
+  ;;                          ;;"--trailing-comma" "es5"
+  ;;                          "--single-quote" "true"
+  ;;                          ;;"--print-width" "120"
+  ;;                          ;;"--arrow-parens" "always"
+  ;;                          ;;"--use-tabs" "false"
+  ;;                          "--semi" "false"
+  ;;                          ))
+  ;;
   :hook ((js2-mode . prettier-js-mode)
          (rjsx-mode . prettier-js-mode)))
 
@@ -1982,3 +1985,34 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------------------------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(package-selected-packages
+   (quote
+    (eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region beacon switch-window diminish which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker sql-indent markdown-mode+ erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato yaml-mode json-mode typescript-mode prettier-js rjsx-mode js2-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp company-lsp lsp-ui lsp-mode hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ git-gutter magit yasnippet-classic-snippets yasnippet-snippets helm-c-yasnippet yasnippet org-projectile persp-projectile perspective helm-projectile helm-ag ag helm-themes helm-swoop helm-descbinds helm fic-mode flycheck company ibuffer-vc highlight-numbers multiple-cursors paredit reverse-im neotree diredfl spaceline apropospriate-theme default-text-scale quelpa-use-package quelpa use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Iosevka Type Slab" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
+ '(helm-selection-line ((t (:background "#FFF876" :underline t))))
+ '(tabbar-default ((t (:height 1.2)))))
