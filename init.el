@@ -687,16 +687,19 @@
 ;;;*
 ;;;**************************************************************************************************
 
-(use-package helm-projectile
-  :ensure t
-  :config
-  (helm-projectile-on)
-  :bind (("C-c p p" . helm-projectile-switch-project)
-         ("C-c p f" . helm-projectile-find-file)
-         ("C-c p k" . helm-projectile-find-file-in-known-projects)
-         ("C-c p s" . helm-projectile-ag)
-         ("C-c p g" . helm-projectile-grep)
-         ("C-c p b" . helm-projectile-switch-to-buffer)))
+;; (use-package helm-projectile
+;;   :ensure t
+;;   :config
+;;   :bind (("C-c p p" . helm-projectile-switch-project)
+;;          ("C-c p f" . helm-projectile-find-file)
+;;          ("C-c p k" . helm-projectile-find-file-in-known-projects)
+;;          ("C-c p s" . helm-projectile-ag)
+;;          ("C-c p g" . helm-projectile-grep)
+;;          ("C-c p b" . helm-projectile-switch-to-buffer)))
+
+(defun projectile-default-project-name-2 (project-root)
+  ;; чтобы корректно переключались перспективы вместе с проектом
+  (directory-file-name project-root))
 
 (use-package projectile
   :ensure t
@@ -704,10 +707,14 @@
   (define-key projectile-mode-map (kbd "s-p")   'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1)
-  (setq projectile-completion-system 'helm))
+  (setq projectile-enable-caching nil)
+  (setq projectile-completion-system 'helm)
+  (setq projectile-file-exists-local-cache-expire (* 5 60))
+  (setq projectile-project-name-function 'projectile-default-project-name-2))
 
 (use-package perspective
-  :init (persp-mode))
+  :config
+  (persp-mode))
 
 (use-package persp-projectile
   :ensure t
