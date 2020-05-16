@@ -302,6 +302,9 @@
   :hook
   (after-init . doom-modeline-mode)
   :config
+  (setq doom-modeline-height 1)
+  (set-face-attribute 'mode-line nil :family "Iosevka Slab" :height 130)
+  (set-face-attribute 'mode-line-inactive nil :family "Iosevka Slab" :height 130)
   (doom-modeline-def-modeline 'main
     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
     '(;;misc-info
