@@ -703,7 +703,9 @@
 
 (defun projectile-default-project-name-2 (project-root)
   ;; чтобы корректно переключались перспективы вместе с проектом
-  (directory-file-name project-root))
+  (expand-file-name project-root))
+
+;;(expand-file-name "~/emacs.d")
 
 (use-package projectile
   :ensure t
@@ -1996,34 +1998,3 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------------------------------------------------------------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(git-gutter:added-sign "☀")
- '(git-gutter:deleted-sign "☂")
- '(git-gutter:hide-gutter t)
- '(git-gutter:modified-sign "☁")
- '(git-gutter:separator-sign "|")
- '(git-gutter:unchanged-sign " ")
- '(git-gutter:window-width 2)
- '(package-selected-packages
-   (quote
-    (eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region beacon switch-window diminish which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker sql-indent markdown-mode+ erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato yaml-mode json-mode typescript-mode prettier-js rjsx-mode js2-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp company-lsp lsp-ui lsp-mode hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ git-gutter magit yasnippet-classic-snippets yasnippet-snippets helm-c-yasnippet yasnippet org-projectile persp-projectile perspective helm-projectile helm-ag ag helm-themes helm-swoop helm-descbinds helm fic-mode flycheck company ibuffer-vc highlight-numbers multiple-cursors paredit reverse-im neotree diredfl spaceline apropospriate-theme default-text-scale quelpa-use-package quelpa use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Type Slab" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
- '(helm-selection-line ((t (:background "#FFF876" :underline t))))
- '(tabbar-default ((t (:height 1.2)))))
