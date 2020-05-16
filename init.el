@@ -291,17 +291,21 @@
 ;; One modeline-related setting that is missing and is instead placed at the bottom is diminish.
 ;;------------------------------------------------------------------------------
 
-(use-package spaceline
+(use-package doom-modeline
   :ensure t
-  :pin melpa-stable
+  :init (doom-modeline-mode 1)
+  :custom
+  (doom-modeline-buffer-file-name-style 'truncate-with-project)
+  (doom-modeline-icon t)
+  (doom-modeline-major-mode-icon nil)
+  (doom-modeline-minor-modes nil)
+  :hook
+  (after-init . doom-modeline-mode)
   :config
-  (require 'spaceline-config)
-  (setq spaceline-buffer-encoding-abbrev-p nil)
-  (setq spaceline-line-column-p t)
-  (setq spaceline-line-p t)
-  (setq powerline-default-separator (quote arrow))
-  (spaceline-spacemacs-theme))
-
+  (doom-modeline-def-modeline 'main
+    '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+    '(;;misc-info
+      persp-name lsp github debug minor-modes input-method major-mode process vcs checker)))
 
 ;; No separator!
 (setq powerline-default-separator nil)
@@ -1527,11 +1531,11 @@
   :requires (lsp-ui-flycheck lsp-ui-sideline)
   :hook
   (java-mode . (lambda ()
-		 (add-to-list (make-local-variable 'company-backends) 'company-lsp)))
+                 (add-to-list (make-local-variable 'company-backends) 'company-lsp)))
   (java-mode . lsp-java-enable)
   (java-mode . flycheck-mode)
   (java-mode . (lambda ()
-		 (lsp-ui-flycheck-enable t)))
+                 (lsp-ui-flycheck-enable t)))
   (java-mode . lsp-ui-sideline-mode)
   :config
   (setq lsp-java-save-action-organize-imports nil))
