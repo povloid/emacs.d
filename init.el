@@ -939,11 +939,11 @@
 (use-package lsp-ui
   :commands lsp-ui-mode
   :config
-  (setq lsp-ui-doc-header nil)
+  (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature t)
   (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-use-webkit t)
-  (setq lsp-ui-doc-border 'black)
+  (setq lsp-ui-doc-position 'top)
   ;;
   (setq lsp-eldoc-hook nil))
 
