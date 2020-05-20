@@ -220,16 +220,20 @@
   (global-set-key (kbd "C-M-<f12>") 'default-text-scale-increase)
   (global-set-key (kbd "C-M-<f11>") 'default-text-scale-decrease))
 
-
+;; Подсветка текущей строки курсора - пока ненужно.
+;; Некоторые темы ее отрисовывaют неадекватно
+;; ----------------------------------------------------
 ;; Highligh current line
 ;; hl-line is awesome! It’s not very awesome in the terminal version of emacs though, so we don’t use that. Besides, it’s only used for programming.
-(when window-system
-  (add-hook 'prog-mode-hook 'hl-line-mode))
+;; (when window-system
+;;   (add-hook 'prog-mode-hook 'hl-line-mode))
 
-(use-package hl-line
-  :ensure nil
-  :config
-  (global-hl-line-mode 1))
+;; (use-package hl-line
+;;   :ensure nil
+;;   :config
+;;   (global-hl-line-mode 1))
+
+
 
 ;; Pretty symbols
 ;; Changes lambda to an actual symbol and a few others as well, only in the GUI version though.
@@ -258,7 +262,7 @@
 (use-package apropospriate-theme
   :ensure t
   :config
-  (load-theme 'apropospriate-dark t)
+  ;;(load-theme 'apropospriate-dark t)
   ;; or
   ;;(load-theme 'apropospriate-light t)
   )
@@ -277,7 +281,13 @@
 ;;     (setq doom-neotree-line-spacing 0)
 ;;     (doom-themes-org-config)))
 
-(set-cursor-color "yellow")
+
+(use-package gruvbox-theme
+  :ensure t
+  :config
+  (load-theme 'gruvbox-light-medium t))
+
+;;(set-cursor-color "yellow")
 
 ;; END Themes
 ;;..............................................................................
@@ -302,9 +312,9 @@
   :hook
   (after-init . doom-modeline-mode)
   :config
-  (setq doom-modeline-height 1)
-  (set-face-attribute 'mode-line nil :family "Iosevka Slab" :height 130)
-  (set-face-attribute 'mode-line-inactive nil :family "Iosevka Slab" :height 130)
+  ;;(setq doom-modeline-height 0)
+  ;;(set-face-attribute 'mode-line nil :family "Iosevka Slab" :height 130)
+  ;;(set-face-attribute 'mode-line-inactive nil :family "Iosevka Slab" :height 130)
   (doom-modeline-def-modeline 'main
     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
     '(;;misc-info
@@ -927,7 +937,16 @@
 
 ;; optionally
 (use-package lsp-ui
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-header nil)
+  (setq lsp-ui-doc-include-signature t)
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-use-webkit t)
+  (setq lsp-ui-doc-border 'black)
+  ;;
+  (setq lsp-eldoc-hook nil))
+
 (use-package company-lsp
   :commands company-lsp)
 (use-package helm-lsp
@@ -1501,6 +1520,8 @@
 ;;;* description: С/C++
 ;;;*
 ;;;**************************************************************************************************
+
+;; brew install ccls
 
 ;; cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
 ;; ln -s Debug/compile_commands.json .
