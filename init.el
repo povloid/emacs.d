@@ -82,10 +82,8 @@
 ;;;*
 ;;;**************************************************************************************************
 
-
 (add-to-list 'default-frame-alist '(height . 36))
 (add-to-list 'default-frame-alist '(width . 120))
-
 
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 50MB of allocated data (the default is on every 0.76MB)
@@ -114,7 +112,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (set-default 'truncate-lines -1)
 
-
 ;; Set UTF-8 encoding
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -123,8 +120,8 @@
 (set-terminal-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 
+;; unix
 (set-buffer-file-coding-system 'unix)
-
 
 ;; Disable bell
 ;; This is annoying, remove this line if you like being visually reminded of events.
@@ -152,7 +149,6 @@
 
 ;; END Emacs server
 ;;..............................................................................
-
 
 ;;------------------------------------------------------------------------------
 ;; BEGIN: interface
@@ -200,7 +196,7 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(default ((t (:family "Iosevka Type Slab" :foundry "PARA" :slant normal :weight medium :height
+   '(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight medium :height
                           160 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
@@ -233,8 +229,6 @@
 ;;   :config
 ;;   (global-hl-line-mode 1))
 
-
-
 ;; Pretty symbols
 ;; Changes lambda to an actual symbol and a few others as well, only in the GUI version though.
 ;; ligatures fonts
@@ -246,8 +240,8 @@
 ;;     :config
 ;;     (global-pretty-mode t)))
 
-;; (use-package leuven-theme
-;;   :ensure t)
+(use-package leuven-theme
+  :ensure t)
 
 ;; (use-package solarized-theme
 ;;   :if (display-graphic-p)
@@ -261,7 +255,7 @@
 
 (use-package apropospriate-theme
   :ensure t
-  :config
+  ;;:config
   ;;(load-theme 'apropospriate-dark t)
   ;; or
   ;;(load-theme 'apropospriate-light t)
@@ -269,23 +263,21 @@
 
 ;; (use-package color-theme-sanityinc-tomorrow
 ;;   :ensure t
-;;   :config
-;;   (load-theme 'sanityinc-tomorrow-night t))
+;;   ;;:config
+;;   ;;(load-theme 'sanityinc-tomorrow-night t)
+;;   )
 
 ;; (use-package doom-themes
-;;   :init
-;;   (load-theme 'doom-nord t)
-;;   :config
-;;   (progn
-;;     (doom-themes-neotree-config)
-;;     (setq doom-neotree-line-spacing 0)
-;;     (doom-themes-org-config)))
+;;   :ensure t)
 
+;; (use-package gruvbox-theme
+;;   :ensure t
+;;   ;;:config
+;;   ;;(load-theme 'gruvbox-light-medium t)
+;;   )
 
-(use-package gruvbox-theme
-  :ensure t
-  :config
-  (load-theme 'gruvbox-light-medium t))
+(use-package monokai-theme
+  :ensure t)
 
 ;;(set-cursor-color "yellow")
 
@@ -418,7 +410,6 @@
 ;; (setq-default cursor-type 'hbar )
 (setq-default cursor-type '(hbar . 4))
 
-
 (use-package paredit
   :ensure t
   :pin melpa-stable
@@ -536,7 +527,6 @@
 ;;;**************************************************************************************************
 
 (use-package company
-  :diminish company-mode
   :hook
   (after-init . global-company-mode))
 
@@ -552,7 +542,6 @@
 ;;;**************************************************************************************************
 
 (use-package flycheck
-  :diminish flycheck-mode
   :hook
   (prog-mode . flycheck-mode))
 
@@ -564,6 +553,7 @@
 
 ;;; END FlyCheck
 ;;;..................................................................................................
+
 
 ;;;**************************************************************************************************
 ;;;* BEGIN Spell checking
@@ -853,7 +843,6 @@
     ;;; Jump between hunks
     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
-
     ;;; Act on hunks
     (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
     (define-key git-gutter+-mode-map (kbd "C-x r") 'git-gutter+-revert-hunks)
@@ -936,19 +925,19 @@
   :hook ((python-mode) . lsp))
 
 ;; optionally
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  :config
-  (setq lsp-ui-doc-header t)
-  (setq lsp-ui-doc-include-signature t)
-  (setq lsp-ui-doc-enable t)
-  (setq lsp-ui-doc-use-webkit t)
-  (setq lsp-ui-doc-position 'top)
-  ;;
-  (setq lsp-eldoc-hook nil))
+;; (use-package lsp-ui
+;;   :commands lsp-ui-mode
+;;   :config
+;;   (setq lsp-ui-doc-header t)
+;;   (setq lsp-ui-doc-include-signature t)
+;;   (setq lsp-ui-doc-enable t)
+;;   (setq lsp-ui-doc-use-webkit t)
+;;   (setq lsp-ui-doc-position 'top)
+;;   (setq lsp-eldoc-hook nil))
 
 (use-package company-lsp
   :commands company-lsp)
+
 (use-package helm-lsp
   :commands helm-lsp-workspace-symbol)
 
@@ -992,6 +981,9 @@
 ;; pip3 install -U setuptools
 ;; pip3 install virtualenvwrapper flake8 pep8 importmagic autopep8 yapf nose
 
+;; Надо попробовать этот вариант
+;; (use-package lsp-python-ms
+;;   :hook (python-mode . lsp))
 
 (use-package virtualenvwrapper
   :ensure t
@@ -1009,7 +1001,6 @@
 ;;;..................................................................................................
 
 
-
 ;;;**************************************************************************************************
 ;;;* BEGIN Clojure
 ;;;* tag: <clojure>
@@ -1017,8 +1008,6 @@
 ;;;* description: Язык программирования CLOJURE
 ;;;*
 ;;;**************************************************************************************************
-
-;; clojure =-------------------------------------------------------------------------------------------
 
 (use-package clojure-mode
   :ensure t
@@ -1073,7 +1062,6 @@
     (insert "(do (use 'figwheel-sidecar.repl-api) (cljs-repl))")))
 
 (use-package clj-refactor
-  :diminish clj-refactor-mode
   :ensure t
   :commands clj-refactor-mode
   :init
@@ -1419,18 +1407,19 @@
 ;; sqlparse
 ;; https://github.com/andialbrecht/sqlparse
 ;; pip install sqlparse
+;; pip3 install sqlparse <-- переустановка в случае проблем
 ;; It is a Python module that installs the command sqlformat. Usage is simple, e.g.:
 ;; sqlformat --reindent --keywords upper --identifiers lower my_file.sql
 ;; Use "-" as FILE to read from stdin
 
-(defun sql-beautify-region (beg end)
-  "Beautify SQL in region between beg and END."
+(defun sql-beautify-region (begin end)
+  "Beautify SQL in region from BEGIN to END."
   (interactive "r")
   (save-excursion
     ;;(shell-command-on-region beg end "anbt-sql-formatter" nil t)
     ;;(shell-command-on-region beg end "pg_format -t" nil t)
     ;;(shell-command-on-region beg end "sql-formatter-cli -s \"pl/sql\" " nil t)
-    (shell-command-on-region beg end "sqlformat --reindent --keywords upper --identifiers lower --comma_first true -" nil t)
+    (shell-command-on-region begin end "sqlformat --reindent --keywords upper --identifiers lower --comma_first true -" nil t)
     ))
 
 ;; change sqlbeautify to anbt-sql-formatter if you
@@ -1651,37 +1640,6 @@
 
 ;;; END
 ;;;..................................................................................................
-
-;;------------------------------------------------------------------------------
-;; BEGIN: Diminish
-;; tag: <diminish>
-;; description:
-;;------------------------------------------------------------------------------
-
-(use-package diminish
-  :ensure t
-  :init
-  (diminish 'which-key-mode)
-  (diminish 'linum-relative-mode)
-  (diminish 'hungry-delete-mode)
-  (diminish 'visual-line-mode)
-  (diminish 'subword-mode)
-  (diminish 'beacon-mode)
-  (diminish 'irony-mode)
-  (diminish 'page-break-lines-mode)
-  (diminish 'auto-revert-mode)
-  (diminish 'rainbow-delimiters-mode)
-  (diminish 'rainbow-mode)
-  (diminish 'paredit-mode)
-  (diminish 'helm-mode)
-  (diminish 'git-gutter-mode)
-  (diminish 'git-gutter+-mode)
-  (diminish 'flyspell-mode)
-  (diminish 'company-mode)
-  (diminish 'eldoc-mode))
-
-;; END Diminish
-;;..............................................................................
 
 ;;;**************************************************************************************************
 ;;;* BEGIN Windows

@@ -1,6 +1,7 @@
 #!/bin/sh
 
 brew install ispell
+npm -g install js-beautify
 
 # CONFDIR=$HOME/.emacs.d
 # if [ -e $CONFDIR ]
