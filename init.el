@@ -147,6 +147,11 @@
   (unless (server-running-p)
     (server-start)))
 
+(use-package keyfreq
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
+
 ;; END Emacs server
 ;;..............................................................................
 
@@ -196,8 +201,11 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight medium :height
-                          160 :width normal))))
+   ;;'(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 150 :width normal))))
+   '(default ((t (:family "Iosevka Fixed Slab" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+   ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 160 :width normal))))
+   ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 130 :width normal))))
+   ;;'(default ((t (:family "Source Code Pro" :foundry "PARA" :slant normal :weight light :height 150 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -207,9 +215,11 @@
    '(font-lock-variable-name-face ((t (:weight bold))))
    '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
    '(helm-selection-line ((t (:background "#FFF876" :underline t))))
-   '(tabbar-default ((t (:height 1.2))))))
+   '(tabbar-default ((t (:height 1.2))))
+   '(flymake-errline ((((class color)) (:background "Gray30"))))
+   '(flymake-warnline ((((class color)) (:background "Gray20"))))))
 
-;; font scaling
+;; font scaling sefw
 (use-package default-text-scale
   :ensure t
   :config
@@ -240,8 +250,8 @@
 ;;     :config
 ;;     (global-pretty-mode t)))
 
-(use-package leuven-theme
-  :ensure t)
+;; (use-package leuven-theme
+;;   :ensure t)
 
 ;; (use-package solarized-theme
 ;;   :if (display-graphic-p)
@@ -255,8 +265,8 @@
 
 (use-package apropospriate-theme
   :ensure t
-  ;;:config
-  ;;(load-theme 'apropospriate-dark t)
+  :config
+  (load-theme 'apropospriate-dark t)
   ;; or
   ;;(load-theme 'apropospriate-light t)
   )
@@ -276,8 +286,8 @@
 ;;   ;;(load-theme 'gruvbox-light-medium t)
 ;;   )
 
-(use-package monokai-theme
-  :ensure t)
+;; (use-package monokai-theme
+;;   :ensure t)
 
 ;;(set-cursor-color "yellow")
 
@@ -542,8 +552,14 @@
 ;;;**************************************************************************************************
 
 (use-package flycheck
-  :hook
-  (prog-mode . flycheck-mode))
+  :ensure t
+  :custom
+  (flycheck-display-errors-delay 0)
+  :config
+  (global-flycheck-mode)
+  ;;:hook
+  ;;(prog-mode . flycheck-mode)
+  )
 
 ;; Fly-check красит mode-line в желтый цвет - неочень хорошо
 ;; (use-package flycheck-color-mode-line
@@ -567,20 +583,21 @@
   :defer t
   :ensure nil)
 
-(use-package flyspell
-  :defer t
-  :ensure nil
-  :hook ((text-mode . flyspell-mode)
-         (prog-mode . flyspell-prog-mode))
-  :custom
-  (flyspell-delay 4)
-  ;;:bind ("C-x ;" . flyspell-auto-correct-previous-word)
-  :init
-  (progn
-    ;; Below variables need to be set before `flyspell' is loaded.
-    (setq flyspell-use-meta-tab nil)
-    ;; Binding for `flyspell-auto-correct-previous-word'.
-    (setq flyspell-auto-correct-binding (kbd "<S-f12>"))))
+;; (use-package flyspell
+;;   :defer t
+;;   :ensure nil
+;;   :hook ((text-mode . flyspell-mode)
+;;          (prog-mode . flyspell-prog-mode))
+;;   :custom
+;;   (flyspell-delay 4)
+;;   ;;:bind ("C-x ;" . flyspell-auto-correct-previous-word)
+;;   :init
+;;   ;; (progn
+;;   ;;   ;; Below variables need to be set before `flyspell' is loaded.
+;;   ;;   (setq flyspell-use-meta-tab nil)
+;;   ;;   ;; Binding for `flyspell-auto-correct-previous-word'.
+;;   ;;   (setq flyspell-auto-correct-binding (kbd "<S-f12>")))
+;;   )
 
 ;;; END Spell checking
 ;;;..................................................................................................
@@ -671,16 +688,17 @@
         ("C-h" . isearch-delete-char)))
 
 (use-package ag
-  :ensure t
-  :commands (ag ag-regexp ag-project))
+  :ensure
+  ;;:commands (ag ag-regexp ag-project)
+  )
 
-(use-package helm-ag
-  :ensure helm-ag
-  :bind ("M-p" . helm-projectile-ag)
-  :commands (helm-ag helm-projectile-ag)
-  :init (setq helm-ag-insert-at-point 'symbol
-              helm-ag-use-agignore 1
-              helm-ag-command-option "--path-to-ignore ~/.agignore"))
+;; (use-package helm-ag
+;;   :ensure helm-ag
+;;   :bind ("M-p" . helm-projectile-ag)
+;;   :commands (helm-ag helm-projectile-ag)
+;;   :init (setq helm-ag-insert-at-point 'symbol
+;;               helm-ag-use-agignore 1
+;; 	      helm-ag-command-option "-U"))
 
 ;;; END Search files and strings
 ;;;..................................................................................................
@@ -704,9 +722,9 @@
 ;;          ("C-c p g" . helm-projectile-grep)
 ;;          ("C-c p b" . helm-projectile-switch-to-buffer)))
 
-(defun projectile-default-project-name-2 (project-root)
-  ;; чтобы корректно переключались перспективы вместе с проектом
-  (expand-file-name project-root))
+;; (defun projectile-default-project-name-2 (project-root)
+;;   ;; чтобы корректно переключались перспективы вместе с проектом
+;;   (expand-file-name project-root))
 
 ;;(expand-file-name "~/emacs.d")
 
@@ -719,16 +737,17 @@
   (setq projectile-enable-caching nil)
   (setq projectile-completion-system 'helm)
   (setq projectile-file-exists-local-cache-expire (* 5 60))
-  (setq projectile-project-name-function 'projectile-default-project-name-2))
+  ;;(setq projectile-project-name-function 'projectile-default-project-name-2)
+  )
 
 (use-package perspective
   :config
   (persp-mode))
 
-(use-package persp-projectile
-  :ensure t
-  :defer 1
-  :bind (("C-c p w" . projectile-persp-switch-project)))
+;; (use-package persp-projectile
+;;   :ensure t
+;;   :defer 1
+;;   :bind (("C-c p w" . projectile-persp-switch-project)))
 
 ;; Нужно для того чтобы открывать каждый проект в своем фрейме
 ;; пока не ончень порой удобно, решено оставить на будущее
@@ -1171,6 +1190,12 @@
   ;;(setq js2-mode-show-parse-errors nil)
   ;;(setq js2-mode-show-strict-warnings nil)
   (setq js2-strict-missing-semi-warning nil)
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(js2-error ((t (:background "#440000" :box nil)))))
   :hook ((js2-mode . lsp))
   :bind (:map js2-mode-map
               ("M-." . lsp-find-definition)))
@@ -1207,6 +1232,16 @@
   :hook ((js2-mode . prettier-js-mode)
          (rjsx-mode . prettier-js-mode)))
 
+
+(use-package js-doc
+    ;; :bind (:map js2-mode-map
+    ;; 		("C-c i" . js-doc-insert-function-doc)
+    ;; 		("@" . js-doc-insert-tag))
+    :config
+    (setq js-doc-mail-address "t34box@gmail.com"
+         js-doc-author (format "Pavel Kopychenko <%s>" js-doc-mail-address)
+         js-doc-url "https://github.com/povloid"
+         js-doc-license "MIT License"))
 
 (use-package typescript-mode
   :mode ("\\.ts$" . rjsx-mode)
@@ -1979,4 +2014,4 @@
 ;;; END My definition
 ;;;..................................................................................................
 
-;; TAIL CONFIG ------------------------------------------------------------
+;; TAIL CONFIG ------
