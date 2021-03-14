@@ -935,11 +935,13 @@
 ;;;*
 ;;;**************************************************************************************************
 
+;; need to install material design icons!
 (use-package lsp-mode
   :commands lsp
   :hook ((python-mode) . lsp)
-  :custom
-  (lsp-headerline-breadcrumb-enable nil))
+  ;;:custom
+  ;; (lsp-headerline-breadcrumb-enable nil)
+  )
 
 ;; optionally
 ;; (use-package lsp-ui
