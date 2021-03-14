@@ -194,8 +194,6 @@
   ;;(add-to-list 'default-frame-alist `(font . ,default-font))
   (setq initial-frame-alist default-frame-alist)
   (setq display-buffer-alist default-frame-alist)
-  (set-fontset-font "fontset-default" 'cyrillic
-                    (font-spec :registry "iso10646-1" :script 'cyrillic))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
@@ -213,8 +211,8 @@
    '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
    '(font-lock-type-face ((t (:weight bold))))
    '(font-lock-variable-name-face ((t (:weight bold))))
-   '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
-   '(helm-selection-line ((t (:background "#FFF876" :underline t))))
+   ;; '(helm-selection ((t (:background "#b5ffd1" :distant-foreground "black" :underline t))))
+   ;; '(helm-selection-line ((t (:background "#FFF876" :underline t))))
    '(tabbar-default ((t (:height 1.2))))
    '(flymake-errline ((((class color)) (:background "Gray30"))))
    '(flymake-warnline ((((class color)) (:background "Gray20"))))))
@@ -290,6 +288,9 @@
 ;;   :ensure t)
 
 ;;(set-cursor-color "yellow")
+
+;; (use-package all-the-icons
+;;   :ensure t)
 
 ;; END Themes
 ;;..............................................................................
@@ -554,12 +555,7 @@
 (use-package flycheck
   :ensure t
   :custom
-  (flycheck-display-errors-delay 0)
-  :config
-  (global-flycheck-mode)
-  ;;:hook
-  ;;(prog-mode . flycheck-mode)
-  )
+  (flycheck-display-errors-delay 2))
 
 ;; Fly-check красит mode-line в желтый цвет - неочень хорошо
 ;; (use-package flycheck-color-mode-line
@@ -722,9 +718,9 @@
 ;;          ("C-c p g" . helm-projectile-grep)
 ;;          ("C-c p b" . helm-projectile-switch-to-buffer)))
 
-;; (defun projectile-default-project-name-2 (project-root)
-;;   ;; чтобы корректно переключались перспективы вместе с проектом
-;;   (expand-file-name project-root))
+(defun projectile-default-project-name-2 (project-root)
+  ;; чтобы корректно переключались перспективы вместе с проектом
+  (expand-file-name project-root))
 
 ;;(expand-file-name "~/emacs.d")
 
@@ -734,20 +730,20 @@
   (define-key projectile-mode-map (kbd "s-p")   'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1)
+  (setq projectile-project-search-path '("~/git/"))
   (setq projectile-enable-caching nil)
   (setq projectile-completion-system 'helm)
   (setq projectile-file-exists-local-cache-expire (* 5 60))
-  ;;(setq projectile-project-name-function 'projectile-default-project-name-2)
-  )
+  (setq projectile-project-name-function 'projectile-default-project-name-2))
 
 (use-package perspective
   :config
   (persp-mode))
 
-;; (use-package persp-projectile
-;;   :ensure t
-;;   :defer 1
-;;   :bind (("C-c p w" . projectile-persp-switch-project)))
+(use-package persp-projectile
+  :ensure t
+  :defer 1
+  :bind (("C-c p w" . projectile-persp-switch-project)))
 
 ;; Нужно для того чтобы открывать каждый проект в своем фрейме
 ;; пока не ончень порой удобно, решено оставить на будущее
@@ -941,7 +937,9 @@
 
 (use-package lsp-mode
   :commands lsp
-  :hook ((python-mode) . lsp))
+  :hook ((python-mode) . lsp)
+  :custom
+  (lsp-headerline-breadcrumb-enable nil))
 
 ;; optionally
 ;; (use-package lsp-ui
@@ -954,8 +952,8 @@
 ;;   (setq lsp-ui-doc-position 'top)
 ;;   (setq lsp-eldoc-hook nil))
 
-(use-package company-lsp
-  :commands company-lsp)
+;; (use-package company-lsp
+;;   :commands company-lsp)
 
 (use-package helm-lsp
   :commands helm-lsp-workspace-symbol)
@@ -1751,11 +1749,12 @@
 ;; While changing buffers or workspaces, the first thing you do is look for your cursor.
 ;; Unless you know its position, you can not move it efficiently.
 ;; Every time you change buffers, the current position of your cursor will be briefly highlighted now.
+;; Подсветка перемещения курсора
 
-(use-package beacon
-  :ensure t
-  :config
-  (beacon-mode 1))
+;; (use-package beacon
+;;   :ensure t
+;;   :config
+;;   (beacon-mode 1))
 
 ;; Expand region
 ;; A pretty simple package, takes your cursor and semantically expands the region, so words,
