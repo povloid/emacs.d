@@ -493,11 +493,15 @@ key_bindings:
 
   - { key: Slash,     mods: Control, chars: "\x1f" } # undo
   - { key: Space,     mods: Command|Control, chars: "\x1b\x00" } # Ctrl + Alt + Space ->> selection...
-  - { key: Apostrophe, mods: Control,  chars: "\x18\x40\x63\x27"  } # Ctrl + ''
+  - { key: Apostrophe, mods: Control,  chars: "\x18\x40\x63\x27"  } # Ctrl + '' -> ^X @ c '
 
   # mulibple cursor
   - { key: Backslash, mods: Command, chars: "\x1b\\" } # Selection
   - { key: Minus,     mods: Command, chars: "\x1b-" } # Selection
   - { key: Minus,     mods: Control|Command|Shift, chars: "\x1b\x1f" } # please see here http://defindit.com/ascii.html
 
-  - { key: Return,  mods: Alt,  chars: "\x1b\x0d"   } # Alt + Return
+  - { key: Return,  mods: Command,  chars: "\x1b\x0d"   } # Alt + Return
+  # ESC [ 1 ; 3 D		;; org-metaleft
+  # C-c C-x l
+  #- { key: Left,    mods: Command, chars: "\x18\x40\x78\x6c"}
+  # ESC [ 1 ; 3 C		;; org-metaright
