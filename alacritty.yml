@@ -211,6 +211,19 @@ font:
   # effect.
   #use_thin_strokes: true
 
+
+
+colors:
+  # Cursor colors
+  #
+  # Colors which should be used to draw the terminal cursor.
+  #
+  # Allowed values are CellForeground/CellBackground, which reference the
+  # affected cell, or hexadecimal colors like #ff00ff.
+  cursor:
+    text: "#000000"
+    cursor: "#ffff00"
+
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
