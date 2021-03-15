@@ -483,6 +483,9 @@ key_bindings:
   - { key: C,     mods: Alt,     action: Copy  }
   - { key: V,     mods: Alt,     action: Paste }
 
+  # Full screen disable
+  #- { key: F,     mods: Command|Control, chars: "\x1b\x46"}
+
   # Font Size
   - { key: Key0,  mods: Alt, action: ResetFontSize    }
   - { key: Plus,  mods: Alt, action: IncreaseFontSize }
