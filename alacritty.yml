@@ -480,8 +480,16 @@ key_bindings:
   - { key: C,     mods: Alt,     action: Copy  }
   - { key: V,     mods: Alt,     action: Paste }
 
+  # Перемещение по на блок кода вперед
+  # запускаем коману scancodes
+  # нажимаем кобинацию
+  # на ctrl-alt-f получаем код <ESC><CTL-F=ACK>
+  # здесь <ESC> = \xb1 a ctrl-f=ACK - ищем ео код в гугле как 'ACK char code'
+  # и получаем x06
+  # значит подставляем "\x1b\x06"
+  - { key: F,     mods: Command|Control, chars: "\x1b\x06"}
+  - { key: B,     mods: Command|Control, chars: "\x1b\x02"}
   # Full screen disable
-  - { key: F,     mods: Command|Control, chars: "\x1b\x46"}
   - { key: F12,   mods: Alt,             action: "ToggleFullscreen"}
 
   # Font Size
@@ -501,11 +509,8 @@ key_bindings:
   - { key: Minus,     mods: Command, chars: "\x1b-" } # Selection
   - { key: Minus,     mods: Control|Command|Shift, chars: "\x1b\x1f" } # please see here http://defindit.com/ascii.html
 
-  - { key: Return,  mods: Command,  chars: "\x1b\x0d"   } # Alt + Return
-  # ESC [ 1 ; 3 D		;; org-metaleft
-  # C-c C-x l
-  #- { key: Left,    mods: Command, chars: "\x18\x40\x78\x6c"}
-  # ESC [ 1 ; 3 C		;; org-metaright
+  - { key: Return,  mods: Command,  chars: "\x1b\x0d" } # Alt + Return
+  # - { key: Return,  mods: Command,  chars: "\x1b\x0a" }
 
   - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
   - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
@@ -527,3 +532,6 @@ key_bindings:
   - { key: Down,     mods: Command, chars: "\x1b[1;3B"                   }
   - { key: Down,                    chars: "\x1b[B",   mode: ~AppCursor  }
   - { key: Down,                    chars: "\x1bOB",   mode: AppCursor   }
+
+  # Please see good example here:
+  # https://git.mfeller.io/rice/file/dots/.config/alacritty/alacritty.yml.html
