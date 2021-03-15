@@ -3,14 +3,14 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-# env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  # TERM: xterm-256color
+  TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -282,6 +282,10 @@ cursor:
     #   - Always: Force the cursor to always blink
     blinking: Always
 
+bell:
+  animation: Ease
+  duration: 0
+
 # Key bindings
 #
 # Key bindings are specified as a list of objects. For example, this is the
@@ -462,15 +466,20 @@ key_bindings:
   - { key: Key9,      mods: Command,       chars: "\x1b9"                       }
   - { key: Key0,      mods: Command,       chars: "\x1b0"                       }
 
+  # Copy and Paste
+  - { key: C,     mods: Alt,     action: Copy  }
+  - { key: V,     mods: Alt,     action: Paste }
 
   - { key: Semicolon, mods: Control, chars: "\x18\x40\x63\x3b" } # 'Ctrl + ;' - dublicate line
   #- { key: Semicolon, mods: Alt,     chars: "\x1b;"            } # 'Alt + ;'
 
   - { key: Slash,     mods: Control, chars: "\x1f" } # undo
-  - { key: Space,     mods: Command|Control, chars: "\x1b\x00" } # Ctrl + Alt + Space
+  - { key: Space,     mods: Command|Control, chars: "\x1b\x00" } # Ctrl + Alt + Space ->> selection...
   - { key: Apostrophe, mods: Control,  chars: "\x18\x40\x63\x27"  } # Ctrl + ''
 
   # mulibple cursor
-  - { key: Backslash, mods: Command, chars: "\x1b\\"} # Selection
-  - { key: Minus,     mods: Command, chars: "\x1b-"} # Selection
-  # - { key: Minus,     mods: Command|Control, chars: "\x1b\x00\x2d"} # ^X@c; -
+  - { key: Backslash, mods: Command, chars: "\x1b\\" } # Selection
+  - { key: Minus,     mods: Command, chars: "\x1b-" } # Selection
+  - { key: Minus,     mods: Control|Command|Shift, chars: "\x1b\x1f" } # please see here http://defindit.com/ascii.html
+
+  - { key: Return,  mods: Alt,  chars: "\x1b\x0d"   } # Alt + Return

@@ -443,13 +443,13 @@
               ("M--" . mc/mark-all-like-this))
 
   :bind (:map region-bindings-mode-map
-              ("C-M--" . mc/mark-all-in-region))
+              ("C-M-_" . mc/mark-all-in-region))
 
   :init
   (progn
     (global-set-key (kbd "M-\\") 'mc/edit-lines)
     (global-set-key (kbd "M--") 'mc/mark-all-like-this)
-    (global-set-key (kbd "C-M--") 'mc/mark-all-in-region)
+    (global-set-key (kbd "C-M-_") 'mc/mark-all-in-region)
 
     (setq mc/cmds-to-run-for-all
           '(company-indent-or-complete-common
