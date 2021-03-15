@@ -482,11 +482,12 @@ key_bindings:
 
   # Full screen disable
   - { key: F,     mods: Command|Control, chars: "\x1b\x46"}
+  - { key: F12,   mods: Alt,             action: "ToggleFullscreen"}
 
   # Font Size
-  - { key: Key0,  mods: Alt, action: ResetFontSize    }
-  - { key: Plus,  mods: Alt, action: IncreaseFontSize }
-  - { key: Minus, mods: Alt, action: DecreaseFontSize }
+  - { key: Key0,   mods: Alt, action: ResetFontSize    }
+  - { key: Equals, mods: Alt, action: IncreaseFontSize }
+  - { key: Minus,  mods: Alt, action: DecreaseFontSize }
 
   - { key: Semicolon, mods: Control, chars: "\x18\x40\x63\x3b" } # 'Ctrl + ;' - dublicate line
   #- { key: Semicolon, mods: Alt,     chars: "\x1b;"            } # 'Alt + ;'
