@@ -506,3 +506,24 @@ key_bindings:
   # C-c C-x l
   #- { key: Left,    mods: Command, chars: "\x18\x40\x78\x6c"}
   # ESC [ 1 ; 3 C		;; org-metaright
+
+  - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
+  - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
+  - { key: Left,     mods: Command, chars: "\x1b[1;3D"                   }
+  - { key: Left,                    chars: "\x1b[D",   mode: ~AppCursor  }
+  - { key: Left,                    chars: "\x1bOD",   mode: AppCursor   }
+  - { key: Right,    mods: Shift,   chars: "\x1b[1;2C"                   }
+  - { key: Right,    mods: Control, chars: "\x1b[1;5C"                   }
+  - { key: Right,    mods: Command, chars: "\x1b[1;3C"                   }
+  - { key: Right,                   chars: "\x1b[C",   mode: ~AppCursor  }
+  - { key: Right,                   chars: "\x1bOC",   mode: AppCursor   }
+  - { key: Up,       mods: Shift,   chars: "\x1b[1;2A"                   }
+  - { key: Up,       mods: Control, chars: "\x1b[1;5A"                   }
+  - { key: Up,       mods: Command, chars: "\x1b[1;3A"                   }
+  - { key: Up,                      chars: "\x1b[A",   mode: ~AppCursor  }
+  - { key: Up,                      chars: "\x1bOA",   mode: AppCursor   }
+  - { key: Down,     mods: Shift,   chars: "\x1b[1;2B"                   }
+  - { key: Down,     mods: Control, chars: "\x1b[1;5B"                   }
+  - { key: Down,     mods: Command, chars: "\x1b[1;3B"                   }
+  - { key: Down,                    chars: "\x1b[B",   mode: ~AppCursor  }
+  - { key: Down,                    chars: "\x1bOB",   mode: AppCursor   }
