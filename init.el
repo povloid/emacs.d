@@ -1915,6 +1915,26 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 
+;; --------------------
+
+(defun pbcopy ()
+  (interactive)
+  (call-process-region (point) (mark) "pbcopy")
+  (setq deactivate-mark t))
+
+(defun pbpaste ()
+  (interactive)
+  (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
+
+ (defun pbcut ()
+  (interactive)
+  (pbcopy)
+  (delete-region (region-beginning) (region-end)))
+
+;;(global-set-key (kbd "C-c c") 'pbcopy)
+;;(global-set-key (kbd "C-c v") 'pbpaste)
+;;(global-set-key (kbd "C-c x") 'pbcut)
+
 ;; END My Edit
 ;;..............................................................................
 
@@ -2016,3 +2036,35 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(helm-completion-style 'emacs)
+ '(package-selected-packages
+   '(doom-themes yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode switch-window subatomic256-theme ssh-deploy ssh-config-mode ssh sql-indent speed-type seoul256-theme scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky moe-theme markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom csv-mode config-general-mode company cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls beacon apropospriate-theme apache-mode all-the-icons-ivy ag)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Iosevka Fixed Slab" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+ '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(js2-error ((t (:background "#440000" :box nil))))
+ '(tabbar-default ((t (:height 1.2)))))
