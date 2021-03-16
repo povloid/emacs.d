@@ -12,6 +12,9 @@ env:
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
 
+  # !!! также по цветам очень важно поглядеть тут https://gist.github.com/XVilka/8346728 !!!
+  # там есть тест на цвета консоли
+
 window:
   # Window dimensions (changes require restart)
   #
@@ -248,7 +251,7 @@ draw_bold_text_with_bright_colors: true
 #   - Linear
 #
 bell:
-  animation: EaseOut
+  animation: EaseOutQuad
   color: "0xffffff"
   duration: 200
 
@@ -481,7 +484,7 @@ key_bindings:
   - { key: V,     mods: Alt,     action: Paste }
 
   # Перемещение по на блок кода вперед
-  # запускаем коману scancodes
+  # запускаем коману showkey
   # нажимаем кобинацию
   # на ctrl-alt-f получаем код <ESC><CTL-F=ACK>
   # здесь <ESC> = \xb1 a ctrl-f=ACK - ищем ео код в гугле как 'ACK char code'
@@ -489,6 +492,8 @@ key_bindings:
   # значит подставляем "\x1b\x06"
   - { key: F,     mods: Command|Control, chars: "\x1b\x06"}
   - { key: B,     mods: Command|Control, chars: "\x1b\x02"}
+  - { key: T,     mods: Command|Control, chars: "\x1b\x13"}
+  - { key: K,     mods: Command|Control, chars: "\x1b\x0b"}
   # Full screen disable
   - { key: F12,   mods: Alt,             action: "ToggleFullscreen"}
 
