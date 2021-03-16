@@ -123,7 +123,8 @@ font:
     family: Iosevka Fixed Slab
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    # style: Regular
+    style: Light
 
   # Bold font face
   bold:
@@ -142,7 +143,8 @@ font:
     family: Iosevka Fixed Slab
 
     # The `style` can be specified to pick a specific face.
-    style: Bold
+    # style: Bold
+    style: Medium
 
   # Italic font face
   italic:
@@ -161,7 +163,8 @@ font:
     family: Iosevka Fixed Slab
 
     # The `style` can be specified to pick a specific face.
-    style: Italic
+    # style: Italic
+    style: Light Italic
 
   # Bold italic font face
   bold_italic:
@@ -180,7 +183,8 @@ font:
     family: Iosevka Fixed Slab
 
     # The `style` can be specified to pick a specific face.
-    style: Bold Italic
+    # Bold Italic
+    style: Medium Italic
 
   # Point size
   size: 15.0
@@ -490,10 +494,10 @@ key_bindings:
   # здесь <ESC> = \xb1 a ctrl-f=ACK - ищем ео код в гугле как 'ACK char code'
   # и получаем x06
   # значит подставляем "\x1b\x06"
-  - { key: F,     mods: Command|Control, chars: "\x1b\x06"}
   - { key: B,     mods: Command|Control, chars: "\x1b\x02"}
-  - { key: T,     mods: Command|Control, chars: "\x1b\x13"}
+  - { key: F,     mods: Command|Control, chars: "\x1b\x06"}
   - { key: K,     mods: Command|Control, chars: "\x1b\x0b"}
+  - { key: T,     mods: Command|Control, chars: "\x1b\x13"}
   # Full screen disable
   - { key: F12,   mods: Alt,             action: "ToggleFullscreen"}
 
