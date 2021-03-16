@@ -255,6 +255,9 @@
 ;;   :if (display-graphic-p)
 ;;   :custom (solarized-use-variable-pitch nil))
 
+(use-package cyberpunk-theme
+  :ensure t)
+
 ;; (use-package spacemacs-theme
 ;;   :ensure t)
 
@@ -1983,6 +1986,19 @@
 
 ;;; END Eshell
 ;;;..................................................................................................
+;;------------------------------------------------------------------------------
+;; BEGIN: VTerm
+;; tag: <>
+;; description:
+;;------------------------------------------------------------------------------
+
+(use-package vterm
+    :ensure t)
+
+;; END VTerm
+;;..............................................................................
+
+
 
 
 ;;------------------------------------------------------------------------------
@@ -2047,3 +2063,47 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(beacon-color "#7fff00007fff")
+ '(evil-emacs-state-cursor '("#E57373" hbar))
+ '(evil-insert-state-cursor '("#E57373" bar))
+ '(evil-normal-state-cursor '("#FFEE58" box))
+ '(evil-visual-state-cursor '("#C5E1A5" box))
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(highlight-indent-guides-auto-enabled nil)
+ '(highlight-symbol-colors
+   '("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80"))
+ '(highlight-symbol-foreground-color "#E0E0E0")
+ '(highlight-tail-colors '(("#7fff00007fff" . 0) ("#424242" . 100)))
+ '(package-selected-packages
+   '(spacemacs-theme cuberpunk-theme cyberpunk-theme vterm yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom csv-mode config-general-mode company cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls apropospriate-theme apache-mode ag))
+ '(pos-tip-background-color "#000000000000")
+ '(pos-tip-foreground-color "#9E9E9E")
+ '(tabbar-background-color "#000000000000"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Iosevka Fixed Slab" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+ '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(js2-error ((t (:background "#110000" :box nil))))
+ '(tabbar-default ((t (:height 1.2)))))

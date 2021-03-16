@@ -255,9 +255,9 @@ draw_bold_text_with_bright_colors: true
 #   - Linear
 #
 bell:
-  animation: EaseOutQuad
-  color: "0xffffff"
-  duration: 200
+  animation: EaseOutCirc
+  color: "0x660000"
+  duration: 300
 
 
 # Background opacity
@@ -498,6 +498,10 @@ key_bindings:
   - { key: F,     mods: Command|Control, chars: "\x1b\x06"}
   - { key: K,     mods: Command|Control, chars: "\x1b\x0b"}
   - { key: T,     mods: Command|Control, chars: "\x1b\x13"}
+
+  # обходное решение по C-q, открыто issue здесь https://github.com/alacritty/alacritty/issues/1359
+  - { key: Q, mods: Control, chars: "\x11" }
+
   # Full screen disable
   - { key: F12,   mods: Alt,             action: "ToggleFullscreen"}
 
