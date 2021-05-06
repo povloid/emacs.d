@@ -52,7 +52,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  # decorations: buttonless
+  # decorations: full
 
   # Startup Mode (changes require restart)
   #
@@ -123,8 +123,8 @@ font:
     family: Iosevka Fixed Slab
 
     # The `style` can be specified to pick a specific face.
-    # style: Regular
-    style: Light
+    style: Regular
+    # style: Light
 
   # Bold font face
   bold:
@@ -187,7 +187,7 @@ font:
     style: Medium Italic
 
   # Point size
-  size: 15.0
+  size: 16.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -498,6 +498,7 @@ key_bindings:
   - { key: F,     mods: Command|Control, chars: "\x1b\x06"}
   - { key: K,     mods: Command|Control, chars: "\x1b\x0b"}
   - { key: T,     mods: Command|Control, chars: "\x1b\x13"}
+  - { key: J,     mods: Command|Control, chars: "\x1b\x0A"}
 
   # обходное решение по C-q, открыто issue здесь https://github.com/alacritty/alacritty/issues/1359
   - { key: Q, mods: Control, chars: "\x11" }
