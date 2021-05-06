@@ -28,23 +28,23 @@
 # Удерживайте клавиши, пока компьютер не перезагрузится, и вы не услышите звук запуска во второй раз.
 # Отпустите ключи.
 
-#Теперь выполните эти:
+# Теперь выполните эти:
 
-#AC:
+# AC:
 
 sudo pmset -c sleep 0
 sudo pmset -c standby 0
 sudo pmset -c standbydelay 5
 sudo pmset -c hibernatemode 25
 
-#Батарея:
+# Батарея:
 
 sudo pmset -b sleep 120
 sudo pmset -b standby 1
 sudo pmset -b standbydelay 5
 sudo pmset -b hibernatemode 25
 
-#Все:
+# Все:
 
 sudo pmset -a acwake 0
 sudo pmset -a lidwake 0
