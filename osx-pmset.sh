@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Взято отсюда https://qastack.ru/apple/113954/difference-between-autopoweroff-and-standby-in-pmset
+# Взято отсюда
+# https://qastack.ru/apple/113954/difference-between-autopoweroff-and-standby-in-pmset
 
 # Эта спящая / спящая вещь сводила меня с ума. И я согласен, что Apple
 # должна приложить больше усилий для исправления такого поведения pmset.
