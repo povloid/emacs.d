@@ -2,7 +2,7 @@
         :dependencies [[nrepl "0.7.0"]
                        [cider/cider-nrepl "0.25.1"]
                        [cider/piggieback "0.4.0"]
-                       [refactor-nrepl "2.5.0"]]
+                       [refactor-nrepl "2.5.1"]]
         :repl-options {:init             (set! *print-length* 100)
                        :nrepl-middleware [cider.nrepl/wrap-apropos
                                           cider.nrepl/wrap-classpath

@@ -1172,6 +1172,20 @@
 
 
 ;;;**************************************************************************************************
+;;;* BEGIN Nginx
+;;;* tag: <nginx>
+;;;*
+;;;* description: nginx server
+;;;*
+;;;**************************************************************************************************
+
+(use-package nginx-mode
+  :ensure t)
+
+;;; END Nginx
+;;;..................................................................................................
+
+;;;**************************************************************************************************
 ;;;* BEGIN Javascript and json
 ;;;* tag: <javascript json>
 ;;;*
@@ -2086,7 +2100,7 @@
  '(highlight-symbol-foreground-color "#E0E0E0")
  '(highlight-tail-colors '(("#7fff00007fff" . 0) ("#424242" . 100)))
  '(package-selected-packages
-   '(spacemacs-theme cuberpunk-theme cyberpunk-theme vterm yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom csv-mode config-general-mode company cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls apropospriate-theme apache-mode ag))
+   '(nginx-theme nginx-mode cider spacemacs-theme cuberpunk-theme cyberpunk-theme vterm yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom csv-mode config-general-mode company cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls apropospriate-theme apache-mode ag))
  '(pos-tip-background-color "#000000000000")
  '(pos-tip-foreground-color "#9E9E9E")
  '(tabbar-background-color "#000000000000"))
@@ -2097,6 +2111,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka Fixed Slab" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
  '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-error ((((class color)) (:background "Gray30"))))
+ '(flymake-warning ((((class color)) (:background "Gray20"))))
  '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
  '(font-lock-builtin-face ((t (:weight bold))))
  '(font-lock-constant-face ((t (:weight bold))))
