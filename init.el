@@ -30,7 +30,8 @@
 ;; check (executable-find "sls") for example
 ;; check (executable-find "npm") for example
 (add-to-list 'exec-path "~/bin/")
-(add-to-list 'exec-path "~/node-global-modules/bin/")
+(add-to-list 'exec-path "~/global/npm/bin/")
+(add-to-list 'exec-path "~/global/yarn/bin/")
 
 (setenv "LC_ALL" "en_US.UTF-8")
 (setenv "LANG" "en_US.UTF-8")
@@ -73,6 +74,61 @@
 
 ;; END Use packages and repositories
 ;;..............................................................................
+
+;;;**************************************************************************************************
+;;;* BEGIN Bitwarden
+;;;* tag: <bitwarden>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+(setq bitwarden-session nil)
+
+(defun bitwarden-unlock ()
+  (interactive)
+  (let ((password (read-passwd "Master Password:  ")))
+    (let ((session-id (setq bitwarden-session (shell-command-to-string (concat "bw --raw unlock \"" password "\"")))))
+      (if (string= session-id "Invalid master password.")
+          (message "Invalid master password.")
+        (progn
+          (setq bitwarden-session session-id)
+          (message "Session started"))))))
+
+(defun bitwarden-lock ()
+  (interactive)
+  (let ((cmd (concat "export BW_SESSION=\""  bitwarden-session "\"; bw lock")))
+    (shell-command-to-string cmd)
+    (setq bitwarden-session nil)))
+
+(defun bitwarden-sync ()
+  "bitwarden sync"
+  (interactive)
+  (let ((cmd (concat "export BW_SESSION=\""  bitwarden-session "\"; bw sync")))
+    (json-parse-string
+     (shell-command-to-string cmd))))
+
+(defun bitwarden-get-item (name)
+  (interactive)
+  (let ((cmd (concat "export BW_SESSION=\""  bitwarden-session "\"; bw get item " name)))
+    ;;(message cmd)
+    (json-parse-string
+     (shell-command-to-string cmd))))
+
+(defun bitwarden-get-field-value (name fields)
+  (car
+   (seq-filter
+    (lambda (field)
+      (string= (gethash "name" field) name))
+    fields)))
+
+;; example
+;;(gethash "login" (bitwarden-get-item "overtok-rds"))
+;;(bitwarden-get-field-value "port" (gethash "fields" (bitwarden-get-item "overtok-rds")))
+
+
+;;; END Bitwarden
+;;;..................................................................................................
 
 ;;;**************************************************************************************************
 ;;;* BEGIN common configuration
@@ -697,7 +753,7 @@
 ;;   :commands (helm-ag helm-projectile-ag)
 ;;   :init (setq helm-ag-insert-at-point 'symbol
 ;;               helm-ag-use-agignore 1
-;; 	      helm-ag-command-option "-U"))
+;;            helm-ag-command-option "-U"))
 
 ;;; END Search files and strings
 ;;;..................................................................................................
@@ -1128,7 +1184,7 @@
   :ensure t
   :mode
   ("\\.phtml\\'" "\\.tpl\\.php\\'" "\\.[agj]sp\\'" "\\.as[cp]x\\'"
-   "\\.erb\\'" "\\.mustache\\'" "\\.djhtml\\'" "\\.html?\\'")
+   "\\.erb\\'" "\\.mustache\\'" "\\.djhtml\\'" "\\.html?\\'" "\\.ejs\\'")
   :init
   (setq web-mode-markup-indent-offset 2
         web-mode-code-indent-offset 2
@@ -1262,17 +1318,17 @@
 
 
 (use-package js-doc
-    ;; :bind (:map js2-mode-map
-    ;; 		("C-c i" . js-doc-insert-function-doc)
-    ;; 		("@" . js-doc-insert-tag))
-    :config
-    (setq js-doc-mail-address "t34box@gmail.com"
-         js-doc-author (format "Pavel Kopychenko <%s>" js-doc-mail-address)
-         js-doc-url "https://github.com/povloid"
-         js-doc-license "MIT License"))
+  ;; :bind (:map js2-mode-map
+  ;;            ("C-c i" . js-doc-insert-function-doc)
+  ;;            ("@" . js-doc-insert-tag))
+  :config
+  (setq js-doc-mail-address "t34box@gmail.com"
+        js-doc-author (format "Pavel Kopychenko <%s>" js-doc-mail-address)
+        js-doc-url "https://github.com/povloid"
+        js-doc-license "MIT License"))
 
 (use-package typescript-mode
-  :mode ("\\.ts$" . rjsx-mode)
+  :mode ("\\.ts$" . typescript-mode)
   :hook (typescript-mode . lsp))
 
 ;; END JavaScript
@@ -1479,10 +1535,10 @@
   "Beautify SQL in region from BEGIN to END."
   (interactive "r")
   (save-excursion
-    ;;(shell-command-on-region beg end "anbt-sql-formatter" nil t)
-    ;;(shell-command-on-region beg end "pg_format -t" nil t)
-    ;;(shell-command-on-region beg end "sql-formatter-cli -s \"pl/sql\" " nil t)
-    (shell-command-on-region begin end "sqlformat --reindent --keywords upper --identifiers lower --comma_first true -" nil t)
+    ;;(shell-command-on-region begin end "anbt-sql-formatter" nil t)
+    (shell-command-on-region begin end "pg_format -t -s 2 -u 2 -U 2" nil t)
+    ;;(shell-command-on-region begin end "sql-formatter-cli -s \"pl/sql\" " nil t)
+    ;;(shell-command-on-region begin end "sqlformat -r -s -a --keywords upper --identifiers lower --comma_first true -" nil t)
     ))
 
 ;; change sqlbeautify to anbt-sql-formatter if you
@@ -1954,7 +2010,7 @@
   (interactive)
   (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
 
- (defun pbcut ()
+(defun pbcut ()
   (interactive)
   (pbcopy)
   (delete-region (region-beginning) (region-end)))
@@ -2007,7 +2063,7 @@
 ;;------------------------------------------------------------------------------
 
 (use-package vterm
-    :ensure t)
+  :ensure t)
 
 ;; END VTerm
 ;;..............................................................................
@@ -2073,6 +2129,94 @@
 ;; END TTT Terminal
 ;;..............................................................................
 
+
+;;;**************************************************************************************************
+;;;* BEGIN Jira
+;;;* tag: <jira>
+;;;*
+;;;* description: Jira integration
+;;;*
+;;;**************************************************************************************************
+;;; "https://overtok.atlassian.net/"
+
+;; (use-package dash-functional
+;;   :ensure t)
+
+;; (use-package jiralib2
+;;   :ensure t)
+
+;; (use-package language-detection
+;;   :ensure t)
+
+;; (use-package ejira
+;;   :load-path ("~/ejira")
+;;   :init
+;;   (setq jiralib2-url "https://overtok.atlassian.net/"
+;;         jiralib2-auth 'basic
+;;         jiralib2-user-login-name "pavelk@overtok.com"
+;;         jiralib2-token nil
+;;         ejira-org-directory "~/jira"
+;;         ejira-projects '("OT")
+
+;;         ;; Configure JIRA priorities
+;;         ejira-priorities-alist '(("Highest" . ?A)
+;;                                  ("High"    . ?B)
+;;                                  ("Medium"  . ?C)
+;;                                  ("Low"     . ?D)
+;;                                  ("Lowest"  . ?E))
+
+;;         ;; Map JIRA states to org states.
+;;         ejira-todo-states-alist '(("Unscheduled" . 1)
+;;                                   ("Groomed" . 2)
+;;                                   ("Ready For Development" . 3)
+;;                                   ("In Development" . 4)
+;;                                   ("Ready For Review" . 5)
+;;                                   ("Ready For Deploy" . 6)
+;;                                   ("Done" . 7))
+
+;;         ;; Set the highest/lowest org priorities
+;;         org-priority-highest ?A
+;;         org-priority-lowest ?E
+;;         org-todo-keywords
+;;         '((sequence
+;;            "UNSCHEDULED(u)"
+;;            "GROOMED(g)"
+;;            "READY-FOR-DEVELOPMENT(r)"
+;;            "IN-DEVELOPMENT(i)"
+;;            "READY-FOR-REVIEW(v)"
+;;            "READY-FOR-DEPLOY(p)"
+;;            "|"
+;;            "DONE(d)")))
+;;   :config
+;;   ;; Tries to auto-set custom fields by looking into /editmeta
+;;   ;; of an issue and an epic.
+;;   ;;; (add-hook 'jiralib2-post-login-hook #'ejira-guess-epic-sprint-fields)
+
+;;   (setq ejira-update-jql-unresolved-fn #'ejira-jql-my-unresolved-project-tickets)
+
+;;   ;; They can also be set manually if autoconfigure is not used.
+;;   ;; (setq ejira-sprint-field       'customfield_10001
+;;   ;;       ejira-epic-field         'customfield_10002
+;;   ;;       ejira-epic-summary-field 'customfield_10004)
+
+;;   (require 'ejira-agenda)
+
+;;   ;; Make the issues visisble in your agenda by adding `ejira-org-directory'
+;;   ;; into your `org-agenda-files'.
+;;   (add-to-list 'org-agenda-files ejira-org-directory)
+
+;;   ;; Add an agenda view to browse the issues that
+;;   (org-add-agenda-custom-command
+;;    '("j" "My JIRA issues"
+;;      ((ejira-jql "resolution = unresolved and assignee = currentUser()"
+;;                  ((org-agenda-overriding-header "Assigned to me")))))))
+
+
+
+
+;;; END Jira
+;;;..................................................................................................
+
 ;;; END My definition
 ;;;..................................................................................................
 
@@ -2082,11 +2226,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(beacon-color "#7fff00007fff")
- '(evil-emacs-state-cursor '("#E57373" hbar))
- '(evil-insert-state-cursor '("#E57373" bar))
- '(evil-normal-state-cursor '("#FFEE58" box))
- '(evil-visual-state-cursor '("#C5E1A5" box))
  '(git-gutter:added-sign "☀")
  '(git-gutter:deleted-sign "☂")
  '(git-gutter:hide-gutter t)
@@ -2094,16 +2233,8 @@
  '(git-gutter:separator-sign "|")
  '(git-gutter:unchanged-sign " ")
  '(git-gutter:window-width 2)
- '(highlight-indent-guides-auto-enabled nil)
- '(highlight-symbol-colors
-   '("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80"))
- '(highlight-symbol-foreground-color "#E0E0E0")
- '(highlight-tail-colors '(("#7fff00007fff" . 0) ("#424242" . 100)))
  '(package-selected-packages
-   '(nginx-theme nginx-mode cider spacemacs-theme cuberpunk-theme cyberpunk-theme vterm yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets neotree monky markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom csv-mode config-general-mode company cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls apropospriate-theme apache-mode ag))
- '(pos-tip-background-color "#000000000000")
- '(pos-tip-foreground-color "#9E9E9E")
- '(tabbar-background-color "#000000000000"))
+   '(language-detection jiralib2 dash-functional ejira zweilight-theme zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify vterm virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh srcery-theme sql-indent speed-type spacemacs-theme slack scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring planet-theme plan9-theme phoenix-dark-mono-theme persp-projectile ox-jira org-web-tools org-projectile org-jira org-bullets oceanic-theme nginx-mode neotree monokai-theme monky moe-theme markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc jira-markup-mode javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruber-darker-theme groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-theme github-search github-modern-theme git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle flatui-theme flatland-theme fish-completion fic-mode faff-theme expand-region exec-path-from-shell espresso-theme eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker django-theme diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-theme-modern cmake-mode clues-theme clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls borland-blue-theme autothemer apropospriate-theme apache-mode anti-zenburn-theme ample-theme alect-themes ag afternoon-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

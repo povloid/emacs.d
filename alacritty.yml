@@ -116,11 +116,20 @@ font:
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
+    # family: Hack Nerd Font
     # family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
     family: Iosevka Fixed Slab
+    # family: Go Mono
+    # family: PT Mono
+    # family: Fira Mono
+    # family: Courier
+    # family: Courier New
+    # family: Anonymous Pro
+    # family: Terminus TTF
+
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -141,6 +150,11 @@ font:
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
     family: Iosevka Fixed Slab
+    # family: Go Mono
+    # family: PT Mono
+    # family: Courier
+    # family: Courier New
+    # family: Anonymous Pro
 
     # The `style` can be specified to pick a specific face.
     # style: Bold
@@ -161,6 +175,11 @@ font:
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
     family: Iosevka Fixed Slab
+    # family: Go Mono
+    # family: PT Mono
+    # family: Courier
+    # family: Courier New
+    # family: Anonymous Pro
 
     # The `style` can be specified to pick a specific face.
     # style: Italic
@@ -181,6 +200,11 @@ font:
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
     family: Iosevka Fixed Slab
+    # family: Go Mono
+    # family: PT Mono
+    # family: Courier
+    # family: Courier New
+    # family: Anonymous Pro
 
     # The `style` can be specified to pick a specific face.
     # Bold Italic
@@ -230,6 +254,10 @@ colors:
   cursor:
     text: "#000000"
     cursor: "#ffff00"
+  # Default colors
+  primary:
+    background: '#000000'
+    foreground: '#cccccc'
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
@@ -486,6 +514,8 @@ key_bindings:
   # Copy and Paste
   - { key: C,     mods: Alt,     action: Copy  }
   - { key: V,     mods: Alt,     action: Paste }
+  #- { key: C,     mods: Command|Shift, action: Copy  }
+  #- { key: V,     mods: Command|Shift, action: Paste }
 
   # Перемещение по на блок кода вперед
   # запускаем коману showkey

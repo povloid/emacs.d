@@ -1,6 +1,6 @@
 {:user {:plugins      [[lein-ancient "0.6.14"]]
         :dependencies [[nrepl "0.7.0"]
-                       [cider/cider-nrepl "0.25.1"]
+                       [cider/cider-nrepl "0.26.0"]
                        [cider/piggieback "0.4.0"]
                        [refactor-nrepl "2.5.1"]]
         :repl-options {:init             (set! *print-length* 100)

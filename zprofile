@@ -18,7 +18,6 @@ export CLICOLOR=1
 
 export PATH="/Users/pacman/bin/:${PATH}"
 export PATH="/Users/pacman/gem_modules/bin/:${PATH}"
-export PATH="/Users/pacman/node-global-modules/bin/:${PATH}"
 export PATH="/usr/local/opt/krb5/bin:$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
@@ -37,8 +36,9 @@ export GEM_HOME="/Users/pacman/gem_modules/"
 
 # node
 
-export NPM_CONFIG_PREFIX=~/node-global-modules
-
+export NPM_CONFIG_PREFIX=~/global/npm
+export PATH="/Users/pacman/global/npm/bin/:${PATH}"
+export PATH="/Users/pacman/global/yarn/bin/:${PATH}"
 
 # overtok default some
 
