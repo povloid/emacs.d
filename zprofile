@@ -13,6 +13,7 @@ export CLICOLOR=1
 
 # Set colors to match iTerm2 Terminal Colors
 #export TERM=xterm-256color
+export TERM=xterm-24bit
 
 # path
 

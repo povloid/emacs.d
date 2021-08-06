@@ -16,19 +16,20 @@
 
 ;; OSX
 (when (eq system-type 'darwin)
-  (setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH")))
-  (setenv "PATH" (shell-command-to-string "source $HOME/.bash_profile && printf $PATH"))
   (if (not (getenv "TERM_PROGRAM"))
       (let ((path (shell-command-to-string
                    "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
         (setenv "PATH" path))))
 
 ;; PATH's
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setenv "PATH" (shell-command-to-string "source $HOME/.zprofile && printf $PATH"))
+(setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH")))
+;;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
 ;; check (executable-find "sls") for example
 ;; check (executable-find "npm") for example
+
 (add-to-list 'exec-path "~/bin/")
 (add-to-list 'exec-path "~/global/npm/bin/")
 (add-to-list 'exec-path "~/global/yarn/bin/")
@@ -314,28 +315,30 @@
 (use-package cyberpunk-theme
   :ensure t)
 
-;; (use-package spacemacs-theme
-;;   :ensure t)
-
 ;; (use-package material-theme
 ;;   :ensure t)
 
 (use-package apropospriate-theme
   :ensure t
   :config
-  (load-theme 'apropospriate-dark t)
+  ;;(load-theme 'apropospriate-dark t)
   ;; or
   ;;(load-theme 'apropospriate-light t)
   )
 
-;; (use-package color-theme-sanityinc-tomorrow
-;;   :ensure t
-;;   ;;:config
-;;   ;;(load-theme 'sanityinc-tomorrow-night t)
-;;   )
+(use-package nord-theme
+  :ensure t
+  :config
+  (load-theme 'nord t))
 
-;; (use-package doom-themes
-;;   :ensure t)
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t
+  ;;:config
+  ;;(load-theme 'sanityinc-tomorrow-night t)
+  )
+
+(use-package doom-themes
+  :ensure t)
 
 ;; (use-package gruvbox-theme
 ;;   :ensure t
@@ -1498,10 +1501,10 @@
   :ensure t
   :mode ("\\.md$"))
 
-(use-package markdown-mode+
-  :ensure t
-  :after markdown-mode
-  :defer t)
+;; (use-package markdown-mode+
+;;   :ensure t
+;;   :after markdown-mode
+;;   :defer t)
 
 ;;; END Markdown
 ;;;..................................................................................................
@@ -2226,6 +2229,21 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(beacon-color "#ff9da4")
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
+ '(diff-hl-show-hunk-posframe-internal-border-color "#000000000000")
+ '(evil-emacs-state-cursor '("#E57373" hbar))
+ '(evil-insert-state-cursor '("#E57373" bar))
+ '(evil-normal-state-cursor '("#FFEE58" box))
+ '(evil-visual-state-cursor '("#C5E1A5" box))
+ '(fci-rule-color "#383838")
+ '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
+ '(frame-background-mode 'dark)
  '(git-gutter:added-sign "☀")
  '(git-gutter:deleted-sign "☂")
  '(git-gutter:hide-gutter t)
@@ -2233,8 +2251,59 @@
  '(git-gutter:separator-sign "|")
  '(git-gutter:unchanged-sign " ")
  '(git-gutter:window-width 2)
+ '(highlight-indent-guides-auto-enabled nil)
+ '(highlight-symbol-colors
+   '("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80"))
+ '(highlight-symbol-foreground-color "#E0E0E0")
+ '(highlight-tail-colors '(("#7fff00007fff" . 0) ("#424242" . 100)))
+ '(hl-todo-keyword-faces
+   '(("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2aa198")
+     ("PROG" . "#268bd2")
+     ("OKAY" . "#268bd2")
+     ("DONT" . "#d70000")
+     ("FAIL" . "#d70000")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#875f00")
+     ("KLUDGE" . "#875f00")
+     ("HACK" . "#875f00")
+     ("TEMP" . "#875f00")
+     ("FIXME" . "#dc752f")
+     ("XXX+" . "#dc752f")
+     ("\\?\\?\\?+" . "#dc752f")))
+ '(mlscroll-in-color "#147a147a147a")
+ '(mlscroll-out-color "#424242")
+ '(nrepl-message-colors
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(language-detection jiralib2 dash-functional ejira zweilight-theme zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify vterm virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh srcery-theme sql-indent speed-type spacemacs-theme slack scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring planet-theme plan9-theme phoenix-dark-mono-theme persp-projectile ox-jira org-web-tools org-projectile org-jira org-bullets oceanic-theme nginx-mode neotree monokai-theme monky moe-theme markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc jira-markup-mode javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruber-darker-theme groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-theme github-search github-modern-theme git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle flatui-theme flatland-theme fish-completion fic-mode faff-theme expand-region exec-path-from-shell espresso-theme eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker django-theme diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-theme-modern cmake-mode clues-theme clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls borland-blue-theme autothemer apropospriate-theme apache-mode anti-zenburn-theme ample-theme alect-themes ag afternoon-theme)))
+   '(nord-theme railscasts-theme tron-legacy-theme paper-theme vs-dark-theme vscode-dark-plus-theme hc-zenburn-theme sublime-themes xresources-theme eterm-256color seoul256-theme subatomic256-theme weyland-yutani-theme language-detection jiralib2 dash-functional ejira zweilight-theme zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify vterm virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh srcery-theme sql-indent speed-type spacemacs-theme slack scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring planet-theme plan9-theme phoenix-dark-mono-theme persp-projectile ox-jira org-web-tools org-projectile org-jira org-bullets oceanic-theme nginx-mode neotree monokai-theme monky moe-theme markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc jira-markup-mode javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruber-darker-theme groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-theme github-search github-modern-theme git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle flatui-theme flatland-theme fish-completion fic-mode faff-theme expand-region exec-path-from-shell espresso-theme eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker django-theme diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-theme-modern cmake-mode clues-theme clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls borland-blue-theme autothemer apropospriate-theme apache-mode anti-zenburn-theme ample-theme alect-themes ag afternoon-theme))
+ '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
+ '(pos-tip-background-color "#000000000000")
+ '(pos-tip-foreground-color "#9E9E9E")
+ '(tabbar-background-color "#000000000000")
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   '((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3")))
+ '(vc-annotate-very-old-color "#DC8CC3")
+ '(window-divider-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
