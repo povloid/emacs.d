@@ -142,12 +142,19 @@
 (add-to-list 'default-frame-alist '(height . 36))
 (add-to-list 'default-frame-alist '(width . 120))
 
+
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 50MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 50000000)
+(setq gc-cons-threshold 100000000)
 
 ;; warn when opening files bigger than 100MB
 (setq large-file-warning-threshold 100000000)
+
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+(setq lsp-idle-delay 0.500)
 
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -1000,7 +1007,10 @@
 ;; need to install material design icons!
 (use-package lsp-mode
   :commands lsp
-  :hook ((python-mode) . lsp)
+  :hook ((python-mode . lsp)
+	 (js2-mode . lsp)
+	 (js2-jsx-mode . lsp)
+	 (rjsx-mode . lsp))
   ;;:custom
   ;; (lsp-headerline-breadcrumb-enable nil)
   )
@@ -1040,6 +1050,7 @@
                                       (php-mode . "php")
                                       (json-mode . "json")
                                       (js2-mode . "javascript")
+                                      (js2-jsx-mode . "javascript")
                                       (rjsx-mode . "javascript")
                                       (typescript-mode . "typescript")))
 
@@ -1317,6 +1328,7 @@
   ;;                          ))
   ;;
   :hook ((js2-mode . prettier-js-mode)
+	 (js2-jsx-mode . prettier-js-mode)
          (rjsx-mode . prettier-js-mode)))
 
 
@@ -2018,9 +2030,9 @@
   (pbcopy)
   (delete-region (region-beginning) (region-end)))
 
-;;(global-set-key (kbd "C-c c") 'pbcopy)
-;;(global-set-key (kbd "C-c v") 'pbpaste)
-;;(global-set-key (kbd "C-c x") 'pbcut)
+(global-set-key (kbd "C-w") 'pbcut)
+(global-set-key (kbd "M-w") 'pbcopy)
+(global-set-key (kbd "C-y") 'pbpaste)
 
 ;; END My Edit
 ;;..............................................................................
@@ -2232,16 +2244,15 @@
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
-   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
- '(beacon-color "#ff9da4")
- '(company-quickhelp-color-background "#4F4F4F")
- '(company-quickhelp-color-foreground "#DCDCCC")
- '(diff-hl-show-hunk-posframe-internal-border-color "#000000000000")
+   ["#323334" "#C16069" "#A2BF8A" "#ECCC87" "#80A0C2" "#B58DAE" "#86C0D1" "#eceff4"])
+ '(beacon-color "#ed0547ad8099")
+ '(diff-hl-show-hunk-posframe-internal-border-color "#357535753575")
  '(evil-emacs-state-cursor '("#E57373" hbar))
  '(evil-insert-state-cursor '("#E57373" bar))
  '(evil-normal-state-cursor '("#FFEE58" box))
  '(evil-visual-state-cursor '("#C5E1A5" box))
- '(fci-rule-color "#383838")
+ '(exwm-floating-border-color "#181818")
+ '(fci-rule-color "#525252")
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
  '(frame-background-mode 'dark)
  '(git-gutter:added-sign "☀")
@@ -2255,54 +2266,43 @@
  '(highlight-symbol-colors
    '("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80"))
  '(highlight-symbol-foreground-color "#E0E0E0")
- '(highlight-tail-colors '(("#7fff00007fff" . 0) ("#424242" . 100)))
- '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2aa198")
-     ("PROG" . "#268bd2")
-     ("OKAY" . "#268bd2")
-     ("DONT" . "#d70000")
-     ("FAIL" . "#d70000")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#875f00")
-     ("KLUDGE" . "#875f00")
-     ("HACK" . "#875f00")
-     ("TEMP" . "#875f00")
-     ("FIXME" . "#dc752f")
-     ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
- '(mlscroll-in-color "#147a147a147a")
+ '(highlight-tail-colors ((("#3d413c") . 0) (("#3a4143") . 20)))
+ '(jdee-db-active-breakpoint-face-colors (cons "#000000" "#80A0C2"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#000000" "#A2BF8A"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#000000" "#3f3f3f"))
+ '(mlscroll-in-color "#56bc56bc56bc")
  '(mlscroll-out-color "#424242")
- '(nrepl-message-colors
-   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
+ '(objed-cursor-color "#C16069")
  '(package-selected-packages
-   '(nord-theme railscasts-theme tron-legacy-theme paper-theme vs-dark-theme vscode-dark-plus-theme hc-zenburn-theme sublime-themes xresources-theme eterm-256color seoul256-theme subatomic256-theme weyland-yutani-theme language-detection jiralib2 dash-functional ejira zweilight-theme zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify vterm virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh srcery-theme sql-indent speed-type spacemacs-theme slack scss-mode rjsx-mode reverse-im rainbow-mode quelpa-use-package prettier-js popup-kill-ring planet-theme plan9-theme phoenix-dark-mono-theme persp-projectile ox-jira org-web-tools org-projectile org-jira org-bullets oceanic-theme nginx-mode neotree monokai-theme monky moe-theme markdown-mode+ lsp-java logview kibit-helper keyfreq js-doc jira-markup-mode javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruber-darker-theme groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-theme github-search github-modern-theme git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle flatui-theme flatland-theme fish-completion fic-mode faff-theme expand-region exec-path-from-shell espresso-theme eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker django-theme diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-theme-modern cmake-mode clues-theme clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls borland-blue-theme autothemer apropospriate-theme apache-mode anti-zenburn-theme ample-theme alect-themes ag afternoon-theme))
- '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
- '(pos-tip-background-color "#000000000000")
+   '(subatomic-theme weyland-yutani-theme theme-looper vterm eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato yaml-mode json-mode typescript-mode js-doc prettier-js js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-mode hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ git-gutter magit yasnippet-classic-snippets yasnippet-snippets helm-c-yasnippet yasnippet org-projectile persp-projectile perspective projectile ag helm-themes helm-swoop helm-descbinds helm fic-mode flycheck company ibuffer-vc highlight-numbers multiple-cursors paredit reverse-im neotree diredfl doom-modeline doom-themes color-theme-sanityinc-tomorrow nord-theme apropospriate-theme cyberpunk-theme default-text-scale keyfreq quelpa-use-package quelpa use-package))
+ '(pdf-view-midnight-colors (cons "#eceff4" "#323334"))
+ '(pos-tip-background-color "#3a933a933a93")
  '(pos-tip-foreground-color "#9E9E9E")
- '(tabbar-background-color "#000000000000")
- '(vc-annotate-background "#2B2B2B")
+ '(rustic-ansi-faces
+   ["#323334" "#C16069" "#A2BF8A" "#ECCC87" "#80A0C2" "#B58DAE" "#86C0D1" "#eceff4"])
+ '(tabbar-background-color "#357535753575")
+ '(vc-annotate-background "#323334")
  '(vc-annotate-color-map
-   '((20 . "#BC8383")
-     (40 . "#CC9393")
-     (60 . "#DFAF8F")
-     (80 . "#D0BF8F")
-     (100 . "#E0CF9F")
-     (120 . "#F0DFAF")
-     (140 . "#5F7F5F")
-     (160 . "#7F9F7F")
-     (180 . "#8FB28F")
-     (200 . "#9FC59F")
-     (220 . "#AFD8AF")
-     (240 . "#BFEBBF")
-     (260 . "#93E0E3")
-     (280 . "#6CA0A3")
-     (300 . "#7CB8BB")
-     (320 . "#8CD0D3")
-     (340 . "#94BFF3")
-     (360 . "#DC8CC3")))
- '(vc-annotate-very-old-color "#DC8CC3")
+   (list
+    (cons 20 "#A2BF8A")
+    (cons 40 "#bac389")
+    (cons 60 "#d3c788")
+    (cons 80 "#ECCC87")
+    (cons 100 "#e3b57e")
+    (cons 120 "#da9e75")
+    (cons 140 "#D2876D")
+    (cons 160 "#c88982")
+    (cons 180 "#be8b98")
+    (cons 200 "#B58DAE")
+    (cons 220 "#b97e97")
+    (cons 240 "#bd6f80")
+    (cons 260 "#C16069")
+    (cons 280 "#a0575e")
+    (cons 300 "#804f54")
+    (cons 320 "#5f4749")
+    (cons 340 "#525252")
+    (cons 360 "#525252")))
+ '(vc-annotate-very-old-color nil)
  '(window-divider-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

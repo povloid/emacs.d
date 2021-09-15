@@ -117,21 +117,21 @@ font:
     # family: RobotoMono Nerd Font
     # family: Hack
     # family: Hack Nerd Font
-    family: JetBrains Mono
+    # family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
     # family: Iosevka Fixed Slab
     # family: Source Code Pro
     # family: Recursive Mono
-    # family: Go Mono
+    family: Go Mono
     # family: PT Mono
     # family: Fira Mono
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
     # family: Terminus TTF
-
+    # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -147,17 +147,18 @@ font:
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
-    family: JetBrains Mono
+    # family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
     # family: Iosevka Fixed Slab
     # family: Source Code Pro
-    # family: Go Mono
+    family: Go Mono
     # family: PT Mono
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
+    # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
     # style: Bold
@@ -173,17 +174,18 @@ font:
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
-    family: JetBrains Mono
+    # family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
     # family: Iosevka Fixed Slab
     # family: Source Code Pro
-    # family: Go Mono
+    family: Go Mono
     # family: PT Mono
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
+    # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
     # style: Italic
@@ -199,17 +201,18 @@ font:
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
-    family: JetBrains Mono
+    # family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
     # family: Iosevka Fixed Slab
     # family: Source Code Pro
-    # family: Go Mono
+    family: Go Mono
     # family: PT Mono
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
+    # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
     # Bold Italic
