@@ -1990,17 +1990,6 @@
 ;; description:
 ;;------------------------------------------------------------------------------
 
-(defun dublicate-line ()
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (next-line 1)
-  (yank))
-
-(global-set-key (kbd "C-;") 'dublicate-line)
-
 (defun buffer-format ()
   "INDENT whole buffer - отформатировать весь буфер"
   (interactive)
@@ -2014,27 +2003,54 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 
-;; --------------------
+;; -----------------------------------------------------------------------------
+
+(defun dublicate-line ()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank))
+
+(global-set-key (kbd "C-;") 'dublicate-line)
+
+;; -----------------------------------------------------------------------------
+;; - (kill-region BEG END &optional REGION)
+
+(defun pbcut ()
+  (interactive)
+  (call-process-region (point) (mark) "pbcopy")
+  (kill-region (point) (mark)))
+
+(global-set-key (kbd "C-w") 'pbcut)
+
+;; -----------------------------------------------------------------------------
+;; - (kill-ring-save BEG END &optional REGION)
 
 (defun pbcopy ()
   (interactive)
   (call-process-region (point) (mark) "pbcopy")
-  (setq deactivate-mark t))
+  (kill-ring-save (point) (mark)))
+
+(global-set-key (kbd "M-w") 'pbcopy)
+
+;; -----------------------------------------------------------------------------
+;; - (yank &optional ARG)
 
 (defun pbpaste ()
   (interactive)
-  (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
+  (call-process-region (point)
+		       (if mark-active
+			   (mark)
+			 (point))
+		       "pbpaste" t t))
 
-(defun pbcut ()
-  (interactive)
-  (pbcopy)
-  (delete-region (region-beginning) (region-end)))
+(global-set-key (kbd "C-c C-y") 'pbpaste)
 
-(global-set-key (kbd "C-w") 'pbcut)
-(global-set-key (kbd "M-w") 'pbcopy)
-(global-set-key (kbd "C-y") 'pbpaste)
 
-;; END My Edit
+;; END
 ;;..............................................................................
 
 ;;;**************************************************************************************************
@@ -2236,90 +2252,3 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   ["#323334" "#C16069" "#A2BF8A" "#ECCC87" "#80A0C2" "#B58DAE" "#86C0D1" "#eceff4"])
- '(beacon-color "#ed0547ad8099")
- '(diff-hl-show-hunk-posframe-internal-border-color "#357535753575")
- '(evil-emacs-state-cursor '("#E57373" hbar))
- '(evil-insert-state-cursor '("#E57373" bar))
- '(evil-normal-state-cursor '("#FFEE58" box))
- '(evil-visual-state-cursor '("#C5E1A5" box))
- '(exwm-floating-border-color "#181818")
- '(fci-rule-color "#525252")
- '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
- '(frame-background-mode 'dark)
- '(git-gutter:added-sign "☀")
- '(git-gutter:deleted-sign "☂")
- '(git-gutter:hide-gutter t)
- '(git-gutter:modified-sign "☁")
- '(git-gutter:separator-sign "|")
- '(git-gutter:unchanged-sign " ")
- '(git-gutter:window-width 2)
- '(highlight-indent-guides-auto-enabled nil)
- '(highlight-symbol-colors
-   '("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80"))
- '(highlight-symbol-foreground-color "#E0E0E0")
- '(highlight-tail-colors ((("#3d413c") . 0) (("#3a4143") . 20)))
- '(jdee-db-active-breakpoint-face-colors (cons "#000000" "#80A0C2"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#000000" "#A2BF8A"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#000000" "#3f3f3f"))
- '(mlscroll-in-color "#56bc56bc56bc")
- '(mlscroll-out-color "#424242")
- '(objed-cursor-color "#C16069")
- '(package-selected-packages
-   '(subatomic-theme weyland-yutani-theme theme-looper vterm eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato yaml-mode json-mode typescript-mode js-doc prettier-js js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-mode hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ git-gutter magit yasnippet-classic-snippets yasnippet-snippets helm-c-yasnippet yasnippet org-projectile persp-projectile perspective projectile ag helm-themes helm-swoop helm-descbinds helm fic-mode flycheck company ibuffer-vc highlight-numbers multiple-cursors paredit reverse-im neotree diredfl doom-modeline doom-themes color-theme-sanityinc-tomorrow nord-theme apropospriate-theme cyberpunk-theme default-text-scale keyfreq quelpa-use-package quelpa use-package))
- '(pdf-view-midnight-colors (cons "#eceff4" "#323334"))
- '(pos-tip-background-color "#3a933a933a93")
- '(pos-tip-foreground-color "#9E9E9E")
- '(rustic-ansi-faces
-   ["#323334" "#C16069" "#A2BF8A" "#ECCC87" "#80A0C2" "#B58DAE" "#86C0D1" "#eceff4"])
- '(tabbar-background-color "#357535753575")
- '(vc-annotate-background "#323334")
- '(vc-annotate-color-map
-   (list
-    (cons 20 "#A2BF8A")
-    (cons 40 "#bac389")
-    (cons 60 "#d3c788")
-    (cons 80 "#ECCC87")
-    (cons 100 "#e3b57e")
-    (cons 120 "#da9e75")
-    (cons 140 "#D2876D")
-    (cons 160 "#c88982")
-    (cons 180 "#be8b98")
-    (cons 200 "#B58DAE")
-    (cons 220 "#b97e97")
-    (cons 240 "#bd6f80")
-    (cons 260 "#C16069")
-    (cons 280 "#a0575e")
-    (cons 300 "#804f54")
-    (cons 320 "#5f4749")
-    (cons 340 "#525252")
-    (cons 360 "#525252")))
- '(vc-annotate-very-old-color nil)
- '(window-divider-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Fixed Slab" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
- '(flymake-errline ((((class color)) (:background "Gray30"))) t)
- '(flymake-error ((((class color)) (:background "Gray30"))))
- '(flymake-warning ((((class color)) (:background "Gray20"))))
- '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(js2-error ((t (:background "#110000" :box nil))))
- '(tabbar-default ((t (:height 1.2)))))
