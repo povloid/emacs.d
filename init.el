@@ -152,9 +152,7 @@
 ;; warn when opening files bigger than 100MB
 (setq large-file-warning-threshold 100000000)
 
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
-(setq lsp-idle-delay 0.500)
+(setq read-process-output-max (* 3 1024 1024)) ;; 1mb
 
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -315,12 +313,17 @@
 ;; (use-package leuven-theme
 ;;   :ensure t)
 
-;; (use-package solarized-theme
-;;   :if (display-graphic-p)
-;;   :custom (solarized-use-variable-pitch nil))
+(use-package solarized-theme
+  :if (display-graphic-p)
+  :custom (solarized-use-variable-pitch nil))
 
 (use-package cyberpunk-theme
   :ensure t)
+
+(use-package sourcerer-theme
+  :ensure t
+  :config
+  (load-theme 'sourcerer))
 
 ;; (use-package material-theme
 ;;   :ensure t)
@@ -335,8 +338,9 @@
 
 (use-package nord-theme
   :ensure t
-  :config
-  (load-theme 'nord t))
+  ;;:config
+  ;;(load-theme 'nord t)
+  )
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
@@ -347,14 +351,14 @@
 (use-package doom-themes
   :ensure t)
 
-;; (use-package gruvbox-theme
-;;   :ensure t
-;;   ;;:config
-;;   ;;(load-theme 'gruvbox-light-medium t)
-;;   )
+(use-package gruvbox-theme
+  :ensure t
+  ;;:config
+  ;;(load-theme 'gruvbox-light-medium t)
+  )
 
-;; (use-package monokai-theme
-;;   :ensure t)
+(use-package monokai-theme
+  :ensure t)
 
 ;;(set-cursor-color "yellow")
 
@@ -378,7 +382,7 @@
   :init (doom-modeline-mode 1)
   :custom
   (doom-modeline-buffer-file-name-style 'truncate-with-project)
-  (doom-modeline-icon t)
+  (doom-modeline-icon nil) ;; slow work
   (doom-modeline-major-mode-icon nil)
   (doom-modeline-minor-modes nil)
   :hook
@@ -800,10 +804,37 @@
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1)
   (setq projectile-project-search-path '("~/git/"))
-  (setq projectile-enable-caching nil)
+  (setq projectile-enable-caching t)
   (setq projectile-completion-system 'helm)
-  (setq projectile-file-exists-local-cache-expire (* 5 60))
-  (setq projectile-project-name-function 'projectile-default-project-name-2))
+  (setq projectile-file-exists-local-cache-expire (* 60))
+  (setq projectile-project-name-function 'projectile-default-project-name-2)
+
+  (add-to-list 'projectile-globally-ignored-files "*.png")
+  (add-to-list 'projectile-globally-ignored-files "*.jpg")
+  (add-to-list 'projectile-globally-ignored-files "*.zip")
+  (setq projectile-require-project-root nil)
+  (setq projectile-indexing-method 'native)
+  (setq projectile-enable-caching t)
+  (setq projectile-globally-ignored-directories
+        (append '(
+                  ".git"
+                  ".svn"
+                  "out"
+                  "repl"
+                  "target"
+                  "venv"
+                  "node_modules")
+                projectile-globally-ignored-directories))
+  (setq projectile-globally-ignored-files
+        (append '(
+                  ".DS_Store"
+                  "*.gz"
+                  "*.pyc"
+                  "*.jar"
+                  "*.tar.gz"
+                  "*.tgz"
+                  "*.zip")
+                projectile-globally-ignored-files)))
 
 (use-package perspective
   :config
@@ -1011,9 +1042,13 @@
 	 (js2-mode . lsp)
 	 (js2-jsx-mode . lsp)
 	 (rjsx-mode . lsp))
-  ;;:custom
+  :custom
+
   ;; (lsp-headerline-breadcrumb-enable nil)
   )
+
+(setq lsp-idle-delay 2)
+(setq lsp-log-io nil)
 
 ;; optionally
 ;; (use-package lsp-ui
@@ -1387,6 +1422,12 @@
 
 (use-package yaml-tomato
   :ensure t)
+(setq lsp-idle-delay 2)
+(setq lsp-log-io nil)
+(setq lsp-idle-delay 2)
+(setq lsp-log-io nil)
+(setq lsp-idle-delay 2)
+(setq lsp-log-io nil)
 
 ;; END Yaml
 ;;..............................................................................
@@ -2252,3 +2293,91 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#273136" "#ff6d7e" "#a2e57b" "#ffed72" "#7cd5f1" "#7cd5f1" "#7cd5f1" "#f2fffc"])
+ '(beacon-color "#ed0547ad8099")
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
+ '(custom-safe-themes
+   '("529c211e86eadecb67b6b64ffdf73e71c4337070bd9b3de053f8f7c5da9e07a2" default))
+ '(diff-hl-show-hunk-posframe-internal-border-color "#357535753575")
+ '(evil-emacs-state-cursor '("#E57373" hbar))
+ '(evil-insert-state-cursor '("#E57373" bar))
+ '(evil-normal-state-cursor '("#FFEE58" box))
+ '(evil-visual-state-cursor '("#C5E1A5" box))
+ '(exwm-floating-border-color "#3c454a")
+ '(fci-rule-color "#5a6568")
+ '(git-gutter:added-sign "☀")
+ '(git-gutter:deleted-sign "☂")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:modified-sign "☁")
+ '(git-gutter:separator-sign "|")
+ '(git-gutter:unchanged-sign " ")
+ '(git-gutter:window-width 2)
+ '(highlight-indent-guides-auto-enabled nil)
+ '(highlight-symbol-colors
+   '("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80"))
+ '(highlight-symbol-foreground-color "#E0E0E0")
+ '(highlight-tail-colors ((("#33433c") . 0) (("#2f4148") . 20)))
+ '(jdee-db-active-breakpoint-face-colors (cons "#131313" "#ffed72"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#131313" "#a2e57b"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#131313" "#545f62"))
+ '(mlscroll-in-color "#56bc56bc56bc")
+ '(mlscroll-out-color "#424242")
+ '(nrepl-message-colors
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
+ '(objed-cursor-color "#ff6d7e")
+ '(package-selected-packages
+   '(sourcerer-theme github-theme github-modern-theme wgrep subatomic256-theme zweilight-theme zerodark-theme zeno-theme zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify warm-night-theme vterm vs-dark-theme virtualenvwrapper ubuntu-theme typescript-mode switch-window sublime-themes ssh-deploy ssh-config-mode ssh sql-indent speed-type spacemacs-theme solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package qtcreator-theme prettier-js popup-kill-ring planet-theme persp-projectile paganini-theme organic-green-theme org-web-tools org-projectile org-bullets org-beautify-theme oceanic-theme nord-theme nginx-mode neotree monokai-theme monky modus-operandi-theme lsp-java logview kibit-helper keyfreq js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruvbox-theme groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker django-theme diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls borland-blue-theme apropospriate-theme apache-mode anti-zenburn-theme ag afternoon-theme))
+ '(pdf-view-midnight-colors (cons "#f2fffc" "#273136"))
+ '(pos-tip-background-color "#3a933a933a93")
+ '(pos-tip-foreground-color "#9E9E9E")
+ '(rustic-ansi-faces
+   ["#273136" "#ff6d7e" "#a2e57b" "#ffed72" "#7cd5f1" "#7cd5f1" "#7cd5f1" "#f2fffc"])
+ '(tabbar-background-color "#357535753575")
+ '(vc-annotate-background "#273136")
+ '(vc-annotate-color-map
+   (list
+    (cons 20 "#a2e57b")
+    (cons 40 "#c1e778")
+    (cons 60 "#e0ea75")
+    (cons 80 "#ffed72")
+    (cons 100 "#ffd971")
+    (cons 120 "#ffc570")
+    (cons 140 "#ffb270")
+    (cons 160 "#d3bd9b")
+    (cons 180 "#a7c9c6")
+    (cons 200 "#7cd5f1")
+    (cons 220 "#a7b2ca")
+    (cons 240 "#d38fa4")
+    (cons 260 "#ff6d7e")
+    (cons 280 "#d46977")
+    (cons 300 "#a96670")
+    (cons 320 "#7e6269")
+    (cons 340 "#5a6568")
+    (cons 360 "#5a6568")))
+ '(vc-annotate-very-old-color nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:background nil))))
+ '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-error ((((class color)) (:background "Gray30"))))
+ '(flymake-warning ((((class color)) (:background "Gray20"))))
+ '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(js2-error ((t (:background "#110000" :box nil))))
+ '(tabbar-default ((t (:height 1.2)))))

@@ -41,6 +41,9 @@ export NPM_CONFIG_PREFIX=~/global/npm
 export PATH="/Users/pacman/global/npm/bin/:${PATH}"
 export PATH="/Users/pacman/global/yarn/bin/:${PATH}"
 
+export LDFLAGS="-L/usr/local/opt/node@14/lib"
+export CPPFLAGS="-I/usr/local/opt/node@14/include"
+
 # overtok default some
 
 source git/overtok/qa/overtok/release/set_qa_env.sh
@@ -61,3 +64,7 @@ export JDK_HOME="/opt/jdk"
 # Visual Studio Code (code)
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# AWS
+
+export AWS_PAGER=""

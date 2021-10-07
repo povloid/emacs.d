@@ -121,10 +121,13 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
-    # family: Iosevka Fixed Slab
+    family: Iosevka Fixed Slab
     # family: Source Code Pro
     # family: Recursive Mono
-    family: Go Mono
+    # family: Go Mono
+    # family: Fira Code
+    # family: Victor Mono
+    # family: Cascadia Code
     # family: PT Mono
     # family: Fira Mono
     # family: Courier
@@ -151,9 +154,12 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
-    # family: Iosevka Fixed Slab
+    family: Iosevka Fixed Slab
     # family: Source Code Pro
-    family: Go Mono
+    # family: Go Mono
+    # family: Fira Code
+    # family: Victor Mono
+    # family: Cascadia Code
     # family: PT Mono
     # family: Courier
     # family: Courier New
@@ -178,9 +184,12 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    # family: Iosevka Fixed Slab
+    family: Iosevka Fixed Slab
     # family: Source Code Pro
-    family: Go Mono
+    # family: Go Mono
+    # family: Fira Code
+    # family: Victor Mono
+    # family: Cascadia Code
     # family: PT Mono
     # family: Courier
     # family: Courier New
@@ -205,9 +214,12 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    # family: Iosevka Fixed Slab
+    family: Iosevka Fixed Slab
     # family: Source Code Pro
-    family: Go Mono
+    # family: Go Mono
+    # family: Fira Code
+    # family: Victor Mono
+    # family: Cascadia Code
     # family: PT Mono
     # family: Courier
     # family: Courier New
@@ -264,7 +276,8 @@ colors:
     cursor: "#ffff00"
   # Default colors
   primary:
-    background: '#000000'
+    #background: '#24292E'
+    background: '#262626'
     foreground: '#cccccc'
 
 # If `true`, bold text is drawn using the bright color variants.
