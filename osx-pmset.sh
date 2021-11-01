@@ -42,23 +42,40 @@
 
 # Теперь выполните эти:
 
-# AC:
-
-sudo pmset -c sleep 0
-sudo pmset -c standby 0
-sudo pmset -c standbydelay 5
-sudo pmset -c hibernatemode 25
-
-# Батарея:
-
-sudo pmset -b sleep 120
-sudo pmset -b standby 1
-sudo pmset -b standbydelay 5
-sudo pmset -b hibernatemode 25
-
 # Все:
 
+sudo pmset -a sleep 0
+sudo pmset -a standby 0
+sudo pmset -a standbydelay 0
+sudo pmset -a standbydelayhigh 0
+sudo pmset -a standbydelaylow 0
+sudo pmset -a hibernatemode 25
+sudo pmset -a highstandbythreshold 20
 sudo pmset -a acwake 0
 sudo pmset -a lidwake 0
 sudo pmset -a ttyskeepawake 0
 sudo pmset -a darkwakes 0
+
+# AC:
+
+# sudo pmset -c sleep 0
+# sudo pmset -c standby 0
+# sudo pmset -c standbydelay 0
+# sudo pmset -c hibernatemode 25
+
+# Батарея:
+
+sudo pmset -b sleep 0
+sudo pmset -b standby 0
+sudo pmset -b standbydelay 5
+sudo pmset -b hibernatemode 25
+
+
+# Always use the integrated graphics card while running on battery power
+sudo pmset -b gpuswitch 0
+
+# Always use the discrete graphics card while running on battery power
+# sudo pmset -b gpuswitch 1
+
+# Switch between discrete and integrated graphics cards automatically while running on battery power
+# sudo pmset -b gpuswitch 2
