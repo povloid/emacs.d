@@ -11,7 +11,8 @@ export ZSH="/Users/pacman/.oh-my-zsh"
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="gnzh"
 #ZSH_THEME="agnoster"
-ZSH_THEME="agnoster-light"
+ZSH_THEME="agnoster2"
+#ZSH_THEME="agnoster-light"
 
 
 # Set list of themes to pick from when loading at random

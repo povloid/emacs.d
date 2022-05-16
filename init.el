@@ -209,10 +209,10 @@
   (unless (server-running-p)
     (server-start)))
 
-(use-package keyfreq
-  :config
-  (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1))
+;; (use-package keyfreq
+;;   :config
+;;   (keyfreq-mode 1)
+;;   (keyfreq-autosave-mode 1))
 
 ;; END Emacs server
 ;;..............................................................................
@@ -261,11 +261,13 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   ;;'(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 150 :width normal))))
-   '(default ((t (:family "Iosevka Fixed Slab" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+   ;; '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
+   ;; '(default ((t (:family "Fira Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
+   ;;'(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 180 :width normal))))
    ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 160 :width normal))))
    ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 130 :width normal))))
    ;;'(default ((t (:family "Source Code Pro" :foundry "PARA" :slant normal :weight light :height 150 :width normal))))
+   '(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight light :height 170 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -346,7 +348,7 @@
 (use-package monokai-theme
   :ensure t)
 
-;;(set-cursor-color "yellow")
+(set-cursor-color "white")
 
 ;; (use-package all-the-icons
 ;;   :ensure t)
@@ -386,7 +388,9 @@
 (setq powerline-default-separator nil)
 
 ;; Cursor position
-;; Show the current line and column for your cursor. We are not going to have relative-linum-mode in every major mode, so this is useful.
+;; Show the current line and column for your cursor.
+;; We are not going to have relative-linum-mode in every major mode, so this is useful.
+
 (setq line-number-mode t)
 (setq column-number-mode t)
 
@@ -913,20 +917,21 @@
   (progn
     (global-git-gutter-mode +1)
     (git-gutter:linum-setup)
-    (custom-set-variables
-     '(git-gutter:window-width 2)
-     '(git-gutter:modified-sign "☁")
-     '(git-gutter:added-sign "☀")
-     '(git-gutter:deleted-sign "☂")
-     '(git-gutter:unchanged-sign " ")
-     '(git-gutter:separator-sign "|")
-     '(git-gutter:hide-gutter t))
-    (set-face-background 'git-gutter:modified "purple") ;; background color
-    (set-face-foreground 'git-gutter:added "green")
-    (set-face-foreground 'git-gutter:deleted "red")
-    (set-face-background 'git-gutter:unchanged "yellow")
-    (set-face-foreground 'git-gutter:separator "yellow")
-    (add-to-list 'git-gutter:update-hooks 'focus-in-hook))
+    ;; (custom-set-variables
+    ;;  '(git-gutter:window-width 2)
+    ;;  '(git-gutter:modified-sign "☁")
+    ;;  '(git-gutter:added-sign "☀")
+    ;;  '(git-gutter:deleted-sign "☂")
+    ;;  '(git-gutter:unchanged-sign " ")
+    ;;  '(git-gutter:separator-sign "|")
+    ;;  '(git-gutter:hide-gutter t))
+    ;; (set-face-background 'git-gutter:modified "purple") ;; background color
+    ;; (set-face-foreground 'git-gutter:added "green")
+    ;; (set-face-foreground 'git-gutter:deleted "red")
+    ;; (set-face-background 'git-gutter:unchanged "yellow")
+    ;; (set-face-foreground 'git-gutter:separator "yellow")
+    ;; (add-to-list 'git-gutter:update-hooks 'focus-in-hook)
+    )
   :bind (("C-x C-g" . git-gutter:toggle)
          ("C-x v =" . git-gutter:popup-hunk)
          ("C-x p" . git-gutter:previous-hunk)
@@ -1028,8 +1033,7 @@
 	 (js2-mode . lsp)
 	 (js2-jsx-mode . lsp)
 	 (rjsx-mode . lsp))
-  :custom
-
+  ;; :custom
   ;; (lsp-headerline-breadcrumb-enable nil)
   )
 
@@ -1037,15 +1041,15 @@
 (setq lsp-log-io nil)
 
 ;; optionally
-;; (use-package lsp-ui
-;;   :commands lsp-ui-mode
-;;   :config
-;;   (setq lsp-ui-doc-header t)
-;;   (setq lsp-ui-doc-include-signature t)
-;;   (setq lsp-ui-doc-enable t)
-;;   (setq lsp-ui-doc-use-webkit t)
-;;   (setq lsp-ui-doc-position 'top)
-;;   (setq lsp-eldoc-hook nil))
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-header t)
+  (setq lsp-ui-doc-include-signature t)
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-use-webkit t)
+  (setq lsp-ui-doc-position 'top)
+  (setq lsp-eldoc-hook nil))
 
 ;; (use-package company-lsp
 ;;   :commands company-lsp)
@@ -1350,7 +1354,8 @@
   ;;
   :hook ((js2-mode . prettier-js-mode)
 	 (js2-jsx-mode . prettier-js-mode)
-         (rjsx-mode . prettier-js-mode)))
+         (rjsx-mode . prettier-js-mode)
+	 (typescript-mode . prettier-js-mode)))
 
 
 (use-package js-doc
@@ -2044,6 +2049,10 @@
 (global-set-key (kbd "C-;") 'dublicate-line)
 
 ;; -----------------------------------------------------------------------------
+
+;; (global-set-key (kbd "C-SPC") 'set-mark-command)
+
+;; -----------------------------------------------------------------------------
 ;; - (kill-region BEG END &optional REGION)
 
 (defun pbcut ()
@@ -2280,3 +2289,102 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(beacon-color "#d33682")
+ '(compilation-message-face 'default)
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#657b83")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
+ '(diff-hl-show-hunk-posframe-internal-border-color "#ffffffffffff")
+ '(evil-emacs-state-cursor '("#D50000" hbar))
+ '(evil-insert-state-cursor '("#D50000" bar))
+ '(evil-normal-state-cursor '("#F57F17" box))
+ '(evil-visual-state-cursor '("#66BB6A" box))
+ '(exwm-floating-border-color "#E1DBCD")
+ '(fci-rule-color "#eee8d5")
+ '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
+ '(frame-background-mode 'light)
+ '(highlight-changes-colors '("#d33682" "#6c71c4"))
+ '(highlight-indent-guides-auto-enabled nil)
+ '(highlight-symbol-colors
+   '("#F57F17" "#66BB6A" "#0097A7" "#42A5F5" "#7E57C2" "#D84315"))
+ '(highlight-symbol-foreground-color "#546E7A")
+ '(highlight-tail-colors '(("#F8BBD0" . 0) ("#FAFAFA" . 100)))
+ '(hl-bg-colors
+   '("#e1af4b" "#fb7640" "#ff6849" "#ff699e" "#8d85e7" "#74adf5" "#6ccec0" "#b3c34d"))
+ '(hl-fg-colors
+   '("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3"))
+ '(hl-paren-colors '("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900"))
+ '(jdee-db-active-breakpoint-face-colors (cons "#FFFBF0" "#268bd2"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#FFFBF0" "#859900"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#FFFBF0" "#E1DBCD"))
+ '(lsp-ui-doc-border "#586e75")
+ '(mlscroll-in-color "#e67fe67fe67f")
+ '(mlscroll-out-color "#FAFAFA")
+ '(nrepl-message-colors
+   '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8" "#2aa198" "#d33682" "#6c71c4"))
+ '(objed-cursor-color "#dc322f")
+ '(package-selected-packages
+   '(vs-light-theme color-theme-sanityinc-solarized autumn-light-theme eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato yaml-mode json-reformat json-mode typescript-mode js-doc prettier-js rjsx-mode js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-ui lsp-mode hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ git-gutter magit yasnippet-classic-snippets yasnippet-snippets helm-c-yasnippet yasnippet org-projectile persp-projectile perspective projectile ag helm-themes helm-swoop helm-descbinds helm fic-mode flycheck company ibuffer-vc highlight-numbers multiple-cursors paredit reverse-im neotree diredfl doom-modeline monokai-theme gruvbox-theme doom-themes color-theme-sanityinc-tomorrow apropospriate-theme cyberpunk-theme solarized-theme default-text-scale quelpa-use-package quelpa use-package))
+ '(pdf-view-midnight-colors '("#282828" . "#fbf1c7"))
+ '(pos-tip-background-color "#ffffffffffff")
+ '(pos-tip-foreground-color "#78909C")
+ '(rustic-ansi-faces
+   ["#FDF6E3" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#556b72"])
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
+ '(tabbar-background-color "#ffffffffffff")
+ '(term-default-bg-color "#fdf6e3")
+ '(term-default-fg-color "#657b83")
+ '(vc-annotate-background nil)
+ '(vc-annotate-background-mode nil)
+ '(vc-annotate-color-map
+   '((20 . "#dc322f")
+     (40 . "#cb4b16")
+     (60 . "#b58900")
+     (80 . "#859900")
+     (100 . "#2aa198")
+     (120 . "#268bd2")
+     (140 . "#d33682")
+     (160 . "#6c71c4")
+     (180 . "#dc322f")
+     (200 . "#cb4b16")
+     (220 . "#b58900")
+     (240 . "#859900")
+     (260 . "#2aa198")
+     (280 . "#268bd2")
+     (300 . "#d33682")
+     (320 . "#6c71c4")
+     (340 . "#dc322f")
+     (360 . "#cb4b16")))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   '(unspecified "#fdf6e3" "#eee8d5" "#a7020a" "#dc322f" "#5b7300" "#859900" "#866300" "#b58900" "#0061a8" "#268bd2" "#a00559" "#d33682" "#007d76" "#2aa198" "#657b83" "#839496"))
+ '(window-divider-mode nil)
+ '(xterm-color-names
+   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
+ '(xterm-color-names-bright
+   ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight light :height 170 :width normal))))
+ '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-error ((((class color)) (:background "Gray30"))))
+ '(flymake-warning ((((class color)) (:background "Gray20"))))
+ '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(js2-error ((t (:background "#110000" :box nil))))
+ '(tabbar-default ((t (:height 1.2)))))

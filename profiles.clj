@@ -1,8 +1,8 @@
-{:user {:plugins      [[lein-ancient "0.6.14"]]
-        :dependencies [[nrepl "0.7.0"]
-                       [cider/cider-nrepl "0.26.0"]
-                       [cider/piggieback "0.4.0"]
-                       [refactor-nrepl "2.5.1"]]
+{:user {:plugins      [[lein-ancient "0.7.0"]]
+        :dependencies [[nrepl "0.9.0"]
+                       [refactor-nrepl "3.5.2"]
+                       [cider/cider-nrepl "0.28.3"]
+                       [cider/piggieback "0.4.0"]]
         :repl-options {:init             (set! *print-length* 100)
                        :nrepl-middleware [cider.nrepl/wrap-apropos
                                           cider.nrepl/wrap-classpath

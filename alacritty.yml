@@ -37,8 +37,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 0
-    y: 0
+    x: 4
+    y: 4
 
   # Spread additional padding evenly around the terminal content.
   # dynamic_padding: true
@@ -121,14 +121,15 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
-    family: Iosevka Fixed Slab
+    # family: Iosevka Fixed Slab
+    # family: Iosevka
     # family: Source Code Pro
     # family: Recursive Mono
     # family: Go Mono
     # family: Fira Code
     # family: Victor Mono
     # family: Cascadia Code
-    # family: PT Mono
+    family: PT Mono
     # family: Fira Mono
     # family: Courier
     # family: Courier New
@@ -137,6 +138,7 @@ font:
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
+    #style: Bold
     style: Regular
     #style: Light
 
@@ -154,13 +156,13 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
-    family: Iosevka Fixed Slab
+    # family: Iosevka Fixed Slab
     # family: Source Code Pro
     # family: Go Mono
     # family: Fira Code
     # family: Victor Mono
     # family: Cascadia Code
-    # family: PT Mono
+    family: PT Mono
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
@@ -184,13 +186,14 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    family: Iosevka Fixed Slab
+    # family: Iosevka Fixed Slab
+    # family: Iosevka
     # family: Source Code Pro
     # family: Go Mono
     # family: Fira Code
     # family: Victor Mono
     # family: Cascadia Code
-    # family: PT Mono
+    family: PT Mono
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
@@ -214,13 +217,14 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    family: Iosevka Fixed Slab
+    # family: Iosevka Fixed Slab
+    # family: Iosevka
     # family: Source Code Pro
     # family: Go Mono
     # family: Fira Code
     # family: Victor Mono
     # family: Cascadia Code
-    # family: PT Mono
+    family: PT Mono
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
@@ -231,7 +235,7 @@ font:
     style: Medium Italic
 
   # Point size
-  size: 16.0
+  size: 18.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -273,7 +277,7 @@ colors:
   # affected cell, or hexadecimal colors like #ff00ff.
   cursor:
    text: "#000000"
-   cursor: "#ffff00"
+   cursor: "#FFFF00"
 
   # # Default colors
   # primary:
@@ -281,27 +285,27 @@ colors:
   #   background: '#262626'
   #   foreground: '#cccccc'
 
-  primary:
-    background: '0xf1f1f1'
-    foreground: '0x424242'
-  normal:
-    black:   '0x212121'
-    red:     '0xc30771'
-    green:   '0x10a778'
-    yellow:  '0xa89c14'
-    blue:    '0x008ec4'
-    magenta: '0x523c79'
-    cyan:    '0x20a5ba'
-    white:   '0xe0e0e0'
-  bright:
-    black:   '0x212121'
-    red:     '0xfb007a'
-    green:   '0x5fd7af'
-    yellow:  '0xf3e430'
-    blue:    '0x20bbfc'
-    magenta: '0x6855de'
-    cyan:    '0x4fb8cc'
-    white:   '0xf1f1f1'
+  # primary:
+  #   background: '#FFD7AF'
+  #   foreground: '#000000'
+  # normal:
+  #   black:   '#212121'
+  #   red:     '#c30771'
+  #   green:   '#10a778'
+  #   yellow:  '#b08245'
+  #   blue:    '#008ec4'
+  #   magenta: '#523c79'
+  #   cyan:    '#20a5ba'
+  #   white:   '#e0e0e0'
+  # bright:
+  #   black:   '#212121'
+  #   red:     '#fb007a'
+  #   green:   '#5fd7af'
+  #   yellow:  '#ff9f05'
+  #   blue:    '#20bbfc'
+  #   magenta: '#6855de'
+  #   cyan:    '#4fb8cc'
+  #   white:   '#f1f1f1'
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
@@ -336,8 +340,10 @@ bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
-# background_opacity: 0.80
+# background_opacity: 1.0
+# background_opacity: 0.5
+window:
+  opacity: 0.98
 
 #selection:
 #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
