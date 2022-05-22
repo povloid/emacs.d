@@ -33,3 +33,5 @@ projectile-bookmarks.eld
 /.cache/
 /.dap-breakpoints
 /.log/
+/.DS_Store
+/snippets/.DS_Store
