@@ -78,3 +78,8 @@ if [ -f '/Users/pacman/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/pacm
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/pacman/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/pacman/opt/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# RE:JOIN settings -----------------------------------------------
+
+source ~/git/re.join/set_env.sh

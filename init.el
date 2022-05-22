@@ -264,10 +264,10 @@
    ;; '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
    ;; '(default ((t (:family "Fira Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
    ;;'(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 180 :width normal))))
-   ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 160 :width normal))))
+   '(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 200 :width normal))))
    ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 130 :width normal))))
    ;;'(default ((t (:family "Source Code Pro" :foundry "PARA" :slant normal :weight light :height 150 :width normal))))
-   '(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight light :height 170 :width normal))))
+   ;;'(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight light :height 170 :width normal))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -1427,6 +1427,23 @@
 ;;;..................................................................................................
 
 ;;;**************************************************************************************************
+;;;* BEGIN GraphQL
+;;;* tag: <graphql>
+;;;*
+;;;* description: Настройки для graphql
+;;;*
+;;;**************************************************************************************************
+
+(use-package graphql-mode
+  :ensure t
+  :commands (graphql-mode)
+  :mode "\\.graphql\\'")
+
+;;; END GraphQL
+;;;..................................................................................................
+
+
+;;;**************************************************************************************************
 ;;;* BEGIN EDIT CONFIGS
 ;;;* tag: <configw>
 ;;;*
@@ -2181,9 +2198,9 @@
   (concat "term-" (number-to-string (setq tt-id (+ 1 tt-id)))))
 
 (defun tt-0 (name)
-  (ansi-term "/bin/bash")
+  (ansi-term "/bin/zsh")
   (rename-buffer (concat "ttt: " name))
-  (term-send-raw-string "export LANG=en_US.UTF-8; source ~/.bash_profile")
+  ;;(term-send-raw-string "export LANG=en_US.UTF-8; source ~/.bash_profile")
   (term-send-input))
 
 (defun ttt (name)
@@ -2294,87 +2311,33 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(beacon-color "#d33682")
- '(compilation-message-face 'default)
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#657b83")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
- '(diff-hl-show-hunk-posframe-internal-border-color "#ffffffffffff")
- '(evil-emacs-state-cursor '("#D50000" hbar))
- '(evil-insert-state-cursor '("#D50000" bar))
- '(evil-normal-state-cursor '("#F57F17" box))
- '(evil-visual-state-cursor '("#66BB6A" box))
- '(exwm-floating-border-color "#E1DBCD")
- '(fci-rule-color "#eee8d5")
+ '(beacon-color "#d54e53")
+ '(diff-hl-show-hunk-posframe-internal-border-color "#357535753575")
+ '(evil-emacs-state-cursor '("#E57373" hbar))
+ '(evil-insert-state-cursor '("#E57373" bar))
+ '(evil-normal-state-cursor '("#FFEE58" box))
+ '(evil-visual-state-cursor '("#C5E1A5" box))
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
- '(frame-background-mode 'light)
- '(highlight-changes-colors '("#d33682" "#6c71c4"))
+ '(frame-background-mode 'dark)
+ '(frame-brackground-mode 'dark)
  '(highlight-indent-guides-auto-enabled nil)
  '(highlight-symbol-colors
-   '("#F57F17" "#66BB6A" "#0097A7" "#42A5F5" "#7E57C2" "#D84315"))
- '(highlight-symbol-foreground-color "#546E7A")
- '(highlight-tail-colors '(("#F8BBD0" . 0) ("#FAFAFA" . 100)))
- '(hl-bg-colors
-   '("#e1af4b" "#fb7640" "#ff6849" "#ff699e" "#8d85e7" "#74adf5" "#6ccec0" "#b3c34d"))
- '(hl-fg-colors
-   '("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3"))
- '(hl-paren-colors '("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900"))
- '(jdee-db-active-breakpoint-face-colors (cons "#FFFBF0" "#268bd2"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#FFFBF0" "#859900"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#FFFBF0" "#E1DBCD"))
- '(lsp-ui-doc-border "#586e75")
- '(mlscroll-in-color "#e67fe67fe67f")
- '(mlscroll-out-color "#FAFAFA")
- '(nrepl-message-colors
-   '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8" "#2aa198" "#d33682" "#6c71c4"))
- '(objed-cursor-color "#dc322f")
+   '("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80"))
+ '(highlight-symbol-foreground-color "#E0E0E0")
+ '(mlscroll-in-color "#56bc56bc56bc")
+ '(mlscroll-out-color "#424242")
  '(package-selected-packages
-   '(vs-light-theme color-theme-sanityinc-solarized autumn-light-theme eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-api docker sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode yaml-tomato yaml-mode json-reformat json-mode typescript-mode js-doc prettier-js rjsx-mode js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-ui lsp-mode hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ git-gutter magit yasnippet-classic-snippets yasnippet-snippets helm-c-yasnippet yasnippet org-projectile persp-projectile perspective projectile ag helm-themes helm-swoop helm-descbinds helm fic-mode flycheck company ibuffer-vc highlight-numbers multiple-cursors paredit reverse-im neotree diredfl doom-modeline monokai-theme gruvbox-theme doom-themes color-theme-sanityinc-tomorrow apropospriate-theme cyberpunk-theme solarized-theme default-text-scale quelpa-use-package quelpa use-package))
- '(pdf-view-midnight-colors '("#282828" . "#fbf1c7"))
- '(pos-tip-background-color "#ffffffffffff")
- '(pos-tip-foreground-color "#78909C")
- '(rustic-ansi-faces
-   ["#FDF6E3" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#556b72"])
- '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
- '(tabbar-background-color "#ffffffffffff")
- '(term-default-bg-color "#fdf6e3")
- '(term-default-fg-color "#657b83")
- '(vc-annotate-background nil)
- '(vc-annotate-background-mode nil)
- '(vc-annotate-color-map
-   '((20 . "#dc322f")
-     (40 . "#cb4b16")
-     (60 . "#b58900")
-     (80 . "#859900")
-     (100 . "#2aa198")
-     (120 . "#268bd2")
-     (140 . "#d33682")
-     (160 . "#6c71c4")
-     (180 . "#dc322f")
-     (200 . "#cb4b16")
-     (220 . "#b58900")
-     (240 . "#859900")
-     (260 . "#2aa198")
-     (280 . "#268bd2")
-     (300 . "#d33682")
-     (320 . "#6c71c4")
-     (340 . "#dc322f")
-     (360 . "#cb4b16")))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   '(unspecified "#fdf6e3" "#eee8d5" "#a7020a" "#dc322f" "#5b7300" "#859900" "#866300" "#b58900" "#0061a8" "#268bd2" "#a00559" "#d33682" "#007d76" "#2aa198" "#657b83" "#839496"))
- '(window-divider-mode nil)
- '(xterm-color-names
-   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
- '(xterm-color-names-bright
-   ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
+   '(sourcerer-theme subatomic-theme gruber-darker-theme graphql-mode zerodark-theme zenburn-theme yoshi-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets nginx-mode neotree monokai-theme monky lsp-ui lsp-java logview kibit-helper json-reformat js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruvbox-theme groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell ewal-doom-themes eshell-git-prompt erlang emmet-mode doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls apropospriate-theme apache-mode ag))
+ '(pos-tip-background-color "#3a933a933a93")
+ '(pos-tip-foreground-color "#E0E0E0")
+ '(tabbar-background-color "#357535753575")
+ '(window-divider-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight light :height 170 :width normal))))
+ '(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 200 :width normal))))
  '(flymake-errline ((((class color)) (:background "Gray30"))) t)
  '(flymake-error ((((class color)) (:background "Gray30"))))
  '(flymake-warning ((((class color)) (:background "Gray20"))))
