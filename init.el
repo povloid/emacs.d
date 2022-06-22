@@ -48,11 +48,15 @@
 ;;------------------------------------------------------------------------------
 
 (require 'package)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ;; ("org" . "https://orgmode.org/elpa/")
-                         ))
+(setq package-archives
+      '(("elpa"     . "https://elpa.gnu.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa"        . "https://melpa.org/packages/"))
+      package-archive-priorities
+      '(("melpa-stable" . 10)
+        ("elpa"         . 5)
+        ("melpa"        . 0)))
+
 
 (package-initialize)
 
@@ -147,10 +151,10 @@
 
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 50MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 100000000)
+(setq gc-cons-threshold (* 50 1024 1024))
 
 ;; warn when opening files bigger than 100MB
-(setq large-file-warning-threshold 100000000)
+(setq large-file-warning-threshold (* 100 1024 1024))
 
 (setq read-process-output-max (* 3 1024 1024)) ;; 1mb
 
@@ -161,7 +165,7 @@
       `((".*" ,temporary-file-directory t)))
 
 ;; nice scrolling
-(setq scroll-margin 0
+(setq scroll-margin 4
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
@@ -263,11 +267,13 @@
    ;; If there is more than one, they won't work right.
    ;; '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
    ;; '(default ((t (:family "Fira Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
-   ;;'(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 180 :width normal))))
-   '(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 200 :width normal))))
+   ;;'(default ((t (:family "JetBrains Mono" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+   '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+   ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 200 :width normal))))
    ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 130 :width normal))))
    ;;'(default ((t (:family "Source Code Pro" :foundry "PARA" :slant normal :weight light :height 150 :width normal))))
    ;;'(default ((t (:family "Go Mono" :foundry "PARA" :slant normal :weight light :height 170 :width normal))))
+   '(font-lock-comment-face ((t (:weight normal :slant italic))))
    '(font-lock-builtin-face ((t (:weight bold))))
    '(font-lock-constant-face ((t (:weight bold))))
    '(font-lock-function-name-face ((t (:weight bold))))
@@ -325,7 +331,7 @@
 (use-package apropospriate-theme
   :ensure t
   :config
-  (load-theme 'apropospriate-dark t)
+  ;;(load-theme 'apropospriate-dark t)
   ;; or
   ;;(load-theme 'apropospriate-light t)
   )
@@ -348,10 +354,21 @@
 (use-package monokai-theme
   :ensure t)
 
+(use-package zenburn-theme
+  :ensure t
+  :config
+  ;;(load-theme 'zenburn t)
+  )
+
+(use-package modus-vivendi-theme
+  :ensure t
+  :config
+  (load-theme 'modus-vivendi t))
+
 (set-cursor-color "white")
 
-;; (use-package all-the-icons
-;;   :ensure t)
+(use-package all-the-icons
+   :ensure t)
 
 ;; END Themes
 ;;..............................................................................
@@ -1017,6 +1034,58 @@
 ;;; END Version controls
 ;;;..................................................................................................
 
+;;;**************************************************************************************************
+;;;* BEGIN treemacs
+;;;* tag: <treemacs>
+;;;*
+;;;* description:
+;;;*
+;;;**************************************************************************************************
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t d"   . treemacs-select-directory)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+;; (use-package treemacs-evil
+;;   :after (treemacs evil)
+;;   :ensure t)
+
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
+
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
+
+(use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
+  :after (treemacs persp-mode) ;;or perspective vs. persp-mode
+  :ensure t
+  :config (treemacs-set-scope-type 'Perspectives))
+
+;; (use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
+;;   :after (treemacs)
+;;   :ensure t
+;;   :config (treemacs-set-scope-type 'Tabs))
+
+;;; END treemacs
+;;;..................................................................................................
 
 ;;;**************************************************************************************************
 ;;;* BEGIN LSP
@@ -1033,26 +1102,81 @@
 	 (js2-mode . lsp)
 	 (js2-jsx-mode . lsp)
 	 (rjsx-mode . lsp))
-  ;; :custom
+  :custom
+  (lsp-javascript-auto-closing-tags t)
+  (lsp-javascript-suggest-complete-js-docs t)
   ;; (lsp-headerline-breadcrumb-enable nil)
-  )
+  :config
+  (lsp-enable-which-key-integration t))
 
 (setq lsp-idle-delay 2)
 (setq lsp-log-io nil)
 
 ;; optionally
+;; (use-package lsp-ui
+;;   :commands lsp-ui-mode
+;;   :config
+;;   (setq lsp-treemacs-sync-mode 1)
+
+;;   (setq lsp-ui-peek-enable t)
+;;   (setq lsp-ui-doc-header t)
+;;   (setq lsp-ui-doc-include-signature t)
+;;   (setq lsp-ui-doc-enable t)
+;;   (setq lsp-ui-doc-use-webkit t)
+;;   (setq lsp-ui-doc-position 'top)
+;;   (setq lsp-ui-doc-delay 0)
+;;   (setq lsp-ui-doc-show-with-cursor t)
+;;   (setq lsp-ui-doc-show-with-mouse t)
+;;   (setq lsp-ui-sideline-delay 1) ; don't show sideline immediately
+;;   (setq lsp-eldoc-hook nil)
+
+;;   (setq lsp-ui-imenu-window-width 300) set window width
+;;   ;;(setq lsp-ui-imenu--custom-mode-line-format ?) mode line format
+;;   (setq lsp-ui-imenu-auto-refresh t) auto refresh when necessary
+;;   (setq lsp-ui-imenu-refresh-delay 2) delay to refresh imenu
+
+;;   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+;;   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
+
 (use-package lsp-ui
-  :commands lsp-ui-mode
+  :ensure t
+  :init (setq
+	      lsp-treemacs-sync-mode           1
+
+              lsp-enable-snippet               nil
+              lsp-ui-sideline-enable           t
+              lsp-ui-peek-enable               t
+
+	      lsp-ui-doc-enable                t
+              lsp-ui-doc-position              'at-point
+              lsp-ui-doc-header                nil
+              lsp-ui-doc-border                "red"
+              lsp-ui-doc-include-signature     t
+	      lsp-ui-doc-show-with-cursor      t
+	      lsp-ui-doc-show-with-mouse       t
+
+              lsp-ui-sideline-update-mode      'point
+              lsp-ui-sideline-delay            1
+              lsp-ui-sideline-ignore-duplicate t
+
+              lsp-ui-peek-always-show          t
+              lsp-ui-flycheck-enable           t
+
+	      lsp-eldoc-hook                   nil)
+  :bind (:map lsp-ui-mode-map
+              ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+              ([remap xref-find-references] . lsp-ui-peek-find-references)
+              ("C-c u" . lsp-ui-imenu))
   :config
-  (setq lsp-ui-doc-header t)
-  (setq lsp-ui-doc-include-signature t)
-  (setq lsp-ui-doc-enable t)
-  (setq lsp-ui-doc-use-webkit t)
-  (setq lsp-ui-doc-position 'top)
-  (setq lsp-eldoc-hook nil))
+  (setq lsp-ui-sideline-ignore-duplicate t)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
 
 ;; (use-package company-lsp
 ;;   :commands company-lsp)
+
+(use-package lsp-treemacs
+  :after lsp)
 
 (use-package helm-lsp
   :commands helm-lsp-workspace-symbol)
@@ -1369,8 +1493,13 @@
         js-doc-license "MIT License"))
 
 (use-package typescript-mode
-  :mode ("\\.ts$" . typescript-mode)
-  :hook (typescript-mode . lsp))
+  :init
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . (lambda () (typescript-mode) (rjsx-minor-mode))))
+  :mode (("\\.ts$" . typescript-mode)
+	 ("\\.tsx$" . typescript-mode))
+  :hook (typescript-mode . lsp)
+  :config
+  (setq  typescript-indent-level 2))
 
 ;; END JavaScript
 ;;..............................................................................
@@ -2201,6 +2330,7 @@
   (ansi-term "/bin/zsh")
   (rename-buffer (concat "ttt: " name))
   ;;(term-send-raw-string "export LANG=en_US.UTF-8; source ~/.bash_profile")
+  (term-send-raw-string "source ~/.zprofile")
   (term-send-input))
 
 (defun ttt (name)
@@ -2306,48 +2436,3 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(beacon-color "#d54e53")
- '(diff-hl-show-hunk-posframe-internal-border-color "#357535753575")
- '(evil-emacs-state-cursor '("#E57373" hbar))
- '(evil-insert-state-cursor '("#E57373" bar))
- '(evil-normal-state-cursor '("#FFEE58" box))
- '(evil-visual-state-cursor '("#C5E1A5" box))
- '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
- '(frame-background-mode 'dark)
- '(frame-brackground-mode 'dark)
- '(highlight-indent-guides-auto-enabled nil)
- '(highlight-symbol-colors
-   '("#FFEE58" "#C5E1A5" "#80DEEA" "#64B5F6" "#E1BEE7" "#FFCC80"))
- '(highlight-symbol-foreground-color "#E0E0E0")
- '(mlscroll-in-color "#56bc56bc56bc")
- '(mlscroll-out-color "#424242")
- '(package-selected-packages
-   '(sourcerer-theme subatomic-theme gruber-darker-theme graphql-mode zerodark-theme zenburn-theme yoshi-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package prettier-js popup-kill-ring persp-projectile org-web-tools org-projectile org-bullets nginx-mode neotree monokai-theme monky lsp-ui lsp-java logview kibit-helper json-reformat js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruvbox-theme groovy-mode groovy-imports graphviz-dot-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell ewal-doom-themes eshell-git-prompt erlang emmet-mode doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls apropospriate-theme apache-mode ag))
- '(pos-tip-background-color "#3a933a933a93")
- '(pos-tip-foreground-color "#E0E0E0")
- '(tabbar-background-color "#357535753575")
- '(window-divider-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 200 :width normal))))
- '(flymake-errline ((((class color)) (:background "Gray30"))) t)
- '(flymake-error ((((class color)) (:background "Gray30"))))
- '(flymake-warning ((((class color)) (:background "Gray20"))))
- '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(js2-error ((t (:background "#110000" :box nil))))
- '(tabbar-default ((t (:height 1.2)))))
