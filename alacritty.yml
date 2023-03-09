@@ -37,8 +37,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 5
-    y: 5
+    x: 0
+    y: 0
 
   # Spread additional padding evenly around the terminal content.
   # dynamic_padding: true
@@ -122,7 +122,7 @@ font:
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
     # family: Iosevka Fixed Slab
-    family: Iosevka
+    # family: Iosevka
     # family: Source Code Pro
     # family: Recursive Mono
     # family: Go Mono
@@ -133,13 +133,13 @@ font:
     # family: Fira Mono
     # family: Courier
     # family: Courier New
-    # family: Anonymous Pro
+    family: Anonymous Pro
     # family: Terminus TTF
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
     # style: Bold
-    style: Regular
+    # style: Regular
     # style: Light
 
   # Bold font face
@@ -157,7 +157,7 @@ font:
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
     # family: Iosevka Fixed Slab
-    family: Iosevka
+    # family: Iosevka
     # family: Source Code Pro
     # family: Go Mono
     # family: Fira Code
@@ -170,8 +170,8 @@ font:
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
-    style: Bold
-    # style: Medium
+    # style: Bold
+    style: Medium
 
   # Italic font face
   italic:
@@ -188,7 +188,7 @@ font:
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
     # family: Iosevka Fixed Slab
-    family: Iosevka
+    # family: Iosevka
     # family: Source Code Pro
     # family: Go Mono
     # family: Fira Code
@@ -219,7 +219,7 @@ font:
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
     # family: Iosevka Fixed Slab
-    family: Iosevka
+    # family: Iosevka
     # family: Source Code Pro
     # family: Go Mono
     # family: Fira Code
@@ -236,7 +236,7 @@ font:
     style: Medium Italic
 
   # Point size
-  size: 16.0
+  size: 17.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -281,10 +281,10 @@ colors:
    cursor: "#FFFF00"
 
   # # Default colors
-  # primary:
+  primary:
   #   #background: '#24292E'
-  #   background: '#262626'
-  #   foreground: '#cccccc'
+    background: '#000000'
+    foreground: '#dddddd'
 
   # primary:
   #   background: '#FFD7AF'
@@ -344,7 +344,8 @@ bell:
 # background_opacity: 1.0
 # background_opacity: 0.5
 window:
-  opacity: 0.98
+  # opacity: 0.98
+  opacity: 1
 
 #selection:
 #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

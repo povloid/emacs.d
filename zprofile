@@ -37,13 +37,13 @@ export GEM_HOME="/Users/pacman/gem_modules/"
 
 # node
 
-export PATH="/usr/local/opt/node@14/bin:$PATH"
+export PATH="/usr/local/opt/node@18/bin:$PATH"
 export NPM_CONFIG_PREFIX=~/global/npm
 export PATH="/Users/pacman/global/npm/bin/:${PATH}"
 export PATH="/Users/pacman/global/yarn/bin/:${PATH}"
 
-export LDFLAGS="-L/usr/local/opt/node@14/lib"
-export CPPFLAGS="-I/usr/local/opt/node@14/include"
+export LDFLAGS="-L/usr/local/opt/node@18/lib"
+export CPPFLAGS="-I/usr/local/opt/node@18/include"
 
 # overtok default some
 
@@ -56,7 +56,7 @@ export CPPFLAGS="-I/usr/local/opt/icu4c/include"
 
 # java
 
-#export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
 #export PATH="/opt/jdk/bin:$PATH"
 #export JAVA_HOME="/opt/jdk"
 #export JDK_HOME="/opt/jdk"
@@ -79,7 +79,23 @@ if [ -f '/Users/pacman/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/pacm
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/pacman/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/pacman/opt/google-cloud-sdk/completion.zsh.inc'; fi
 
+# Flutter --------------------------------------------------------
+
+export PATH="$PATH:/Users/pacman/opt/flutter/bin"
 
 # RE:JOIN settings -----------------------------------------------
 
 source ~/git/re.join/set_env.sh
+
+
+export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+
+
+export PATH=/usr/local/opt/ruby/bin:$PATH
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+
+export PATH=/Users/pacman/.gem/ruby/3.1.0/bin:$PATH

@@ -357,10 +357,10 @@
 (use-package zenburn-theme
   :ensure t
   :config
-  ;;(load-theme 'zenburn t)
+  ;; (load-theme 'zenburn t)
   )
 
-(use-package modus-vivendi-theme
+(use-package modus-themes
   :ensure t
   :config
   (load-theme 'modus-vivendi t))
@@ -847,10 +847,13 @@
   :config
   (persp-mode))
 
-(use-package persp-projectile
-  :ensure t
-  :defer 1
-  :bind (("C-c p w" . projectile-persp-switch-project)))
+
+
+;; Пока отключил, попробую работать напрямую через tmux
+;; (use-package persp-projectile
+;;   :ensure t
+;;   :defer 1
+;;   :bind (("C-c p w" . projectile-persp-switch-project)))
 
 ;; Нужно для того чтобы открывать каждый проект в своем фрейме
 ;; пока не ончень порой удобно, решено оставить на будущее
@@ -1109,7 +1112,7 @@
   :config
   (lsp-enable-which-key-integration t))
 
-(setq lsp-idle-delay 2)
+(setq lsp-idle-delay 5)
 (setq lsp-log-io nil)
 
 ;; optionally
@@ -1156,7 +1159,7 @@
 	      lsp-ui-doc-show-with-mouse       t
 
               lsp-ui-sideline-update-mode      'point
-              lsp-ui-sideline-delay            1
+              lsp-ui-sideline-delay            5
               lsp-ui-sideline-ignore-duplicate t
 
               lsp-ui-peek-always-show          t
@@ -1493,8 +1496,6 @@
         js-doc-license "MIT License"))
 
 (use-package typescript-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . (lambda () (typescript-mode) (rjsx-minor-mode))))
   :mode (("\\.ts$" . typescript-mode)
 	 ("\\.tsx$" . typescript-mode))
   :hook (typescript-mode . lsp)
@@ -2436,3 +2437,29 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(modus-themes modus-theme modus-vivendi-theme zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package prettier-js popup-kill-ring perspective org-web-tools org-projectile org-bullets nginx-mode neotree monokai-theme monky lsp-ui lsp-java logview kibit-helper json-reformat js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruvbox-theme groovy-mode groovy-imports graphviz-dot-mode graphql-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls apropospriate-theme apache-mode all-the-icons ag)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+ '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-error ((((class color)) (:background "Gray30"))))
+ '(flymake-warning ((((class color)) (:background "Gray20"))))
+ '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-comment-face ((t (:weight normal :slant italic))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(tabbar-default ((t (:height 1.2)))))
