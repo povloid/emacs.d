@@ -37,13 +37,14 @@ export GEM_HOME="/Users/pacman/gem_modules/"
 
 # node
 
-export PATH="/usr/local/opt/node@18/bin:$PATH"
+
+export PATH="/usr/local/opt/node@20/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/node@20/lib"
+export CPPFLAGS="-I/usr/local/opt/node@20/include"
+
 export NPM_CONFIG_PREFIX=~/global/npm
 export PATH="/Users/pacman/global/npm/bin/:${PATH}"
 export PATH="/Users/pacman/global/yarn/bin/:${PATH}"
-
-export LDFLAGS="-L/usr/local/opt/node@18/lib"
-export CPPFLAGS="-I/usr/local/opt/node@18/include"
 
 # overtok default some
 

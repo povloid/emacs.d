@@ -2480,19 +2480,19 @@
 ;;;*
 ;;;**************************************************************************************************
 
-(use-package haskell-mode
-  :mode (("\\.hs$" . haskell-mode)))
+;;(use-package haskell-mode
+;;  :mode (("\\.hs$" . haskell-mode)))
 
-(use-package lsp-haskell
-  :hook
-  (haskell-mode . lsp)
-  (haskell-literate-mode . lsp))
+;;(use-package lsp-haskell
+;;  :hook
+;;  (haskell-mode . lsp)
+;;  (haskell-literate-mode . lsp))
 
-(use-package flycheck-haskell
-  :config
-  (with-eval-after-load "flycheck"
-    (with-eval-after-load "haskell"
-      (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))))
+;;(use-package flycheck-haskell
+;;  :config
+;;  (with-eval-after-load "flycheck"
+;;    (with-eval-after-load "haskell"
+;;      (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))))
 
 
 ;;; END Haskell
@@ -2504,29 +2504,3 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(flycheck-haskell lsp-haskell haskell-mode modus-themes modus-theme modus-vivendi-theme zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package prettier-js popup-kill-ring perspective org-web-tools org-projectile org-bullets nginx-mode neotree monokai-theme monky lsp-ui lsp-java logview kibit-helper json-reformat js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-themes helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruvbox-theme groovy-mode groovy-imports graphviz-dot-mode graphql-mode google-translate google-maps google gitlab github-search git-gutter git-gutter+ gist ghub+ gh-md flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow cmake-mode clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm ccls apropospriate-theme apache-mode all-the-icons ag)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
- '(flymake-errline ((((class color)) (:background "Gray30"))) t)
- '(flymake-error ((((class color)) (:background "Gray30"))))
- '(flymake-warning ((((class color)) (:background "Gray20"))))
- '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-comment-face ((t (:weight normal :slant italic))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(tabbar-default ((t (:height 1.2)))))

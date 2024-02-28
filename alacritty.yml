@@ -133,7 +133,7 @@ font:
     # family: Fira Mono
     # family: Courier
     # family: Courier New
-    family: Anonymous Pro
+    # family: Anonymous Pro
     # family: Terminus TTF
     # family: SF Mono
 
@@ -343,9 +343,9 @@ bell:
 # The value `0.0` is completely transparent and `1.0` is opaque.
 # background_opacity: 1.0
 # background_opacity: 0.5
-window:
+#window:
   # opacity: 0.98
-  opacity: 1
+  # opacity: 1
 
 #selection:
 #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
