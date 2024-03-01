@@ -743,8 +743,8 @@
          ("C-c s m" . helm-multi-swoop)
          ("C-c s a" . helm-multi-swoop-all)))
 
-(use-package helm-themes
-  :ensure t)
+;; (use-package helm-themes
+;;   :ensure t)
 
 ;;; END Helm
 ;;;..................................................................................................
@@ -843,10 +843,9 @@
                   "*.zip")
                 projectile-globally-ignored-files)))
 
-(use-package perspective
-  :config
-  (persp-mode))
-
+;; (use-package perspective
+;;   :config
+;;   (persp-mode))
 
 
 ;; Пока отключил, попробую работать напрямую через tmux
@@ -914,6 +913,7 @@
 ;;; END Snippets
 ;;;..................................................................................................
 
+
 ;;;**************************************************************************************************
 ;;;* BEGIN Version controls
 ;;;* tag: <versions control>
@@ -931,7 +931,8 @@
 (use-package magit
   :ensure t)
 
-(use-package git-gutter
+
+ (use-package git-gutter
   :ensure t
   :config
   (progn
@@ -959,17 +960,15 @@
          ("C-x v s" . git-gutter:stage-hunk)
          ("C-x v r" . git-gutter:revert-hunk)))
 
-(global-git-gutter-mode +1)
-
 (use-package git-gutter+
   :ensure t
   :config
   (progn
     (global-git-gutter+-mode +1)
-    ;;; Jump between hunks
+    ;; Jump between hunks
     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
-    ;;; Act on hunks
+    ;; Act on hunks
     (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
     (define-key git-gutter+-mode-map (kbd "C-x r") 'git-gutter+-revert-hunks)
     ;; Stage hunk at point.
@@ -983,33 +982,6 @@
          ("C-x G" . global-git-gutter+-mode)))
 
 (global-git-gutter+-mode +1)
-
-;; GitHub
-
-;; Github api
-(use-package gh :ensure t)
-(use-package gh-md :ensure t)
-
-;; Search on github
-(use-package github-search :ensure t)
-
-;; Mapping github with magit
-(use-package ghub :ensure t)
-(use-package ghub+ :ensure t)
-
-;; выдает ошибку
-;; (use-package magithub
-;;   :ensure t
-;;   :after (:all magit ghub ghub+)
-;;   :config (magithub-feature-autoinject t))
-
-;; GIST
-
-(use-package gist :ensure t)
-
-;; GitLag
-
-(use-package gitlab :ensure t)
 
 ;; END Git
 ;;..............................................................................
@@ -1032,8 +1004,6 @@
 ;; END Mercurial
 ;;..............................................................................
 
-
-
 ;;; END Version controls
 ;;;..................................................................................................
 
@@ -1051,7 +1021,7 @@
   :init
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-    :bind
+  :bind
   (:map global-map
         ("M-0"       . treemacs-select-window)
         ("C-x t 1"   . treemacs-delete-other-windows)
@@ -1089,6 +1059,7 @@
 
 ;;; END treemacs
 ;;;..................................................................................................
+
 
 ;;;**************************************************************************************************
 ;;;* BEGIN LSP
@@ -1761,7 +1732,6 @@
 
 (use-package docker :ensure t)
 (use-package docker-api :ensure t)
-(use-package docker-tramp :ensure t)
 (use-package dockerfile-mode :ensure t)
 
 ;;; END DOCKER
@@ -2504,3 +2474,29 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-tramp docker-api docker sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode graphql-mode yaml-tomato yaml-mode json-reformat json-mode typescript-mode js-doc prettier-js rjsx-mode js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-treemacs lsp-ui lsp-mode treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ zenburn-theme yasnippet-snippets yasnippet-classic-snippets solarized-theme reverse-im quelpa-use-package perspective paredit org-projectile neotree multiple-cursors monokai-theme modus-themes magit ibuffer-vc highlight-numbers helm-themes helm-swoop helm-descbinds helm-c-yasnippet gruvbox-theme git-gutter flycheck fic-mode doom-themes doom-modeline diredfl default-text-scale cyberpunk-theme company color-theme-sanityinc-tomorrow apropospriate-theme all-the-icons ag)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+ '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-error ((((class color)) (:background "Gray30"))))
+ '(flymake-warning ((((class color)) (:background "Gray20"))))
+ '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-comment-face ((t (:weight normal :slant italic))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(tabbar-default ((t (:height 1.2)))))
