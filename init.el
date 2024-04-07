@@ -22,17 +22,17 @@
         (setenv "PATH" path))))
 
 ;; PATH's
-(setenv "PATH" (shell-command-to-string "source $HOME/.zprofile && printf $PATH"))
-(setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH")))
+;;(setenv "PATH" (shell-command-to-string "source $HOME/.zprofile && printf $PATH"))
+;;(setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH")))
 ;;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
 ;; check (executable-find "sls") for example
 ;; check (executable-find "npm") for example
 
-(add-to-list 'exec-path "~/bin/")
-(add-to-list 'exec-path "~/global/npm/bin/")
-(add-to-list 'exec-path "~/global/yarn/bin/")
+;;(add-to-list 'exec-path "~/bin/")
+;;(add-to-list 'exec-path "~/global/npm/bin/")
+;;(add-to-list 'exec-path "~/global/yarn/bin/")
 
 (setenv "LC_ALL" "en_US.UTF-8")
 (setenv "LANG" "en_US.UTF-8")
