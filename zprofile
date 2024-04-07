@@ -4,7 +4,7 @@ export LC_ALL=en_US.UTF-8
 
 export PATH="/Applications/Emacs.app/Contents/MacOS/bin/":${PATH}
 
-export EDITOR='ec'
+export EDITOR='emacsclient'
 export TTT=".zprofile"
 
 # iTerm 2

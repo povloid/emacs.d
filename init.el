@@ -2197,35 +2197,40 @@
 ;; -----------------------------------------------------------------------------
 ;; - (kill-region BEG END &optional REGION)
 
-(defun pbcut ()
-  (interactive)
-  (call-process-region (point) (mark) "pbcopy")
-  (kill-region (point) (mark)))
+(when (eq system-type 'darwin)
+  (progn
+    (defun pbcut ()
+      (interactive)
+      (call-process-region (point) (mark) "pbcopy")
+      (kill-region (point) (mark)))
 
-(global-set-key (kbd "C-w") 'pbcut)
+    (global-set-key (kbd "C-w") 'pbcut)))
 
 ;; -----------------------------------------------------------------------------
 ;; - (kill-ring-save BEG END &optional REGION)
 
-(defun pbcopy ()
-  (interactive)
-  (call-process-region (point) (mark) "pbcopy")
-  (kill-ring-save (point) (mark)))
+(when (eq system-type 'darwin)
+  (progn
+    (defun pbcopy ()
+      (interactive)
+      (call-process-region (point) (mark) "pbcopy")
+      (kill-ring-save (point) (mark)))
 
-(global-set-key (kbd "M-w") 'pbcopy)
+    (global-set-key (kbd "M-w") 'pbcopy)))
 
 ;; -----------------------------------------------------------------------------
 ;; - (yank &optional ARG)
+(when (eq system-type 'darwin)
+  (progn
+    (defun pbpaste ()
+      (interactive)
+      (call-process-region (point)
+			   (if mark-active
+			       (mark)
+			     (point))
+			   "pbpaste" t t))
 
-(defun pbpaste ()
-  (interactive)
-  (call-process-region (point)
-		       (if mark-active
-			   (mark)
-			 (point))
-		       "pbpaste" t t))
-
-(global-set-key (kbd "C-c C-y") 'pbpaste)
+    (global-set-key (kbd "C-c C-y") 'pbpaste)))
 
 
 ;; END

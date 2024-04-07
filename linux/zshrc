@@ -102,3 +102,75 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+################################################################################################
+# ENVIRONMENTs #################################################################################
+################################################################################################
+
+export LC_ALL=en_US.UTF-8
+
+# emacs
+
+export PATH="/Applications/Emacs.app/Contents/MacOS/bin/":${PATH}
+
+export EDITOR='ec'
+export TTT=".zprofile"
+
+alias et="emacsclient -nw ``"
+
+# iTerm 2
+
+# Set CLICOLOR if you want Ansi Colors in iTerm2
+export CLICOLOR=1
+
+# Set colors to match iTerm2 Terminal Colors
+#export TERM=xterm-24bit
+
+# path
+
+export PATH="/home/pacman/bin/:${PATH}"
+
+# LLVM
+
+# export PATH="/usr/local/opt/llvm/bin:$PATH"
+# export LDFLAGS="-L/usr/local/opt/llvm/lib:$LDFLAGS"
+# export CPPFLAGS="-I/usr/local/opt/llvm/include:$CPPFLAGS"
+# export LLVM_INSTALL_DIR="/usr/local/opt/llvm"
+
+# QT
+
+# export PATH="/home/pacman/opt/qt6/bin:$PATH"
+# export CPPFLAGS="-I/usr/local/opt/llvm/include:$CPPFLAGS"
+
+# python
+
+# export PATH="/usr/local/opt/python@3.9/bin:$PATH"
+
+# ruby
+
+# export PATH="/home/pacman/gem_modules/bin/:${PATH}"
+# export GEM_HOME="/home/pacman/gem_modules/"
+
+# node
+
+# export PATH="/usr/local/opt/node@20/bin:$PATH"
+# export LDFLAGS="-L/usr/local/opt/node@20/lib:$LDFLAGS"
+# export CPPFLAGS="-I/usr/local/opt/node@20/include:$CPPFLAGS"
+
+export NPM_CONFIG_PREFIX=~/global/npm
+export PATH="/home/pacman/global/npm/bin/:${PATH}"
+export PATH="/home/pacman/global/yarn/bin/:${PATH}"
+
+# overtok default some
+
+# source ~/git/overtok/qa/overtok/release/set_qa_env.sh
+
+# java
+
+#export PATH="/usr/local/opt/openjdk/bin:$PATH"
+#export PATH="/opt/jdk/bin:$PATH"
+#export JAVA_HOME="/usr/local/opt/openjdk/"
+#export JDK_HOME="/usr/local/opt/openjdk/"
+
+# Visual Studio Code (code)
