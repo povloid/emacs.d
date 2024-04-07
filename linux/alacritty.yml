@@ -267,8 +267,6 @@ font:
   # effect.
   #use_thin_strokes: true
 
-
-
 colors:
   # Cursor colors
   #
@@ -565,7 +563,7 @@ key_bindings:
 
   # # Copy and Paste
   # - { key: C,     mods: Alt,     action: Copy  }
-  # - { key: V,     mods: Alt,     action: Paste }
+  - { key: V,     mods: Command,     action: Paste }
   # #- { key: C,     mods: Command|Shift, action: Copy  }
   # #- { key: V,     mods: Command|Shift, action: Paste }
 
