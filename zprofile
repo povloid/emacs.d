@@ -52,7 +52,6 @@ export GEM_HOME="/Users/pacman/gem_modules/"
 
 # node
 
-
 export PATH="/usr/local/opt/node@20/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/node@20/lib:$LDFLAGS"
 export CPPFLAGS="-I/usr/local/opt/node@20/include:$CPPFLAGS"
