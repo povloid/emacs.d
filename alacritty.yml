@@ -133,13 +133,13 @@ font:
     # family: Fira Mono
     # family: Courier
     # family: Courier New
-    # family: Anonymous Pro
+    family: Anonymous Pro
     # family: Terminus TTF
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
     # style: Bold
-    # style: Regular
+    style: Regular
     # style: Light
 
   # Bold font face
@@ -383,209 +383,208 @@ cursor:
     blinking: Always
 
 
-# Key bindings
-#
-# Key bindings are specified as a list of objects. For example, this is the
-# default paste binding:
-#
-# `- { key: V, mods: Control|Shift, action: Paste }`
-#
-# Each key binding will specify a:
-#
-# - `key`: Identifier of the key pressed
-#
-#    - A-Z
-#    - F1-F24
-#    - Key0-Key9
-#
-#    A full list with available key codes can be found here:
-#    https://docs.rs/glutin/*/glutin/event/enum.VirtualKeyCode.html#variants
-#
-#    Instead of using the name of the keys, the `key` field also supports using
-#    the scancode of the desired key. Scancodes have to be specified as a
-#    decimal number. This command will allow you to display the hex scancodes
-#    for certain keys:
-#
-#       `showkey --scancodes`.
-#
-# Then exactly one of:
-#
-# - `chars`: Send a byte sequence to the running application
-#
-#    The `chars` field writes the specified string to the terminal. This makes
-#    it possible to pass escape sequences. To find escape codes for bindings
-#    like `PageUp` (`"\x1b[5~"`), you can run the command `showkey -a` outside
-#    of tmux. Note that applications use terminfo to map escape sequences back
-#    to keys. It is therefore required to update the terminfo when changing an
-#    escape sequence.
-#
-# - `action`: Execute a predefined action
-#
-#   - Copy
-#   - Paste
-#   - PasteSelection
-#   - IncreaseFontSize
-#   - DecreaseFontSize
-#   - ResetFontSize
-#   - ScrollPageUp
-#   - ScrollPageDown
-#   - ScrollLineUp
-#   - ScrollLineDown
-#   - ScrollToTop
-#   - ScrollToBottom
-#   - ClearHistory
-#   - Hide
-#   - Minimize
-#   - Quit
-#   - ToggleFullscreen
-#   - SpawnNewInstance
-#   - ClearLogNotice
-#   - ReceiveChar
-#   - None
-#
-#   (macOS only):
-#   - ToggleSimpleFullscreen: Enters fullscreen without occupying another space
-#
-# - `command`: Fork and execute a specified command plus arguments
-#
-#    The `command` field must be a map containing a `program` string and an
-#    `args` array of command line parameter strings. For example:
-#       `{ program: "alacritty", args: ["-e", "vttest"] }`
-#
-# And optionally:
-#
-# - `mods`: Key modifiers to filter binding actions
-#
-#    - Command
-#    - Control
-#    - Option
-#    - Super
-#    - Shift
-#    - Alt
-#
-#    Multiple `mods` can be combined using `|` like this:
-#       `mods: Control|Shift`.
-#    Whitespace and capitalization are relevant and must match the example.
-#
-# - `mode`: Indicate a binding for only specific terminal reported modes
-#
-#    This is mainly used to send applications the correct escape sequences
-#    when in different modes.
-#
-#    - AppCursor
-#    - AppKeypad
-#    - Alt
-#
-#    A `~` operator can be used before a mode to apply the binding whenever
-#    the mode is *not* active, e.g. `~Alt`.
-#
-# Bindings are always filled by default, but will be replaced when a new
-# binding with the same triggers is defined. To unset a default binding, it can
-# be mapped to the `ReceiveChar` action. Alternatively, you can use `None` for
-# a no-op if you do not wish to receive input characters for that binding.
+# # Key bindings
+# #
+# # Key bindings are specified as a list of objects. For example, this is the
+# # default paste binding:
+# #
+# # `- { key: V, mods: Control|Shift, action: Paste }`
+# #
+# # Each key binding will specify a:
+# #
+# # - `key`: Identifier of the key pressed
+# #
+# #    - A-Z
+# #    - F1-F24
+# #    - Key0-Key9
+# #
+# #    A full list with available key codes can be found here:
+# #    https://docs.rs/glutin/*/glutin/event/enum.VirtualKeyCode.html#variants
+# #
+# #    Instead of using the name of the keys, the `key` field also supports using
+# #    the scancode of the desired key. Scancodes have to be specified as a
+# #    decimal number. This command will allow you to display the hex scancodes
+# #    for certain keys:
+# #
+# #       `showkey --scancodes`.
+# #
+# # Then exactly one of:
+# #
+# # - `chars`: Send a byte sequence to the running application
+# #
+# #    The `chars` field writes the specified string to the terminal. This makes
+# #    it possible to pass escape sequences. To find escape codes for bindings
+# #    like `PageUp` (`"\x1b[5~"`), you can run the command `showkey -a` outside
+# #    of tmux. Note that applications use terminfo to map escape sequences back
+# #    to keys. It is therefore required to update the terminfo when changing an
+# #    escape sequence.
+# #
+# # - `action`: Execute a predefined action
+# #
+# #   - Copy
+# #   - Paste
+# #   - PasteSelection
+# #   - IncreaseFontSize
+# #   - DecreaseFontSize
+# #   - ResetFontSize
+# #   - ScrollPageUp
+# #   - ScrollPageDown
+# #   - ScrollLineUp
+# #   - ScrollLineDown
+# #   - ScrollToTop
+# #   - ScrollToBottom
+# #   - ClearHistory
+# #   - Hide
+# #   - Minimize
+# #   - Quit
+# #   - ToggleFullscreen
+# #   - SpawnNewInstance
+# #   - ClearLogNotice
+# #   - ReceiveChar
+# #   - None
+# #
+# #   (macOS only):
+# #   - ToggleSimpleFullscreen: Enters fullscreen without occupying another space
+# #
+# # - `command`: Fork and execute a specified command plus arguments
+# #
+# #    The `command` field must be a map containing a `program` string and an
+# #    `args` array of command line parameter strings. For example:
+# #       `{ program: "alacritty", args: ["-e", "vttest"] }`
+# #
+# # And optionally:
+# #
+# # - `mods`: Key modifiers to filter binding actions
+# #
+# #    - Command
+# #    - Control
+# #    - Option
+# #    - Super
+# #    - Shift
+# #    - Alt
+# #
+# #    Multiple `mods` can be combined using `|` like this:
+# #       `mods: Control|Shift`.
+# #    Whitespace and capitalization are relevant and must match the example.
+# #
+# # - `mode`: Indicate a binding for only specific terminal reported modes
+# #
+# #    This is mainly used to send applications the correct escape sequences
+# #    when in different modes.
+# #
+# #    - AppCursor
+# #    - AppKeypad
+# #    - Alt
+# #
+# #    A `~` operator can be used before a mode to apply the binding whenever
+# #    the mode is *not* active, e.g. `~Alt`.
+# #
+# # Bindings are always filled by default, but will be replaced when a new
+# # binding with the same triggers is defined. To unset a default binding, it can
+# # be mapped to the `ReceiveChar` action. Alternatively, you can use `None` for
+# # a no-op if you do not wish to receive input characters for that binding.
 key_bindings:
 
-  - { key: Backslash, mods: Command|Shift, chars: "\x1b|" } # Alt + |
-  - { key: Comma,     mods: Command|Shift, chars: "\x1b<" } # Alt + <
-  - { key: Grave,     mods: Command|Shift, chars: "\x1b~" } # Alt + ~
-  - { key: Key3,      mods: Command|Shift, chars: "\x1b#" } # Alt + #
-  - { key: Key5,      mods: Command|Shift, chars: "\x1b%" } # Alt + %
-  - { key: Key6,      mods: Command|Shift, chars: "\x1b^" } # Alt + ^
-  - { key: Key8,      mods: Command|Shift, chars: "\x1b*" } # Alt + *
-  - { key: Minus,     mods: Command|Shift, chars: "\x1b_" } # Alt + _
-  - { key: Period,    mods: Command|Shift, chars: "\x1b>" } # Alt + >
+#   - { key: Backslash, mods: Command|Shift, chars: "\x1b|" } # Alt + |
+#   - { key: Comma,     mods: Command|Shift, chars: "\x1b<" } # Alt + <
+#   - { key: Grave,     mods: Command|Shift, chars: "\x1b~" } # Alt + ~
+#   - { key: Key3,      mods: Command|Shift, chars: "\x1b#" } # Alt + #
+#   - { key: Key5,      mods: Command|Shift, chars: "\x1b%" } # Alt + %
+#   - { key: Key6,      mods: Command|Shift, chars: "\x1b^" } # Alt + ^
+#   - { key: Key8,      mods: Command|Shift, chars: "\x1b*" } # Alt + *
+#   - { key: Minus,     mods: Command|Shift, chars: "\x1b_" } # Alt + _
+#   - { key: Period,    mods: Command|Shift, chars: "\x1b>" } # Alt + >
 
-  - { key: Grave,     mods: Command,       chars: "\x1b`"  } # Alt + `
-  - { key: Comma,     mods: Command,       chars: "\x1b,"  } # Alt + .
-  - { key: Period,    mods: Command,       chars: "\x1b."  } # Alt + .
-  - { key: Backslash, mods: Command,       chars: "\x1b\\" } # Alt + \
+#   - { key: Grave,     mods: Command,       chars: "\x1b`"  } # Alt + `
+#   - { key: Comma,     mods: Command,       chars: "\x1b,"  } # Alt + .
+#   - { key: Period,    mods: Command,       chars: "\x1b."  } # Alt + .
+#   - { key: Backslash, mods: Command,       chars: "\x1b\\" } # Alt + \
 
-  - { key: A,         mods: Command,       chars: "\x1ba" }
-  - { key: B,         mods: Command,       chars: "\x1bb" }
-  - { key: C,         mods: Command,       chars: "\x1bc" }
-  - { key: D,         mods: Command,       chars: "\x1bd" }
-  - { key: E,         mods: Command,       chars: "\x1be" }
-  - { key: F,         mods: Command,       chars: "\x1bf" }
-  - { key: G,         mods: Command,       chars: "\x1bg" }
-  - { key: H,         mods: Command,       chars: "\x1bh" }
-  - { key: I,         mods: Command,       chars: "\x1bi" }
-  - { key: J,         mods: Command,       chars: "\x1bj" }
-  - { key: K,         mods: Command,       chars: "\x1bk" }
-  - { key: L,         mods: Command,       chars: "\x1bl" }
-  - { key: M,         mods: Command,       chars: "\x1bm" }
-  - { key: N,         mods: Command,       chars: "\x1bn" }
-  - { key: O,         mods: Command,       chars: "\x1bo" }
-  - { key: P,         mods: Command,       chars: "\x1bp" }
-  - { key: Q,         mods: Command,       chars: "\x1bq" }
-  - { key: R,         mods: Command,       chars: "\x1br" }
-  - { key: S,         mods: Command,       chars: "\x1bs" }
-  - { key: T,         mods: Command,       chars: "\x1bt" }
-  - { key: U,         mods: Command,       chars: "\x1bu" }
-  - { key: V,         mods: Command,       chars: "\x1bv" }
-  - { key: W,         mods: Command,       chars: "\x1bw" }
-  - { key: X,         mods: Command,       chars: "\x1bx" }
-  - { key: Y,         mods: Command,       chars: "\x1by" }
-  - { key: Z,         mods: Command,       chars: "\x1bz" }
-  - { key: A,         mods: Command|Shift, chars: "\x1bA" }
-  - { key: B,         mods: Command|Shift, chars: "\x1bB" }
-  - { key: C,         mods: Command|Shift, chars: "\x1bC" }
-  - { key: D,         mods: Command|Shift, chars: "\x1bD" }
-  - { key: E,         mods: Command|Shift, chars: "\x1bE" }
-  - { key: F,         mods: Command|Shift, chars: "\x1bF" }
-  - { key: G,         mods: Command|Shift, chars: "\x1bG" }
-  - { key: H,         mods: Command|Shift, chars: "\x1bH" }
-  - { key: I,         mods: Command|Shift, chars: "\x1bI" }
-  - { key: J,         mods: Command|Shift, chars: "\x1bJ" }
-  - { key: K,         mods: Command|Shift, chars: "\x1bK" }
-  - { key: L,         mods: Command|Shift, chars: "\x1bL" }
-  - { key: M,         mods: Command|Shift, chars: "\x1bM" }
-  - { key: N,         mods: Command|Shift, chars: "\x1bN" }
-  - { key: O,         mods: Command|Shift, chars: "\x1bO" }
-  - { key: P,         mods: Command|Shift, chars: "\x1bP" }
-  - { key: Q,         mods: Command|Shift, chars: "\x1bQ" }
-  - { key: R,         mods: Command|Shift, chars: "\x1bR" }
-  - { key: S,         mods: Command|Shift, chars: "\x1bS" }
-  - { key: T,         mods: Command|Shift, chars: "\x1bT" }
-  - { key: U,         mods: Command|Shift, chars: "\x1bU" }
-  - { key: V,         mods: Command|Shift, chars: "\x1bV" }
-  - { key: W,         mods: Command|Shift, chars: "\x1bW" }
-  - { key: X,         mods: Command|Shift, chars: "\x1bX" }
-  - { key: Y,         mods: Command|Shift, chars: "\x1bY" }
-  - { key: Z,         mods: Command|Shift, chars: "\x1bZ" }
-  - { key: Key1,      mods: Command,       chars: "\x1b1" }
-  - { key: Key2,      mods: Command,       chars: "\x1b2" }
-  - { key: Key3,      mods: Command,       chars: "\x1b3" }
-  - { key: Key4,      mods: Command,       chars: "\x1b4" }
-  - { key: Key5,      mods: Command,       chars: "\x1b5" }
-  - { key: Key6,      mods: Command,       chars: "\x1b6" }
-  - { key: Key7,      mods: Command,       chars: "\x1b7" }
-  - { key: Key8,      mods: Command,       chars: "\x1b8" }
-  - { key: Key9,      mods: Command,       chars: "\x1b9" }
-  - { key: Key0,      mods: Command,       chars: "\x1b0" }
+#   - { key: A,         mods: Command,       chars: "\x1ba" }
+#   - { key: B,         mods: Command,       chars: "\x1bb" }
+#   - { key: C,         mods: Command,       chars: "\x1bc" }
+#   - { key: D,         mods: Command,       chars: "\x1bd" }
+#   - { key: E,         mods: Command,       chars: "\x1be" }
+#   - { key: F,         mods: Command,       chars: "\x1bf" }
+#   - { key: G,         mods: Command,       chars: "\x1bg" }
+#   - { key: H,         mods: Command,       chars: "\x1bh" }
+#   - { key: I,         mods: Command,       chars: "\x1bi" }
+#   - { key: J,         mods: Command,       chars: "\x1bj" }
+#   - { key: K,         mods: Command,       chars: "\x1bk" }
+#   - { key: L,         mods: Command,       chars: "\x1bl" }
+#   - { key: M,         mods: Command,       chars: "\x1bm" }
+#   - { key: N,         mods: Command,       chars: "\x1bn" }
+#   - { key: O,         mods: Command,       chars: "\x1bo" }
+#   - { key: P,         mods: Command,       chars: "\x1bp" }
+#   - { key: Q,         mods: Command,       chars: "\x1bq" }
+#   - { key: R,         mods: Command,       chars: "\x1br" }
+#   - { key: S,         mods: Command,       chars: "\x1bs" }
+#   - { key: T,         mods: Command,       chars: "\x1bt" }
+#   - { key: U,         mods: Command,       chars: "\x1bu" }
+#   - { key: V,         mods: Command,       chars: "\x1bv" }
+#   - { key: W,         mods: Command,       chars: "\x1bw" }
+#   - { key: X,         mods: Command,       chars: "\x1bx" }
+#   - { key: Y,         mods: Command,       chars: "\x1by" }
+#   - { key: Z,         mods: Command,       chars: "\x1bz" }
+#   - { key: A,         mods: Command|Shift, chars: "\x1bA" }
+#   - { key: B,         mods: Command|Shift, chars: "\x1bB" }
+#   - { key: C,         mods: Command|Shift, chars: "\x1bC" }
+#   - { key: D,         mods: Command|Shift, chars: "\x1bD" }
+#   - { key: E,         mods: Command|Shift, chars: "\x1bE" }
+#   - { key: F,         mods: Command|Shift, chars: "\x1bF" }
+#   - { key: G,         mods: Command|Shift, chars: "\x1bG" }
+#   - { key: H,         mods: Command|Shift, chars: "\x1bH" }
+#   - { key: I,         mods: Command|Shift, chars: "\x1bI" }
+#   - { key: J,         mods: Command|Shift, chars: "\x1bJ" }
+#   - { key: K,         mods: Command|Shift, chars: "\x1bK" }
+#   - { key: L,         mods: Command|Shift, chars: "\x1bL" }
+#   - { key: M,         mods: Command|Shift, chars: "\x1bM" }
+#   - { key: N,         mods: Command|Shift, chars: "\x1bN" }
+#   - { key: O,         mods: Command|Shift, chars: "\x1bO" }
+#   - { key: P,         mods: Command|Shift, chars: "\x1bP" }
+#   - { key: Q,         mods: Command|Shift, chars: "\x1bQ" }
+#   - { key: R,         mods: Command|Shift, chars: "\x1bR" }
+#   - { key: S,         mods: Command|Shift, chars: "\x1bS" }
+#   - { key: T,         mods: Command|Shift, chars: "\x1bT" }
+#   - { key: U,         mods: Command|Shift, chars: "\x1bU" }
+#   - { key: V,         mods: Command|Shift, chars: "\x1bV" }
+#   - { key: W,         mods: Command|Shift, chars: "\x1bW" }
+#   - { key: X,         mods: Command|Shift, chars: "\x1bX" }
+#   - { key: Y,         mods: Command|Shift, chars: "\x1bY" }
+#   - { key: Z,         mods: Command|Shift, chars: "\x1bZ" }
+#   - { key: Key1,      mods: Command,       chars: "\x1b1" }
+#   - { key: Key2,      mods: Command,       chars: "\x1b2" }
+#   - { key: Key3,      mods: Command,       chars: "\x1b3" }
+#   - { key: Key4,      mods: Command,       chars: "\x1b4" }
+#   - { key: Key5,      mods: Command,       chars: "\x1b5" }
+#   - { key: Key6,      mods: Command,       chars: "\x1b6" }
+#   - { key: Key7,      mods: Command,       chars: "\x1b7" }
+#   - { key: Key8,      mods: Command,       chars: "\x1b8" }
+#   - { key: Key9,      mods: Command,       chars: "\x1b9" }
+#   - { key: Key0,      mods: Command,       chars: "\x1b0" }
 
-  # Copy and Paste
-  - { key: C,     mods: Alt,     action: Copy  }
-  - { key: V,     mods: Alt,     action: Paste }
-  #- { key: C,     mods: Command|Shift, action: Copy  }
-  #- { key: V,     mods: Command|Shift, action: Paste }
+#   # Copy and Paste
+#   - { key: C,     mods: Alt,     action: Copy  }
+#   - { key: V,     mods: Alt,     action: Paste }
+#   #- { key: C,     mods: Command|Shift, action: Copy  }
+#   #- { key: V,     mods: Command|Shift, action: Paste }
 
-  # Перемещение по на блок кода вперед
-  # запускаем коману showkey
-  # нажимаем кобинацию
-  # на ctrl-alt-f получаем код <ESC><CTL-F=ACK>
-  # здесь <ESC> = \xb1 a ctrl-f=ACK - ищем ео код в гугле как 'ACK char code'
-  # и получаем x06
-  # значит подставляем "\x1b\x06"
-  - { key: B,     mods: Command|Control, chars: "\x1b\x02"}
-  - { key: F,     mods: Command|Control, chars: "\x1b\x06"}
-  - { key: K,     mods: Command|Control, chars: "\x1b\x0b"}
-  - { key: T,     mods: Command|Control, chars: "\x1b\x13"}
-  - { key: J,     mods: Command|Control, chars: "\x1b\x0A"}
+#   # Перемещение по на блок кода вперед
+#   # запускаем коману showkey
+#   # нажимаем кобинацию
+#   # на ctrl-alt-f получаем код <ESC><CTL-F=ACK>
+#   # здесь <ESC> = \xb1 a ctrl-f=ACK - ищем ео код в гугле как 'ACK char code'
+#   # и получаем x06
+#   # значит подставляем "\x1b\x06"
+#   - { key: B,     mods: Command|Control, chars: "\x1b\x02"}
+#   - { key: F,     mods: Command|Control, chars: "\x1b\x06"}
+#   - { key: K,     mods: Command|Control, chars: "\x1b\x0b"}
+#   - { key: T,     mods: Command|Control, chars: "\x1b\x13"}
+#   - { key: J,     mods: Command|Control, chars: "\x1b\x0A"}
 
-  # обходное решение по C-q, открыто issue здесь https://github.com/alacritty/alacritty/issues/1359
-  - { key: Q, mods: Control, chars: "\x11" }
-
-  # Full screen disable
+#   # обходное решение по C-q, открыто issue здесь https://github.com/alacritty/alacritty/issues/1359
+#   - { key: Q, mods: Control, chars: "\x11" }
+#   # Full screen disable
   - { key: F12,   mods: Alt,             action: "ToggleFullscreen"}
 
   # Font Size
@@ -594,40 +593,40 @@ key_bindings:
   - { key: Minus,  mods: Alt, action: DecreaseFontSize }
 
   - { key: Semicolon, mods: Control, chars: "\x18\x40\x63\x3b" } # 'Ctrl + ;' - dublicate line
-  #- { key: Semicolon, mods: Alt,     chars: "\x1b;"            } # 'Alt + ;'
+#   #- { key: Semicolon, mods: Alt,     chars: "\x1b;"            } # 'Alt + ;'
 
-  - { key: Slash,     mods: Control, chars: "\x1f" } # undo
-  - { key: Space,     mods: Command|Control, chars: "\x1b\x00" } # Ctrl + Alt + Space ->> selection...
-  - { key: Apostrophe, mods: Control,  chars: "\x18\x40\x63\x27"  } # Ctrl + '' -> ^X @ c '
+#   - { key: Slash,     mods: Control, chars: "\x1f" } # undo
+#   - { key: Space,     mods: Command|Control, chars: "\x1b\x00" } # Ctrl + Alt + Space ->> selection...
+#   - { key: Apostrophe, mods: Control,  chars: "\x18\x40\x63\x27"  } # Ctrl + '' -> ^X @ c '
 
-  # mulibple cursor
-  - { key: Backslash, mods: Command, chars: "\x1b\\" } # Selection
-  - { key: Minus,     mods: Command, chars: "\x1b-" } # Selection
-  - { key: Minus,     mods: Control|Command|Shift, chars: "\x1b\x1f" } # please see here http://defindit.com/ascii.html
+#   # multiple cursor
+#   - { key: Backslash, mods: Command, chars: "\x1b\\" } # Selection
+#   - { key: Minus,     mods: Command, chars: "\x1b-" } # Selection
+#   - { key: Minus,     mods: Control|Command|Shift, chars: "\x1b\x1f" } # please see here http://defindit.com/ascii.html
 
-  - { key: Return,  mods: Command,  chars: "\x1b\x0d" } # Alt + Return
-  # - { key: Return,  mods: Command,  chars: "\x1b\x0a" }
+#   - { key: Return,  mods: Command,  chars: "\x1b\x0d" } # Alt + Return
+#   # - { key: Return,  mods: Command,  chars: "\x1b\x0a" }
 
-  - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
-  - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
-  - { key: Left,     mods: Command, chars: "\x1b[1;3D"                   }
-  - { key: Left,                    chars: "\x1b[D",   mode: ~AppCursor  }
-  - { key: Left,                    chars: "\x1bOD",   mode: AppCursor   }
-  - { key: Right,    mods: Shift,   chars: "\x1b[1;2C"                   }
-  - { key: Right,    mods: Control, chars: "\x1b[1;5C"                   }
-  - { key: Right,    mods: Command, chars: "\x1b[1;3C"                   }
-  - { key: Right,                   chars: "\x1b[C",   mode: ~AppCursor  }
-  - { key: Right,                   chars: "\x1bOC",   mode: AppCursor   }
-  - { key: Up,       mods: Shift,   chars: "\x1b[1;2A"                   }
-  - { key: Up,       mods: Control, chars: "\x1b[1;5A"                   }
-  - { key: Up,       mods: Command, chars: "\x1b[1;3A"                   }
-  - { key: Up,                      chars: "\x1b[A",   mode: ~AppCursor  }
-  - { key: Up,                      chars: "\x1bOA",   mode: AppCursor   }
-  - { key: Down,     mods: Shift,   chars: "\x1b[1;2B"                   }
-  - { key: Down,     mods: Control, chars: "\x1b[1;5B"                   }
-  - { key: Down,     mods: Command, chars: "\x1b[1;3B"                   }
-  - { key: Down,                    chars: "\x1b[B",   mode: ~AppCursor  }
-  - { key: Down,                    chars: "\x1bOB",   mode: AppCursor   }
+#   - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
+#   - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
+#   - { key: Left,     mods: Command, chars: "\x1b[1;3D"                   }
+#   - { key: Left,                    chars: "\x1b[D",   mode: ~AppCursor  }
+#   - { key: Left,                    chars: "\x1bOD",   mode: AppCursor   }
+#   - { key: Right,    mods: Shift,   chars: "\x1b[1;2C"                   }
+#   - { key: Right,    mods: Control, chars: "\x1b[1;5C"                   }
+#   - { key: Right,    mods: Command, chars: "\x1b[1;3C"                   }
+#   - { key: Right,                   chars: "\x1b[C",   mode: ~AppCursor  }
+#   - { key: Right,                   chars: "\x1bOC",   mode: AppCursor   }
+#   - { key: Up,       mods: Shift,   chars: "\x1b[1;2A"                   }
+#   - { key: Up,       mods: Control, chars: "\x1b[1;5A"                   }
+#   - { key: Up,       mods: Command, chars: "\x1b[1;3A"                   }
+#   - { key: Up,                      chars: "\x1b[A",   mode: ~AppCursor  }
+#   - { key: Up,                      chars: "\x1bOA",   mode: AppCursor   }
+#   - { key: Down,     mods: Shift,   chars: "\x1b[1;2B"                   }
+#   - { key: Down,     mods: Control, chars: "\x1b[1;5B"                   }
+#   - { key: Down,     mods: Command, chars: "\x1b[1;3B"                   }
+#   - { key: Down,                    chars: "\x1b[B",   mode: ~AppCursor  }
+#   - { key: Down,                    chars: "\x1bOB",   mode: AppCursor   }
 
-  # Please see good example here:
-  # https://git.mfeller.io/rice/file/dots/.config/alacritty/alacritty.yml.html
+#   # Please see good example here:
+#   # https://git.mfeller.io/rice/file/dots/.config/alacritty/alacritty.yml.html

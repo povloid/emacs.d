@@ -35,3 +35,4 @@ projectile-bookmarks.eld
 /.log/
 /.DS_Store
 /snippets/.DS_Store
+/eln-cache/
