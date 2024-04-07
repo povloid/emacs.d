@@ -20,11 +20,26 @@ export TERM=xterm-24bit
 
 export PATH="/Users/pacman/bin/:${PATH}"
 
-export PATH="/usr/local/opt/krb5/bin:$PATH"
-export PATH="/usr/local/opt/libpq/bin:$PATH"
+# export PATH="/usr/local/opt/krb5/bin:$PATH"
+# export PATH="/usr/local/opt/libpq/bin:$PATH"
+# export PATH="/usr/local/opt/llvm/bin:$PATH"
+# export PATH="/usr/local/opt/ncurses/bin:$PATH"
+# export PATH="/usr/local/opt/qt/bin:$PATH"
+
+# LLVM
+
 export PATH="/usr/local/opt/llvm/bin:$PATH"
-export PATH="/usr/local/opt/ncurses/bin:$PATH"
-export PATH="/usr/local/opt/qt/bin:$PATH"
+
+export LDFLAGS="-L/usr/local/opt/llvm/lib:$LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/llvm/include:$CPPFLAGS"
+
+export LLVM_INSTALL_DIR="/usr/local/opt/llvm"
+
+# QT
+
+export PATH="/Users/pacman/opt/qt6/bin:$PATH"
+
+export CPPFLAGS="-I/usr/local/opt/llvm/include:$CPPFLAGS"
 
 # python
 
@@ -39,8 +54,8 @@ export GEM_HOME="/Users/pacman/gem_modules/"
 
 
 export PATH="/usr/local/opt/node@20/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/node@20/lib"
-export CPPFLAGS="-I/usr/local/opt/node@20/include"
+export LDFLAGS="-L/usr/local/opt/node@20/lib:$LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/node@20/include:$CPPFLAGS"
 
 export NPM_CONFIG_PREFIX=~/global/npm
 export PATH="/Users/pacman/global/npm/bin/:${PATH}"
@@ -52,15 +67,15 @@ source ~/git/overtok/qa/overtok/release/set_qa_env.sh
 
 # configuration envs
 
-export LDFLAGS="-L/usr/local/opt/icu4c/lib"
-export CPPFLAGS="-I/usr/local/opt/icu4c/include"
+export LDFLAGS="-L/usr/local/opt/icu4c/lib:$LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/icu4c/include:$CPPFLAGS"
 
 # java
 
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 #export PATH="/opt/jdk/bin:$PATH"
-#export JAVA_HOME="/opt/jdk"
-#export JDK_HOME="/opt/jdk"
+export JAVA_HOME="/usr/local/opt/openjdk/"
+export JDK_HOME="/usr/local/opt/openjdk/"
 
 # Visual Studio Code (code)
 
@@ -95,8 +110,8 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 
 export PATH=/usr/local/opt/ruby/bin:$PATH
-export LDFLAGS="-L/usr/local/opt/ruby/lib"
-export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export LDFLAGS="-L/usr/local/opt/ruby/lib:$LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/ruby/include:$CPPFLAGS"
 export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 export PATH=/Users/pacman/.gem/ruby/3.1.0/bin:$PATH

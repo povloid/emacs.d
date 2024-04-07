@@ -1800,16 +1800,41 @@
 
 (use-package ccls
   :ensure t
-  :config
-  (setq ccls-executable "ccls")
-  (setq lsp-prefer-flymake nil)
-  (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
-  :hook ((c-mode c++-mode objc-mode) .
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
          (lambda () (require 'ccls) (lsp))))
 
 (use-package cmake-mode
   :mode (("/CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'" . cmake-mode)))
+
+(use-package clang-format
+  :defines (clang-format-fallback-style)
+  :after (cc-mode)
+  :config
+  (set-default 'clang-format-fallback-style "Google")
+  ;; (add-hook 'c-mode-common-hook #'(lambda()
+  ;;                                   (add-hook 'before-save-hook
+  ;;                                             'clang-format-buffer t t)))
+  )
+
+
+(use-package clang-format+
+  :ensure t
+  :defer t
+  :hook ((c-mode c++-mode objc-mode) . #'clang-format+-mode))
+
+
+(use-package modern-cpp-font-lock :ensure t)
+
+(use-package cmake-mode
+  :ensure t
+  :mode
+  ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
+
+(use-package cmake-font-lock
+  :ensure t
+  :after (cmake-mode)
+  :hook (cmake-mode . cmake-font-lock-activate))
 
 ;;; END C/C++
 ;;;..................................................................................................
@@ -2480,7 +2505,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-tramp docker-api docker sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode graphql-mode yaml-tomato yaml-mode json-reformat json-mode typescript-mode js-doc prettier-js rjsx-mode js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-treemacs lsp-ui lsp-mode treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ zenburn-theme yasnippet-snippets yasnippet-classic-snippets solarized-theme reverse-im quelpa-use-package perspective paredit org-projectile neotree multiple-cursors monokai-theme modus-themes magit ibuffer-vc highlight-numbers helm-themes helm-swoop helm-descbinds helm-c-yasnippet gruvbox-theme git-gutter flycheck fic-mode doom-themes doom-modeline diredfl default-text-scale cyberpunk-theme company color-theme-sanityinc-tomorrow apropospriate-theme all-the-icons ag)))
+   '(cmake-font-lock modern-cpp-font-lock clang-format+ clang-format eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-tramp docker-api docker sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode graphql-mode yaml-tomato yaml-mode json-reformat json-mode typescript-mode js-doc prettier-js rjsx-mode js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-treemacs lsp-ui lsp-mode treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ zenburn-theme yasnippet-snippets yasnippet-classic-snippets solarized-theme reverse-im quelpa-use-package perspective paredit org-projectile neotree multiple-cursors monokai-theme modus-themes magit ibuffer-vc highlight-numbers helm-themes helm-swoop helm-descbinds helm-c-yasnippet gruvbox-theme git-gutter flycheck fic-mode doom-themes doom-modeline diredfl default-text-scale cyberpunk-theme company color-theme-sanityinc-tomorrow apropospriate-theme all-the-icons ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
