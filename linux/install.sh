@@ -39,6 +39,7 @@ sudo apt install -y \
      fonts-league-mono \
      fonts-paratype \
      libavcodec-extra vlc \
+     atril \
      gparted transmission-gtk vlc pavucontrol \
      geany gimp inkscape audacity filezilla
 
