@@ -10,9 +10,9 @@ export PATH="bin/:${PATH}"
 export PATH="global/npm/bin/:${PATH}"
 export PATH="global/yarn/bin/:${PATH}"
 
-ln -sf git/emacs.d .emacs.dl
+ln -sf git/emacs.d .emacs.d
 ln -sf git/emacs.d/linux/zshrc .zshrc
-ln -sf git/emacs.d/linux/tmux.conf .tmux.confl
+ln -sf git/emacs.d/linux/tmux.conf .tmux.conf
 ln -sf git/emacs.d/linux/alacritty.yml .alacritty.yml
 
 sudo apt update
