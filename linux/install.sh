@@ -43,6 +43,11 @@ sudo apt install -y \
      gparted transmission-gtk vlc pavucontrol \
      geany gimp inkscape audacity filezilla
 
+
+# QT 6
+# sudo apt install git cmake g++ gdebi synaptic git ninja-build
+# sudo apt install qtcreator qml6-module-* qt6-*-dev
+
 ###############################################################################
 #                                    python                                   #
 ###############################################################################
