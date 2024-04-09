@@ -129,7 +129,7 @@ export CLICOLOR=1
 
 # path
 
-export PATH="/home/pacman/bin/:${PATH}"
+export PATH="$HOME/bin/:${PATH}"
 
 # LLVM
 
@@ -140,7 +140,7 @@ export PATH="/home/pacman/bin/:${PATH}"
 
 # QT
 
-# export PATH="/home/pacman/opt/qt6/bin:$PATH"
+# export PATH="$HOME/opt/qt6/bin:$PATH"
 # export CPPFLAGS="-I/usr/local/opt/llvm/include:$CPPFLAGS"
 
 # python
@@ -149,8 +149,8 @@ export PATH="/home/pacman/bin/:${PATH}"
 
 # ruby
 
-# export PATH="/home/pacman/gem_modules/bin/:${PATH}"
-# export GEM_HOME="/home/pacman/gem_modules/"
+# export PATH="$HOME/gem_modules/bin:${PATH}"
+# export GEM_HOME="$HOME/gem_modules/"
 
 # node
 
@@ -159,8 +159,8 @@ export PATH="/home/pacman/bin/:${PATH}"
 # export CPPFLAGS="-I/usr/local/opt/node@20/include:$CPPFLAGS"
 
 export NPM_CONFIG_PREFIX=~/global/npm
-export PATH="/home/pacman/global/npm/bin/:${PATH}"
-export PATH="/home/pacman/global/yarn/bin/:${PATH}"
+export PATH="$HOME/global/npm/bin:${PATH}"
+export PATH="$HOME/global/yarn/bin:${PATH}"
 
 # overtok default some
 
