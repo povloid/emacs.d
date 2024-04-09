@@ -1,0 +1,2 @@
+;; Generated package description from darkroom.el  -*- no-byte-compile: t -*-
+(define-package "darkroom" "0.3" "Remove visual distractions and focus on writing" '((cl-lib "0.5")) :commit "4496945487130ae1123a9f17b40674ec24c54e8f" :url "https://elpa.gnu.org/packages/darkroom.html" :authors '(("João Távora" . "joaotavora@gmail.com")) :maintainer '("João Távora" . "joaotavora@gmail.com") :keywords '("convenience" "emulations"))
