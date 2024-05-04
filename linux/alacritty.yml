@@ -52,7 +52,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  # decorations: transparent
+  decorations: full
 
   # Startup Mode (changes require restart)
   #
@@ -129,11 +129,11 @@ font:
     # family: Fira Code
     # family: Victor Mono
     # family: Cascadia Code
-    # family: PT Mono
+    family: PT Mono
     # family: Fira Mono
     # family: Courier
     # family: Courier New
-    family: Anonymous Pro
+    # family: Anonymous Pro
     # family: Terminus TTF
     # family: SF Mono
 
@@ -163,10 +163,10 @@ font:
     # family: Fira Code
     # family: Victor Mono
     # family: Cascadia Code
-    # family: PT Mono
+    family: PT Mono
     # family: Courier
     # family: Courier New
-    family: Anonymous Pro
+    # family: Anonymous Pro
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
@@ -194,10 +194,10 @@ font:
     # family: Fira Code
     # family: Victor Mono
     # family: Cascadia Code
-    # family: PT Mono
+    family: PT Mono
     # family: Courier
     # family: Courier New
-    family: Anonymous Pro
+    # family: Anonymous Pro
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
@@ -225,10 +225,10 @@ font:
     # family: Fira Code
     # family: Victor Mono
     # family: Cascadia Code
-    # family: PT Mono
+    family: PT Mono
     # family: Courier
     # family: Courier New
-    family: Anonymous Pro
+    # family: Anonymous Pro
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
@@ -236,7 +236,7 @@ font:
     style: Medium Italic
 
   # Point size
-  size: 16.0
+  size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.

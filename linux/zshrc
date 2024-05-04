@@ -173,4 +173,10 @@ export PATH="$HOME/global/yarn/bin:${PATH}"
 #export JAVA_HOME="/usr/local/opt/openjdk/"
 #export JDK_HOME="/usr/local/opt/openjdk/"
 
+# C/C++
+
+export VCPKG_ROOT=$HOME/opt/vcpkg
+export PATH=$VCPKG_ROOT:$PATH
+export PATH=$VCPKG_ROOT/installed/x64-linux/tools/drogon:$PATH
+
 # Visual Studio Code (code)
