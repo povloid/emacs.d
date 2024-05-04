@@ -1,6 +1,7 @@
 # -*-	mode: conf; -*-
 custom.el
-# elpa
+elpa
+./elpa
 auto-save-list
 eshell
 tramp

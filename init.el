@@ -143,6 +143,8 @@
 ;;;*
 ;;;**************************************************************************************************
 
+(setq warning-minimum-level :emergency)
+
 (add-to-list 'default-frame-alist '(height . 36))
 (add-to-list 'default-frame-alist '(width . 120))
 
@@ -265,10 +267,10 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   ;; '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
+    '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
    ;; '(default ((t (:family "Fira Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
    ;;'(default ((t (:family "JetBrains Mono" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
-   '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+   ;;'(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
    ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 200 :width normal))))
    ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 130 :width normal))))
    ;;'(default ((t (:family "Source Code Pro" :foundry "PARA" :slant normal :weight light :height 150 :width normal))))
@@ -1730,9 +1732,9 @@
 ;;;*
 ;;;**************************************************************************************************
 
-(use-package docker :ensure t)
-(use-package docker-api :ensure t)
-(use-package dockerfile-mode :ensure t)
+;;(use-package docker :ensure t)
+;;(use-package docker-api :ensure t)
+;;(use-package dockerfile-mode :ensure t)
 
 ;;; END DOCKER
 ;;;..................................................................................................
@@ -2510,16 +2512,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(cmake-font-lock modern-cpp-font-lock clang-format+ clang-format eshell-git-prompt fish-completion exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-mode ccls google-translate google-maps google ssh-deploy ssh dockerfile-mode docker-tramp docker-api docker sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode graphql-mode yaml-tomato yaml-mode json-reformat json-mode typescript-mode js-doc prettier-js rjsx-mode js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-treemacs lsp-ui lsp-mode treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs hgrc-mode hgignore-mode monky gitlab gist ghub+ ghub github-search gh-md gh git-gutter+ zenburn-theme yasnippet-snippets yasnippet-classic-snippets solarized-theme reverse-im quelpa-use-package perspective paredit org-projectile neotree multiple-cursors monokai-theme modus-themes magit ibuffer-vc highlight-numbers helm-themes helm-swoop helm-descbinds helm-c-yasnippet gruvbox-theme git-gutter flycheck fic-mode doom-themes doom-modeline diredfl default-text-scale cyberpunk-theme company color-theme-sanityinc-tomorrow apropospriate-theme all-the-icons ag)))
+   '(helm-bind-key zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package prettier-js popup-kill-ring org-web-tools org-projectile org-bullets nginx-mode neotree monokai-theme monky modus-themes modern-cpp-font-lock lsp-ui lsp-java logview kibit-helper json-reformat json-mode js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruvbox-theme groovy-mode groovy-imports graphviz-dot-mode graphql-mode google-translate google-maps google git-gutter git-gutter+ flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow cmake-font-lock clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm clang-format+ ccls apropospriate-theme apache-mode all-the-icons ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+ '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
  '(flymake-errline ((((class color)) (:background "Gray30"))) t)
- '(flymake-error ((((class color)) (:background "Gray30"))))
- '(flymake-warning ((((class color)) (:background "Gray20"))))
  '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
  '(font-lock-builtin-face ((t (:weight bold))))
  '(font-lock-comment-face ((t (:weight normal :slant italic))))
