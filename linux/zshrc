@@ -119,6 +119,8 @@ export EDITOR='emacsclient -nw ``'
 
 alias et="emacsclient -nw ``"
 
+alias tx="tmux attach || tmux new"
+
 # iTerm 2
 
 # Set CLICOLOR if you want Ansi Colors in iTerm2
@@ -189,3 +191,10 @@ export PATH=$VCPKG_ROOT:$PATH
 export PATH=$VCPKG_ROOT/installed/x64-linux/tools/drogon:$PATH
 
 # Visual Studio Code (code)
+
+
+# vcpkg
+
+export VCPKG_ROOT="$HOME/global/vcpkg"
+export PATH="$VCPKG_ROOT:$PATH"
+export PATH="$VCPKG_ROOT/installed/x64-linux/tools/drogon/:$PATH"
