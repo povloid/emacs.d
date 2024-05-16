@@ -1280,6 +1280,7 @@
   (defun figwheel-repl ()
     (interactive)
     (run-clojure "lein figwheel"))
+
   (defun cider-repl-to-figwhell-repl ()
     (interactive)
     (save-some-buffers)
