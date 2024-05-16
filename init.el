@@ -49,10 +49,15 @@
 
 (require 'package)
 (setq package-archives
-      '(
-	("elpa"     . "https://elpa.gnu.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("melpa"        . "https://melpa.org/packages/"))
+
+      ;; '(("elpa"     . "https://elpa.gnu.org/packages/")
+      ;;   ("melpa-stable" . "https://stable.melpa.org/packages/")
+      ;;   ("melpa"        . "https://melpa.org/packages/"))
+
+      '(("elpa"     . "https://elpa.gnu.org/packages/")
+        ("melpa-stable" . "https://www.mirrorservice.org/sites/melpa.org/packages/")
+        ("melpa"        . "https://www.mirrorservice.org/sites/stable.melpa.org/packages/"))
+
       package-archive-priorities
       '(
 	("melpa-stable" . 10)
@@ -270,10 +275,10 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-    '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
+   ;; '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
    ;; '(default ((t (:family "Fira Mono" :foundry "PARA" :slant normal :weight medium :height 170 :width normal))))
-   ;;'(default ((t (:family "JetBrains Mono" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
-   ;;'(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 160 :width normal))))
+   ;;'(default ((t (:family "JetBrains Mono" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
+   '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
    ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 200 :width normal))))
    ;;'(default ((t (:family "Iosevka Slab" :foundry "PARA" :slant normal :weight light :height 130 :width normal))))
    ;;'(default ((t (:family "Source Code Pro" :foundry "PARA" :slant normal :weight light :height 150 :width normal))))
@@ -1874,11 +1879,11 @@
 
 ;; Javadoc
 
-;; (use-package javadoc-lookup
-;;   :ensure t
-;;   :config
-;;   (when (file-exists-p "/usr/share/doc/openjdk-8-jdk/api")
-;;     (javadoc-add-roots "/usr/share/doc/openjdk-8-jdk/api"))
+(use-package javadoc-lookup
+  :ensure t
+  :config
+  (when (file-exists-p "/usr/share/doc/openjdk-17-jdk/api")
+    (javadoc-add-roots "/usr/share/doc/openjdk-17-jdk/api"))
 
 ;;   (javadoc-add-artifacts [org.lwjgl.lwjgl lwjgl "2.8.2"]
 ;;                          [com.nullprogram native-guide "0.2"]
@@ -2509,29 +2514,3 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(helm-bind-key zenburn-theme yasnippet-snippets yasnippet-classic-snippets yaml-tomato yaml-mode which-key web-mode-edit-element web-completion-data web-beautify virtualenvwrapper typescript-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired switch-window ssh-deploy ssh-config-mode ssh sql-indent speed-type solarized-theme scss-mode rjsx-mode reverse-im quelpa-use-package prettier-js popup-kill-ring org-web-tools org-projectile org-bullets nginx-mode neotree monokai-theme monky modus-themes modern-cpp-font-lock lsp-ui lsp-java logview kibit-helper json-reformat json-mode js-doc javadoc-lookup java-snippets ibuffer-vc htmlize highlight-numbers hgrc-mode hgignore-mode helm-swoop helm-lsp helm-descbinds helm-c-yasnippet gruvbox-theme groovy-mode groovy-imports graphviz-dot-mode graphql-mode google-translate google-maps google git-gutter git-gutter+ flycheck-gradle fish-completion fic-mode expand-region exec-path-from-shell eshell-git-prompt erlang emmet-mode doom-themes doom-modeline dockerfile-mode docker-api docker diredfl default-text-scale darkroom cyberpunk-theme csv-mode config-general-mode company color-theme-sanityinc-tomorrow cmake-font-lock clojure-snippets clojure-mode-extra-font-locking cljsbuild-mode cljr-helm clang-format+ ccls apropospriate-theme apache-mode all-the-icons ag)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
- '(flymake-errline ((((class color)) (:background "Gray30"))) t)
- '(flymake-error ((((class color)) (:background "Gray30"))))
- '(flymake-warning ((((class color)) (:background "Gray20"))))
- '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
- '(font-lock-builtin-face ((t (:weight bold))))
- '(font-lock-comment-face ((t (:weight normal :slant italic))))
- '(font-lock-constant-face ((t (:weight bold))))
- '(font-lock-function-name-face ((t (:weight bold))))
- '(font-lock-keyword-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
- '(font-lock-type-face ((t (:weight bold))))
- '(font-lock-variable-name-face ((t (:weight bold))))
- '(tabbar-default ((t (:height 1.2)))))
