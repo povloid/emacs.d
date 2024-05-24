@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+	<template autoinsert="true" context="filecomment_context" deleted="false"
+		description="Comment for created Java files 1" enabled="true"
+		id="org.eclipse.jdt.ui.text.codetemplates.filecomment1"
+		name="comment1">	
+///**************************************************************************************************
+///* BEGIN $1
+///* tag: $2
+///*
+///* description: $3
+///*
+///**************************************************************************************************
+
+$0
+
+/// END $1
+///..................................................................................................
+		</template>
+			<template autoinsert="true" context="filecomment_context" deleted="false"
+		description="Comment for created Java files 2" enabled="true"
+		id="org.eclipse.jdt.ui.text.codetemplates.filecomment2"
+		name="comment2">	
+//------------------------------------------------------------------------------
+// BEGIN: $1
+// tag: $2
+// description: $3
+//------------------------------------------------------------------------------
+
+$0
+
+// END $1
+//..............................................................................
+		</template>	<template autoinsert="true" context="filecomment_context" deleted="false"
+		description="Comment for created Java files 3" enabled="true"
+		id="org.eclipse.jdt.ui.text.codetemplates.filecomment3"
+		name="comment3">	
+//----------------------------------------------------------
+// BEGIN: $1
+// tag: $2
+// description: $3
+//----------------------------------------------------------
+
+$0
+
+// END $1
+//...........................................................
+		</template>
+</templates>
