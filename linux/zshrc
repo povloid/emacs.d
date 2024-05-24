@@ -168,21 +168,19 @@ export PATH="$HOME/global/yarn/bin:${PATH}"
 
 # source ~/git/overtok/qa/overtok/release/set_qa_env.sh
 
-# java
+# JAVA #######################################################################
 
 # export PATH="/usr/local/opt/openjdk/bin:$PATH"
-# export PATH="/opt/jdk/bin:$PATH"
+
 # export JAVA_HOME="/usr/local/opt/openjdk/"
 # export JDK_HOME="/usr/local/opt/openjdk/"
 
-export PATH="/opt/jdk/bin:$PATH"
-export JAVA_HOME="/opt/jdk"
-export JDK_HOME="/opt/jdk"
+export PATH="/opt/java/jdk/bin:$PATH"
+export JAVA_HOME="/opt/java/jdk"
+export JDK_HOME="/opt/java/jdk"
 
-export PATH="/opt/apache-maven/bin:$PATH"
-
-export PATH="/opt/spring/bin:$PATH"
-
+export PATH="/opt/java/apache-maven/bin:$PATH"
+export PATH="/opt/java/spring/bin:$PATH"
 
 # C/C++
 
