@@ -49,13 +49,16 @@
 
 (require 'package)
 (setq package-archives
-      '(("elpa"     . "https://elpa.gnu.org/packages/")
+      '(
+	("elpa"     . "https://elpa.gnu.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
         ("melpa"        . "https://melpa.org/packages/"))
       package-archive-priorities
-      '(("melpa-stable" . 10)
+      '(
+	("melpa-stable" . 10)
         ("elpa"         . 5)
-        ("melpa"        . 0)))
+        ("melpa"        . 0)
+	))
 
 
 (package-initialize)
@@ -1852,18 +1855,17 @@
 ;; Global (lsp-java)
 
 (use-package lsp-java
-  :ensure t
-  :requires (lsp-ui-flycheck lsp-ui-sideline)
-  :hook
-  (java-mode . (lambda ()
-                 (add-to-list (make-local-variable 'company-backends) 'company-lsp)))
-  (java-mode . lsp-java-enable)
-  (java-mode . flycheck-mode)
-  (java-mode . (lambda ()
-                 (lsp-ui-flycheck-enable t)))
-  (java-mode . lsp-ui-sideline-mode)
   :config
-  (setq lsp-java-save-action-organize-imports nil))
+  (add-hook 'java-mode-hook 'lsp)
+  (setq lsp-java-format-enabled t)
+  (setq lsp-java-format-settings-url "https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml"))
+
+(use-package dap-mode
+  :after lsp-mode
+  :config
+  (dap-auto-configure-mode))
+
+(use-package dap-java :ensure nil)
 
 ;; Snippets
 
@@ -1872,17 +1874,17 @@
 
 ;; Javadoc
 
-(use-package javadoc-lookup
-  :ensure t
-  :config
-  (when (file-exists-p "/usr/share/doc/openjdk-8-jdk/api")
-    (javadoc-add-roots "/usr/share/doc/openjdk-8-jdk/api"))
+;; (use-package javadoc-lookup
+;;   :ensure t
+;;   :config
+;;   (when (file-exists-p "/usr/share/doc/openjdk-8-jdk/api")
+;;     (javadoc-add-roots "/usr/share/doc/openjdk-8-jdk/api"))
 
-  (javadoc-add-artifacts [org.lwjgl.lwjgl lwjgl "2.8.2"]
-                         [com.nullprogram native-guide "0.2"]
-                         [org.apache.commons commons-math3 "3.0"]
-                         ;; [de.dfki.lt.jtok jtok-core "1.9.3"]
-                         ))
+;;   (javadoc-add-artifacts [org.lwjgl.lwjgl lwjgl "2.8.2"]
+;;                          [com.nullprogram native-guide "0.2"]
+;;                          [org.apache.commons commons-math3 "3.0"]
+;;                          ;; [de.dfki.lt.jtok jtok-core "1.9.3"]
+;;                          ))
 
 ;; Groovy
 
@@ -2174,7 +2176,8 @@
   (untabify (point-min) (point-max)))
 
 (global-set-key [f2] 'magit-push-current-to-upstream)
-(global-set-key [f4] 'buffer-format)
+;;(global-set-key [f4] 'buffer-format)
+(global-set-key [f4] 'lsp-format-buffer)
 (global-set-key [f5] 'toggle-truncate-lines)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
@@ -2520,6 +2523,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "PT Mono" :foundry "PARA" :slant normal :weight medium :height 140 :width normal))))
  '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-error ((((class color)) (:background "Gray30"))))
+ '(flymake-warning ((((class color)) (:background "Gray20"))))
  '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
  '(font-lock-builtin-face ((t (:weight bold))))
  '(font-lock-comment-face ((t (:weight normal :slant italic))))

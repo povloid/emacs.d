@@ -37,3 +37,5 @@ projectile-bookmarks.eld
 /.DS_Store
 /snippets/.DS_Store
 /eln-cache/
+/eclipse.jdt.ls/
+/workspace/
