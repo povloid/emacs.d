@@ -135,6 +135,7 @@ font:
     # family: Courier New
     # family: Anonymous Pro
     # family: Terminus TTF
+    # family: Terminus
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
@@ -167,11 +168,12 @@ font:
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
+    # family: Terminus
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
-    # style: Bold
-    style: Medium
+    style: Bold
+    # style: Medium
 
   # Italic font face
   italic:
@@ -198,6 +200,7 @@ font:
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
+    # family: Terminus
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
@@ -229,6 +232,7 @@ font:
     # family: Courier
     # family: Courier New
     # family: Anonymous Pro
+    # family: Terminus
     # family: SF Mono
 
     # The `style` can be specified to pick a specific face.
@@ -242,7 +246,7 @@ font:
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0
-    y: 1
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,

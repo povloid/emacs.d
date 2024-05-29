@@ -129,38 +129,38 @@ export CLICOLOR=1
 # Set colors to match iTerm2 Terminal Colors
 #export TERM=xterm-24bit
 
-# path
+# path #######################################################################
 
 export PATH="$HOME/bin/:${PATH}"
 
-# LLVM
+# LLVM #######################################################################
 
 # export PATH="/usr/local/opt/llvm/bin:$PATH"
 # export LDFLAGS="-L/usr/local/opt/llvm/lib:$LDFLAGS"
 # export CPPFLAGS="-I/usr/local/opt/llvm/include:$CPPFLAGS"
 # export LLVM_INSTALL_DIR="/usr/local/opt/llvm"
 
-# QT
+# QT #######################################################################
 
 # export PATH="$HOME/opt/qt6/bin:$PATH"
 # export CPPFLAGS="-I/usr/local/opt/llvm/include:$CPPFLAGS"
 
-# python
+# python #######################################################################
 
 # export PATH="/usr/local/opt/python@3.9/bin:$PATH"
 
-# ruby
+# ruby #######################################################################
 
 # export PATH="$HOME/gem_modules/bin:${PATH}"
 # export GEM_HOME="$HOME/gem_modules/"
 
-# node
+# NODE #######################################################################
 
-# export PATH="/usr/local/opt/node@20/bin:$PATH"
-# export LDFLAGS="-L/usr/local/opt/node@20/lib:$LDFLAGS"
-# export CPPFLAGS="-I/usr/local/opt/node@20/include:$CPPFLAGS"
+export PATH="/opt/node/bin:${PATH}"
+export LDFLAGS="-L/opt/node/lib:$LDFLAGS"
+export CPPFLAGS="-I/opt/node/include:$CPPFLAGS"
 
-export NPM_CONFIG_PREFIX=~/global/npm
+export NPM_CONFIG_PREFIX="$HOME/global/npm"
 export PATH="$HOME/global/npm/bin:${PATH}"
 export PATH="$HOME/global/yarn/bin:${PATH}"
 
@@ -171,7 +171,6 @@ export PATH="$HOME/global/yarn/bin:${PATH}"
 # JAVA #######################################################################
 
 # export PATH="/usr/local/opt/openjdk/bin:$PATH"
-
 # export JAVA_HOME="/usr/local/opt/openjdk/"
 # export JDK_HOME="/usr/local/opt/openjdk/"
 
@@ -182,17 +181,18 @@ export JDK_HOME="/opt/java/jdk"
 export PATH="/opt/java/apache-maven/bin:$PATH"
 export PATH="/opt/java/spring/bin:$PATH"
 
-# C/C++
+# C/C++ #######################################################################
 
 export VCPKG_ROOT=$HOME/opt/vcpkg
 export PATH=$VCPKG_ROOT:$PATH
 export PATH=$VCPKG_ROOT/installed/x64-linux/tools/drogon:$PATH
-
-# Visual Studio Code (code)
-
 
 # vcpkg
 
 export VCPKG_ROOT="$HOME/global/vcpkg"
 export PATH="$VCPKG_ROOT:$PATH"
 export PATH="$VCPKG_ROOT/installed/x64-linux/tools/drogon/:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
