@@ -81,4 +81,11 @@ yarn config set prefix ~/global/yarn/ \
     && yarn global add prettier \
     && yarn global add sql-formatter-cli \
     && yarn global add typescript \
-    && yarn global add typescript-language-server \
+    && yarn global add typescript-language-server
+
+###############################################################################
+#                                  ssh-agent                                  #
+###############################################################################
+
+mkdir -p ~/.config/plasma-workspace/env
+cp start-ssh-agent.sh ~/.config/plasma-workspace/env/start-ssh-agent.sh
