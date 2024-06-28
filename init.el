@@ -409,7 +409,7 @@
   (doom-modeline-def-modeline 'main
     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
     '(;;misc-info
-      persp-name lsp github debug minor-modes input-method major-mode process vcs checker)))
+      persp-name lsp github debug minor-modes input-method major-mode process vcs)))
 
 ;; No separator!
 (setq powerline-default-separator nil)
@@ -1659,6 +1659,8 @@
     (setq erlang-root-dir "C:/Program Files/erl7.2")
     (add-to-list 'exec-path "C:/Program Files/erl7.2/bin")))
 
+(message "[ok]\tLoaded Erlang Modules")
+
 ;;; END Erlang
 ;;;..................................................................................................
 
@@ -1678,6 +1680,8 @@
 ;;   :ensure t
 ;;   :after markdown-mode
 ;;   :defer t)
+
+(message "[ok]\tLoaded Markdown Modules")
 
 ;;; END Markdown
 ;;;..................................................................................................
@@ -1730,6 +1734,8 @@
   :config
   (setq sql-postgres-program "/Applications/Postgres.app/Contents/Versions/latest/bin/psql"))
 
+(message "[ok]\tLoaded SQL Modules")
+
 ;;; END SQL
 ;;;..................................................................................................
 
@@ -1759,6 +1765,8 @@
 (use-package ssh :ensure t)
 (use-package ssh-deploy :ensure t)
 
+(message "[ok]\tLoaded SSH Modules")
+
 ;;; END SSH
 ;;;..................................................................................................
 
@@ -1785,6 +1793,8 @@
   (setq google-translate-default-target-language "ru")
   (setq google-translate-translation-directions-alist '(("en" . "ru")))
   :bind ("C-`" . google-translate-smooth-translate))
+
+(message "[ok]\tLoaded Google Modules")
 
 ;; END Google
 ;;..........................................................
@@ -1847,6 +1857,8 @@
   :after (cmake-mode)
   :hook (cmake-mode . cmake-font-lock-activate))
 
+(message "[ok]\tLoaded C/C++ Modules")
+
 ;;; END C/C++
 ;;;..................................................................................................
 
@@ -1883,14 +1895,14 @@
 (use-package javadoc-lookup
   :ensure t
   :config
-  (when (file-exists-p "/usr/share/doc/openjdk-17-jdk/api")
-    (javadoc-add-roots "/usr/share/doc/openjdk-17-jdk/api"))
+  (global-set-key (kbd "C-h j") 'javadoc-lookup)
+  ;;(javadoc-add-roots "/opt/java/jdk/api"
+  ;;		     "~/git/inko-med/projects...")
 
-;;   (javadoc-add-artifacts [org.lwjgl.lwjgl lwjgl "2.8.2"]
-;;                          [com.nullprogram native-guide "0.2"]
-;;                          [org.apache.commons commons-math3 "3.0"]
-;;                          ;; [de.dfki.lt.jtok jtok-core "1.9.3"]
-;;                          ))
+  (javadoc-add-artifacts [org.lwjgl.lwjg lwjgl "2.8.2"]
+                       [com.nullprogram native-guide "0.2"]
+                       [org.apache.commons commons-math3 "3.0"])
+  )
 
 ;; Groovy
 
@@ -1904,7 +1916,7 @@
 
   ;; Some keys for
   (add-hook 'groovy-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (inf-groovy-keys))))
 
 ;; Subpackages
@@ -1913,6 +1925,8 @@
 (use-package flycheck-gradle
   :ensure t
   :defer t)
+
+(message "[ok]\tLoaded Java Modules")
 
 ;;; END JAVA
 ;;;..................................................................................................
@@ -1933,6 +1947,9 @@
 ;; Org-web-tools is a nice package which allows to sniff a webpage and convert it into org-mode format. This is really useful to homogeneise documentation.
 
 (use-package org-web-tools :ensure t)
+
+
+(message "[ok]\tLoaded Productivity Modules")
 
 ;;; END Productivity
 ;;;..................................................................................................
@@ -1955,6 +1972,8 @@
   :ensure t
   :config
   (which-key-mode))
+
+(message "[ok]\tLoaded Wich-Key Modules")
 
 ;;; END
 ;;;..................................................................................................
@@ -1998,6 +2017,8 @@
   (balance-windows)
   (other-window 1))
 (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+
+(message "[ok]\tLoaded Windows Modules")
 
 ;;; END Windows
 ;;;..................................................................................................
@@ -2060,6 +2081,8 @@
 ;;   :config
 ;;   (global-hungry-delete-mode))
 
+(message "[ok]\tLoaded  Minor Conveniences Modules")
+
 ;;; END Minor conveniences
 ;;;..................................................................................................
 
@@ -2085,6 +2108,8 @@
 (use-package popup-kill-ring
   :ensure t
   :bind ("M-y" . popup-kill-ring))
+
+(message "[ok]\tLoaded  Kill ring Modules")
 
 ;;; END Kill ring
 ;;;..................................................................................................
@@ -2118,7 +2143,7 @@
 
 ;; Line wrapping
 (add-hook 'org-mode-hook
-          '(lambda ()
+          #'(lambda ()
              (visual-line-mode 1)))
 
 
@@ -2142,6 +2167,7 @@
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 
 
+(message "[ok]\tLoaded Org Modules")
 
 ;;; END Org
 ;;;..................................................................................................
@@ -2156,6 +2182,8 @@
 
 (use-package speed-type
   :ensure t)
+
+(message "[ok]\tLoaded Training Modules")
 
 ;;; END Traning
 ;;;..................................................................................................
@@ -2244,6 +2272,8 @@
     (global-set-key (kbd "C-c C-y") 'pbpaste)))
 
 
+(message "[ok]\tLoaded My Definitions Modules")
+
 ;; END
 ;;..............................................................................
 
@@ -2261,10 +2291,10 @@
   (exec-path-from-shell-initialize))
 
 
-(use-package fish-completion
-  :ensure t
-  :config
-  (global-fish-completion-mode))
+;; (use-package fish-completion
+;;   :ensure t
+;;   :config
+;;   (global-fish-completion-mode))
 
 ;; (use-package eshell-prompt-extras
 ;; :ensure t
@@ -2278,6 +2308,8 @@
   (eshell-git-prompt-use-theme 'git-radar))
 
 (setq scroll-step 1)
+
+(message "[ok]\tLoaded Eshell Modules")
 
 ;;; END Eshell
 ;;;..................................................................................................
@@ -2352,6 +2384,8 @@
 (defun tti ()
   (interactive)
   (tt-0 (get-tts-id)))
+
+(message "[ok]\tLoaded TTT Terminal Modules")
 
 ;; END TTT Terminal
 ;;..............................................................................
@@ -2439,7 +2473,7 @@
 ;;                  ((org-agenda-overriding-header "Assigned to me")))))))
 
 
-
+;; (message "[ok]\tLoaded Jira Modules")
 
 ;;; END Jira
 ;;;..................................................................................................
@@ -2479,6 +2513,8 @@
   (interactive)
   (insert (uuid-create)))
 
+(message "[ok]\tLoaded UUID Modules")
+
 ;;; END UUID
 ;;;..................................................................................................
 
@@ -2505,6 +2541,7 @@
 ;;    (with-eval-after-load "haskell"
 ;;      (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))))
 
+(message "[ok]\tLoaded Haskell Modules")
 
 ;;; END Haskell
 ;;;..................................................................................................
