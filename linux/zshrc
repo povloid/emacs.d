@@ -121,6 +121,10 @@ alias et="emacsclient -nw ``"
 
 alias tx="tmux attach || tmux new"
 
+alias lesswin='f() {iconv -f WINDOWS-1251 "${1}" | less};f'
+
+alias zlesswin='f() {zcat "${1}" | iconv -f WINDOWS-1251 | less};f'
+
 # iTerm 2
 
 # Set CLICOLOR if you want Ansi Colors in iTerm2
