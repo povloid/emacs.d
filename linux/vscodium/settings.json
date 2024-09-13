@@ -1,0 +1,21 @@
+{
+    "workbench.colorTheme": "just-eclipse-color-theme",
+    "editor.fontFamily": "PT Mono Bold",
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "vscode-great-icons",
+    "editor.fontWeight": "600",
+    "editor.fontSize": 13,
+    "editor.lineHeight": 0,
+    "editor.lineNumbers": "off",
+    "editor.renderLineHighlight": "none",
+    "editor.showFoldingControls": "never",
+    "editor.guides.indentation": false,
+    "editor.matchBrackets": "never",
+    "terminal.integrated.fontFamily": "Pt Mono Bold",
+    "terminal.integrated.fontWeightBold": "normal",
+    "terminal.integrated.lineHeight": 1,
+    "terminal.integrated.fontWeight": "bold",
+    "terminal.integrated.fontSize": 13,
+    "editor.fontVariations": false,
+    "editor.fontLigatures": false
+}
