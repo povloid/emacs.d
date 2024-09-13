@@ -2216,6 +2216,8 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 
+(global-set-key [f12] 'kmacro-end-and-call-macro)
+
 ;; -----------------------------------------------------------------------------
 
 (defun dublicate-line ()
@@ -2552,3 +2554,27 @@
 ;;;..................................................................................................
 
 ;; TAIL CONFIG ------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(eshell-git-prompt exec-path-from-shell speed-type org-bullets htmlize popup-kill-ring expand-region switch-window which-key org-web-tools darkroom flycheck-gradle groovy-imports groovy-mode javadoc-lookup java-snippets lsp-java cmake-font-lock modern-cpp-font-lock clang-format+ clang-format cmake-mode ccls google-translate google-maps google ssh-deploy ssh sql-indent erlang csv-mode graphviz-dot-mode logview ssh-config-mode apache-mode config-general-mode graphql-mode yaml-tomato yaml-mode json-reformat json-mode typescript-mode js-doc prettier-js rjsx-mode js2-mode nginx-mode emmet-mode scss-mode web-mode-edit-element web-completion-data web-beautify web-mode kibit-helper cljsbuild-mode clojure-snippets cljr-helm clj-refactor cider clojure-mode-extra-font-locking clojure-mode virtualenvwrapper helm-lsp lsp-treemacs lsp-ui lsp-mode treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs hgrc-mode hgignore-mode monky git-gutter+ git-gutter magit yasnippet-classic-snippets yasnippet-snippets helm-c-yasnippet yasnippet org-projectile projectile ag helm-swoop helm-descbinds helm fic-mode flycheck company ibuffer-vc highlight-numbers multiple-cursors paredit reverse-im neotree diredfl doom-modeline all-the-icons modus-themes zenburn-theme monokai-theme gruvbox-theme doom-themes color-theme-sanityinc-tomorrow apropospriate-theme cyberpunk-theme solarized-theme default-text-scale quelpa-use-package quelpa)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
+ '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
+ '(font-lock-builtin-face ((t (:weight bold))))
+ '(font-lock-comment-face ((t (:weight normal :slant italic))))
+ '(font-lock-constant-face ((t (:weight bold))))
+ '(font-lock-function-name-face ((t (:weight bold))))
+ '(font-lock-keyword-face ((t (:weight bold))))
+ '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :weight normal))))
+ '(font-lock-type-face ((t (:weight bold))))
+ '(font-lock-variable-name-face ((t (:weight bold))))
+ '(tabbar-default ((t (:height 1.2)))))
