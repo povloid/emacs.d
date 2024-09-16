@@ -1,5 +1,5 @@
 {
-    "workbench.colorTheme": "just-eclipse-color-theme",
+    "workbench.colorTheme": "Default Dark+",
     "editor.fontFamily": "PT Mono Bold",
     "editor.formatOnSave": true,
     "workbench.iconTheme": "vscode-great-icons",
@@ -17,5 +17,6 @@
     "terminal.integrated.fontWeight": "bold",
     "terminal.integrated.fontSize": 13,
     "editor.fontVariations": false,
-    "editor.fontLigatures": false
+    "editor.fontLigatures": false,
+    "terminal.integrated.sendKeybindingsToShell": true
 }
