@@ -43,5 +43,37 @@
         "key": "alt+n",
         "command": "selectNextSuggestion",
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "f1",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "!config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "ctrl+alt+space",
+        "command": "-workbench.action.toggleSidebarVisibility",
+        "when": "!config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "f1",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "ctrl+alt+space",
+        "command": "-workbench.action.toggleSidebarVisibility",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd"
+    },
+    {
+        "key": "ctrl+alt+space",
+        "command": "cursorWordRightSelect"
+    },
+    {
+        "key": "ctrl+x ctrl+c",
+        "command": "-workbench.action.closeWindow"
+    },
+    {
+        "key": "ctrl+x ctrl+c",
+        "command": "openEditors.closeAll"
     }
 ]
