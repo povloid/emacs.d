@@ -1,7 +1,6 @@
 {
     "workbench.colorTheme": "Default Dark+",
     "editor.fontFamily": "PT Mono Bold",
-    "editor.formatOnSave": true,
     "workbench.iconTheme": "vscode-great-icons",
     "editor.fontWeight": "600",
     "editor.fontSize": 13,
@@ -18,5 +17,11 @@
     "terminal.integrated.fontSize": 13,
     "editor.fontVariations": false,
     "editor.fontLigatures": false,
-    "terminal.integrated.sendKeybindingsToShell": true
+    "terminal.integrated.sendKeybindingsToShell": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always",
+        "source.organizeImports": "always",
+        "source.sortMembers": "always"
+    }
 }
