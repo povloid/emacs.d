@@ -23,5 +23,6 @@
         "source.fixAll": "always",
         "source.organizeImports": "always",
         "source.sortMembers": "always"
-    }
+    },
+    "explorer.compactFolders": false
 }
