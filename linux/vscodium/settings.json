@@ -14,7 +14,6 @@
     "terminal.integrated.fontWeightBold": "normal",
     "terminal.integrated.lineHeight": 1,
     "terminal.integrated.fontWeight": "bold",
-    "terminal.integrated.fontSize": 13,
     "editor.fontVariations": false,
     "editor.fontLigatures": false,
     "terminal.integrated.sendKeybindingsToShell": true,
@@ -24,5 +23,7 @@
         "source.organizeImports": "always",
         "source.sortMembers": "always"
     },
-    "explorer.compactFolders": false
+    "explorer.compactFolders": false,
+    "redhat.telemetry.enabled": false,
+    "java.jdt.ls.java.home": "/opt/java/jdk"
 }

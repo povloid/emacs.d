@@ -1,0 +1,9 @@
+~/.screenlayout/monitor-settings.sh
+
+/usr/libexec/gsd-xsettings &
+
+lxpanel
+
+xrdb -merge ~/.Xresources
+
+xxkb &
