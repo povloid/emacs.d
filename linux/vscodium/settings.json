@@ -1,5 +1,4 @@
 {
-    "workbench.colorTheme": "Default Dark+",
     "editor.fontFamily": "PT Mono Bold",
     "workbench.iconTheme": "vscode-great-icons",
     "editor.fontWeight": "600",
@@ -25,5 +24,8 @@
     },
     "explorer.compactFolders": false,
     "redhat.telemetry.enabled": false,
-    "java.jdt.ls.java.home": "/opt/java/jdk"
+    "java.jdt.ls.java.home": "/opt/java/jdk",
+    "redHatDependencyAnalytics.mvn.executable.path": "/opt/java/apache-maven/bin/mvn",
+    "workbench.colorTheme": "just-eclipse-color-theme",
+    "git.confirmSync": false
 }
