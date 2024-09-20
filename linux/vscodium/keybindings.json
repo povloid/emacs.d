@@ -75,5 +75,23 @@
     {
         "key": "ctrl+x ctrl+c",
         "command": "openEditors.closeAll"
+    },
+    {
+        "key": "ctrl+c p s",
+        "command": "workbench.action.replaceInFiles"
+    },
+    {
+        "key": "ctrl+shift+h",
+        "command": "-workbench.action.replaceInFiles"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "editor.action.startFindReplaceAction",
+        "when": "editorFocus || editorIsOpen"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "deleteLeft",
+        "when": "textInputFocus"
     }
 ]

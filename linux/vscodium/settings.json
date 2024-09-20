@@ -9,12 +9,12 @@
     "editor.showFoldingControls": "never",
     "editor.guides.indentation": false,
     "editor.matchBrackets": "never",
-    "terminal.integrated.fontFamily": "Pt Mono Bold",
-    "terminal.integrated.fontWeightBold": "normal",
+    "terminal.integrated.fontWeightBold": "bold",
     "terminal.integrated.lineHeight": 1,
     "terminal.integrated.fontWeight": "bold",
     "editor.fontVariations": false,
     "editor.fontLigatures": false,
+    "editor.mouseWheelZoom": false,
     "terminal.integrated.sendKeybindingsToShell": true,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
@@ -26,6 +26,16 @@
     "redhat.telemetry.enabled": false,
     "java.jdt.ls.java.home": "/opt/java/jdk",
     "redHatDependencyAnalytics.mvn.executable.path": "/opt/java/apache-maven/bin/mvn",
-    "workbench.colorTheme": "just-eclipse-color-theme",
-    "git.confirmSync": false
+    "workbench.colorTheme": "Tomorrow Night Blue",
+    "git.confirmSync": false,
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontFamily": "monospace",
+    "window.titleBarStyle": "custom",
+    "window.zoomLevel": 0,
+    "workbench.editor.showTabs": "single",
+    "editor.cursorStyle": "underline",
+    "redHatDependencyAnalytics.npm.executable.path": "/opt/node/bin/npm",
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java"
+    }
 }
