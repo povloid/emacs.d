@@ -123,5 +123,9 @@
         "key": "ctrl+m",
         "command": "emacs-mcx.newLine",
         "when": "editorTextFocus && !editorReadonly && !(suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus)"
+    },
+    {
+        "key": "ctrl+alt+/",
+        "command": "redo"
     }
 ]
