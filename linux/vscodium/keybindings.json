@@ -93,5 +93,35 @@
         "key": "ctrl+h",
         "command": "deleteLeft",
         "when": "textInputFocus"
+    },
+    {
+        "key": "shift+alt+/",
+        "command": "toggleExplainMode",
+        "when": "suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "-toggleExplainMode",
+        "when": "suggestWidgetVisible"
+    },
+    {
+        "key": "tab",
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+        "key": "tab",
+        "command": "-editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "acceptSelectedSuggestionOnEnter",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "emacs-mcx.newLine",
+        "when": "editorTextFocus && !editorReadonly && !(suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus)"
     }
 ]
