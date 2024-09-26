@@ -20,13 +20,13 @@
     "editor.codeActionsOnSave": {
         "source.fixAll": "always",
         "source.organizeImports": "always",
-        "source.sortMembers": "always"
+        "source.sortMembers": "never"
     },
     "explorer.compactFolders": false,
     "redhat.telemetry.enabled": false,
     "java.jdt.ls.java.home": "/opt/java/jdk",
     "redHatDependencyAnalytics.mvn.executable.path": "/opt/java/apache-maven/bin/mvn",
-    "workbench.colorTheme": "Tomorrow Night Blue",
+    "workbench.colorTheme": "Default Dark+",
     "git.confirmSync": false,
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontFamily": "monospace",
@@ -35,7 +35,6 @@
     "workbench.editor.showTabs": "single",
     "editor.cursorStyle": "underline",
     "redHatDependencyAnalytics.npm.executable.path": "/opt/node/bin/npm",
-    "[java]": {
-        "editor.defaultFormatter": "redhat.java"
-    }
+    "java.format.settings.profile": "GoogleStyle",
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
 }
