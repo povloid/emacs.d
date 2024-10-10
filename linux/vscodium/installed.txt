@@ -1,0 +1,12 @@
+codium --install-extension bradymholt.pgformatter
+codium --install-extension calestialgem.vscode-just-eclipse-theme
+codium --install-extension emmanuelbeziat.vscode-great-icons
+codium --install-extension ms-python.python
+codium --install-extension redhat.java
+codium --install-extension redhat.vscode-community-server-connector
+codium --install-extension redhat.vscode-xml
+codium --install-extension shengchen.vscode-checkstyle
+codium --install-extension sonarsource.sonarlint-vscode
+codium --install-extension tuttieee.emacs-mcx
+codium --install-extension vmware.vscode-boot-dev-pack
+codium --install-extension vscjava.vscode-gradle
