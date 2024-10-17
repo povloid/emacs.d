@@ -1,7 +1,7 @@
 {
     "editor.fontFamily": "Iosevka",
     "editor.fontSize": 14,
-    "editor.fontWeight": "500",
+    "editor.fontWeight": "600",
     "editor.lineHeight": 0,
     "workbench.iconTheme": "vscode-great-icons",
     "editor.lineNumbers": "off",
@@ -47,5 +47,28 @@
     "extensions.autoUpdate": false,
     "editor.detectIndentation": false,
     "window.titleBarStyle": "custom",
-    "workbench.colorTheme": "just-eclipse-color-theme"
+    "workbench.colorTheme": "Tokyo City Darker",
+    "sonarlint.rules": {
+        "java:S107": {
+            "level": "on"
+        }
+    },
+    "[xml]": {
+        "editor.defaultFormatter": "redhat.vscode-xml"
+    },
+    "java.configuration.detectJdksAtStart": false,
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "/opt/java/jdk",
+            "default": true
+        }
+    ],
+    "rsp-ui.enableStartServerOnActivation": [
+        {
+            "id": "redhat.vscode-community-server-connector",
+            "name": "Community Server Connector",
+            "startOnActivation": true
+        }
+    ]
 }
