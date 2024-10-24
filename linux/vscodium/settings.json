@@ -1,7 +1,9 @@
 {
-    "editor.fontFamily": "Iosevka",
-    "editor.fontSize": 14,
-    "editor.fontWeight": "600",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    // "editor.fontFamily": "Iosevka",
+    "editor.fontSize": 13,
+    "editor.fontWeight": "550",
     "editor.lineHeight": 0,
     "workbench.iconTheme": "vscode-great-icons",
     "editor.lineNumbers": "off",
@@ -13,7 +15,6 @@
     "terminal.integrated.lineHeight": 1,
     "terminal.integrated.fontWeight": "bold",
     "editor.fontVariations": false,
-    "editor.fontLigatures": false,
     "editor.mouseWheelZoom": false,
     "terminal.integrated.sendKeybindingsToShell": true,
     "editor.formatOnSave": true,
@@ -47,7 +48,7 @@
     "extensions.autoUpdate": false,
     "editor.detectIndentation": false,
     "window.titleBarStyle": "custom",
-    "workbench.colorTheme": "Tokyo City Darker",
+    "workbench.colorTheme": "Tokyo City",
     "sonarlint.rules": {
         "java:S107": {
             "level": "on"
