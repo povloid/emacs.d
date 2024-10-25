@@ -71,5 +71,7 @@
             "name": "Community Server Connector",
             "startOnActivation": true
         }
-    ]
+    ],
+    "files.simpleDialog.enable": true,
+    "window.title": "${rootName}"
 }

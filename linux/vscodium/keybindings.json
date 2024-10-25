@@ -159,5 +159,9 @@
         "key": "alt+m",
         "command": "acceptSelectedSuggestion",
         "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "editor.action.sourceAction"
     }
 ]
