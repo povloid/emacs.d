@@ -151,6 +151,8 @@
 ;;;*
 ;;;**************************************************************************************************
 
+
+
 (setq warning-minimum-level :emergency)
 
 (add-to-list 'default-frame-alist '(height . 36))
@@ -629,7 +631,10 @@
 
 (use-package company
   :hook
-  (after-init . global-company-mode))
+  (after-init . global-company-mode)
+  :config
+  (global-set-key (kbd "M-/") 'company-indent-or-complete-common)
+  (global-set-key (kbd "M-m") 'company-complete-selection))
 
 ;;; END Autocomplete
 ;;;..................................................................................................
@@ -942,56 +947,56 @@
   :ensure t)
 
 
- (use-package git-gutter
-  :ensure t
-  :config
-  (progn
-    (global-git-gutter-mode +1)
-    (git-gutter:linum-setup)
-    ;; (custom-set-variables
-    ;;  '(git-gutter:window-width 2)
-    ;;  '(git-gutter:modified-sign "☁")
-    ;;  '(git-gutter:added-sign "☀")
-    ;;  '(git-gutter:deleted-sign "☂")
-    ;;  '(git-gutter:unchanged-sign " ")
-    ;;  '(git-gutter:separator-sign "|")
-    ;;  '(git-gutter:hide-gutter t))
-    ;; (set-face-background 'git-gutter:modified "purple") ;; background color
-    ;; (set-face-foreground 'git-gutter:added "green")
-    ;; (set-face-foreground 'git-gutter:deleted "red")
-    ;; (set-face-background 'git-gutter:unchanged "yellow")
-    ;; (set-face-foreground 'git-gutter:separator "yellow")
-    ;; (add-to-list 'git-gutter:update-hooks 'focus-in-hook)
-    )
-  :bind (("C-x C-g" . git-gutter:toggle)
-         ("C-x v =" . git-gutter:popup-hunk)
-         ("C-x p" . git-gutter:previous-hunk)
-         ("C-x n" . git-gutter:next-hunk)
-         ("C-x v s" . git-gutter:stage-hunk)
-         ("C-x v r" . git-gutter:revert-hunk)))
+ ;(use-package git-gutter
+ ; :ensure t
+ ; :config
+ ; (progn
+;    (global-git-gutter-mode +1)
+;    (git-gutter:linum-setup)
+;    ;; (custom-set-variables
+;    ;;  '(git-gutter:window-width 2)
+;    ;;  '(git-gutter:modified-sign "☁")
+;    ;;  '(git-gutter:added-sign "☀")
+;    ;;  '(git-gutter:deleted-sign "☂")
+;    ;;  '(git-gutter:unchanged-sign " ")
+;    ;;  '(git-gutter:separator-sign "|")
+;    ;;  '(git-gutter:hide-gutter t))
+;    ;; (set-face-background 'git-gutter:modified "purple") ;; background color
+;    ;; (set-face-foreground 'git-gutter:added "green")
+;    ;; (set-face-foreground 'git-gutter:deleted "red")
+;    ;; (set-face-background 'git-gutter:unchanged "yellow")
+;    ;; (set-face-foreground 'git-gutter:separator "yellow")
+;    ;; (add-to-list 'git-gutter:update-hooks 'focus-in-hook)
+;    )
+ ; :bind (("C-x C-g" . git-gutter:toggle)
+;         ("C-x v =" . git-gutter:popup-hunk)
+;         ("C-x p" . git-gutter:previous-hunk)
+;         ("C-x n" . git-gutter:next-hunk)
+;         ("C-x v s" . git-gutter:stage-hunk)
+;         ("C-x v r" . git-gutter:revert-hunk)))
 
-(use-package git-gutter+
-  :ensure t
-  :config
-  (progn
-    (global-git-gutter+-mode +1)
-    ;; Jump between hunks
-    (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
-    (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
-    ;; Act on hunks
-    (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
-    (define-key git-gutter+-mode-map (kbd "C-x r") 'git-gutter+-revert-hunks)
-    ;; Stage hunk at point.
-    ;; If region is active, stage all hunk lines within the region.
-    (define-key git-gutter+-mode-map (kbd "C-x t") 'git-gutter+-stage-hunks)
-    (define-key git-gutter+-mode-map (kbd "C-x c") 'git-gutter+-commit)
-    (define-key git-gutter+-mode-map (kbd "C-x C") 'git-gutter+-stage-and-commit)
-    (define-key git-gutter+-mode-map (kbd "C-x C-y") 'git-gutter+-stage-and-commit-whole-buffer)
-    (define-key git-gutter+-mode-map (kbd "C-x U") 'git-gutter+-unstage-whole-buffer))
-  :bind (("C-x g" . git-gutter+-mode)
-         ("C-x G" . global-git-gutter+-mode)))
+;(use-package git-gutter+
+;  :ensure t
+;  :config
+;  (progn
+;    (global-git-gutter+-mode +1)
+;    ;; Jump between hunks
+;    (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
+;    (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
+;    ;; Act on hunks
+;    (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
+;    (define-key git-gutter+-mode-map (kbd "C-x r") 'git-gutter+-revert-hunks)
+;    ;; Stage hunk at point.
+;    ;; If region is active, stage all hunk lines within the region.
+;    (define-key git-gutter+-mode-map (kbd "C-x t") 'git-gutter+-stage-hunks)
+;    (define-key git-gutter+-mode-map (kbd "C-x c") 'git-gutter+-commit)
+;    (define-key git-gutter+-mode-map (kbd "C-x C") 'git-gutter+-stage-and-commit)
+;    (define-key git-gutter+-mode-map (kbd "C-x C-y") 'git-gutter+-stage-and-commit-whole-buffer)
+;    (define-key git-gutter+-mode-map (kbd "C-x U") 'git-gutter+-unstage-whole-buffer))
+;  :bind (("C-x g" . git-gutter+-mode)
+;         ("C-x G" . global-git-gutter+-mode)))
 
-(global-git-gutter+-mode +1)
+;(global-git-gutter+-mode +1)
 
 ;; END Git
 ;;..............................................................................
@@ -1876,7 +1881,15 @@
   :config
   (add-hook 'java-mode-hook 'lsp)
   (setq lsp-java-format-enabled t)
-  (setq lsp-java-format-settings-url "https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml"))
+  ;; Google
+  ;;(setq lsp-java-format-settings-profile "GoogleStyle")
+  ;;(setq lsp-java-format-settings-url "https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml")
+  ;; My Settings
+  ;;(setq lsp-java-format-settings-profile "JavaConventions")
+  (setq lsp-java-format-settings-url "file:///home/pk/git/emacs.d/linux/vscodium/java-formatter.xml")
+  )
+
+;;(lsp-java-format-settings-url--set)
 
 (use-package dap-mode
   :after lsp-mode
@@ -1892,17 +1905,17 @@
 
 ;; Javadoc
 
-(use-package javadoc-lookup
-  :ensure t
-  :config
-  (global-set-key (kbd "C-h j") 'javadoc-lookup)
-  ;;(javadoc-add-roots "/opt/java/jdk/api"
-  ;;		     "~/git/inko-med/projects...")
+;; (use-package javadoc-lookup
+;;   :ensure t
+;;   :config
+;;   (global-set-key (kbd "C-h j") 'javadoc-lookup)
+;;   ;;(javadoc-add-roots "/opt/java/jdk/api"
+;;   ;;		     "~/git/inko-med/projects...")
 
-  (javadoc-add-artifacts [org.lwjgl.lwjg lwjgl "2.8.2"]
-                       [com.nullprogram native-guide "0.2"]
-                       [org.apache.commons commons-math3 "3.0"])
-  )
+;;   (javadoc-add-artifacts [org.lwjgl.lwjg lwjgl "2.8.2"]
+;; 			 [com.nullprogram native-guide "0.2"]
+;; 			 [org.apache.commons commons-math3 "3.0"])
+;;   )
 
 ;; Groovy
 
@@ -2247,6 +2260,15 @@
 
     (global-set-key (kbd "C-w") 'pbcut)))
 
+(when (eq system-type 'gnu/linux)
+  (progn
+    (defun pbcut ()
+      (interactive)
+      (call-process-region (point) (mark) "xclip" nil nil nil "-selection" "clipboard")
+      (kill-region (point) (mark)))
+
+    (global-set-key (kbd "C-w") 'pbcut)))
+
 ;; -----------------------------------------------------------------------------
 ;; - (kill-ring-save BEG END &optional REGION)
 
@@ -2259,8 +2281,18 @@
 
     (global-set-key (kbd "M-w") 'pbcopy)))
 
+(when (eq system-type 'gnu/linux)
+  (progn
+    (defun pbcopy ()
+      (interactive)
+      (call-process-region (point) (mark) "xclip" nil nil nil "-selection" "clipboard")
+      (kill-ring-save (point) (mark)))
+
+    (global-set-key (kbd "M-w") 'pbcopy)))
+
 ;; -----------------------------------------------------------------------------
 ;; - (yank &optional ARG)
+
 (when (eq system-type 'darwin)
   (progn
     (defun pbpaste ()
@@ -2568,6 +2600,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :foundry "PARA" :slant normal :weight medium :height 130 :width normal))))
  '(flymake-errline ((((class color)) (:background "Gray30"))) t)
+ '(flymake-error ((((class color)) (:background "Gray30"))))
+ '(flymake-warning ((((class color)) (:background "Gray20"))))
  '(flymake-warnline ((((class color)) (:background "Gray20"))) t)
  '(font-lock-builtin-face ((t (:weight bold))))
  '(font-lock-comment-face ((t (:weight normal :slant italic))))
