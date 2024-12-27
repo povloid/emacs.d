@@ -48,7 +48,7 @@
     "extensions.autoUpdate": false,
     "editor.detectIndentation": false,
     "window.titleBarStyle": "custom",
-    "workbench.colorTheme": "Tokyo City",
+    "workbench.colorTheme": "Visual Studio Light",
     "sonarlint.rules": {
         "java:S107": {
             "level": "on"
