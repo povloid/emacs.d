@@ -2,8 +2,8 @@
 
 /usr/libexec/gsd-xsettings &
 
-lxpanel
+lxpanel &
 
-xrdb -merge ~/.Xresources
+(sleep 5 && setxkbmap -layout "us,ru" -model "pc105" -option "grp:shifts_toggle,grp_led:scroll,caps:ctrl_modifier") &
 
-xxkb &
+echo `date` > ~/openbox-started-at.txt

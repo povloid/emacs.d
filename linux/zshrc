@@ -198,3 +198,7 @@ export PATH=$VCPKG_ROOT/installed/x64-linux/tools/drogon:$PATH
 export VCPKG_ROOT="$HOME/global/vcpkg"
 export PATH="$VCPKG_ROOT:$PATH"
 export PATH="$VCPKG_ROOT/installed/x64-linux/tools/drogon/:$PATH"
+
+# PostgreSQL
+
+export PATH="/opt/postgresql/17/bin:$PATH"
