@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>E221</name>
+    <name>Syscrash</name>
     <titleLayout>NDLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -57,7 +57,7 @@
     <keepBorder>yes</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
-      <name>PT Sans</name>
+      <name>Special Elite</name>
       <size>11</size>
       <!-- font size in points -->
       <weight>Bold</weight>
@@ -66,10 +66,10 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="InactiveWindow">
-      <name>PT Sans</name>
+      <name>Special Elite</name>
       <size>11</size>
       <!-- font size in points -->
-      <weight>Bold</weight>
+      <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
       <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
@@ -93,7 +93,7 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="ActiveOnScreenDisplay">
-      <name>PT Sans</name>
+      <name>Roboto Condensed,</name>
       <size>16</size>
       <!-- font size in points -->
       <weight>Bold</weight>
@@ -102,7 +102,7 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>PT Sans</name>
+      <name>Roboto Condensed,</name>
       <size>16</size>
       <!-- font size in points -->
       <weight>Normal</weight>

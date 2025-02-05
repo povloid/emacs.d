@@ -1,8 +1,6 @@
 {
-    "editor.fontFamily": "Fira Code",
+    "editor.fontFamily": "PT Mono Bold",
     "editor.fontLigatures": true,
-    // "editor.fontFamily": "Iosevka",
-    "editor.fontSize": 13,
     "editor.fontWeight": "550",
     "editor.lineHeight": 0,
     "workbench.iconTheme": "vscode-great-icons",
@@ -31,15 +29,12 @@
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontFamily": "Iosevka",
     "window.zoomLevel": 0.5,
-    "workbench.editor.showTabs": "none",
-    "editor.cursorStyle": "underline",
     "redHatDependencyAnalytics.npm.executable.path": "/opt/node/bin/npm",
     "editor.minimap.showSlider": "always",
     "workbench.editor.tabActionCloseVisibility": false,
     "window.confirmBeforeClose": "always",
-    "workbench.editor.editorActionsLocation": "titleBar",
+    "workbench.editor.editorActionsLocation": "hidden",
     "git.autofetch": true,
-    "editor.minimap.enabled": false,
     "debug.console.fontFamily": "Iosevka",
     "debug.console.fontSize": 13,
     "editor.stickyScroll.enabled": false,
@@ -48,7 +43,6 @@
     "extensions.autoUpdate": false,
     "editor.detectIndentation": false,
     "window.titleBarStyle": "custom",
-    "workbench.colorTheme": "Visual Studio Light",
     "sonarlint.rules": {
         "java:S107": {
             "level": "on"
@@ -73,5 +67,24 @@
         }
     ],
     "files.simpleDialog.enable": true,
-    "window.title": "${rootName}"
+    "window.title": "${rootName}",
+    "sonarlint.pathToNodeExecutable": "/opt/node/bin/node",
+    "workbench.startupEditor": "none",
+    "window.customTitleBarVisibility": "auto",
+    "window.experimentalControlOverlay": false,
+    "workbench.colorTheme": "just-eclipse-color-theme",
+    "chat.commandCenter.enabled": false,
+    "workbench.navigationControl.enabled": false,
+    "window.commandCenter": false,
+    "workbench.layoutControl.enabled": false,
+    "editor.fontSize": 13,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "workbench.tree.indent": 18,
+    "workbench.tree.renderIndentGuides": "always",
+    "workbench.tree.expandMode": "doubleClick",
+    "editor.minimap.enabled": false,
+    "breadcrumbs.enabled": false,
+    "editor.renderWhitespace": "none",
+    "editor.renderControlCharacters": false
 }

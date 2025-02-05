@@ -163,5 +163,21 @@
     {
         "key": "ctrl+shift+a",
         "command": "editor.action.sourceAction"
+    },
+    {
+        "key": "ctrl+t n",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+pagedown",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+t p",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "-workbench.action.previousEditor"
     }
 ]

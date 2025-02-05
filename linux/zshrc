@@ -162,9 +162,9 @@ export PATH="$HOME/bin/:${PATH}"
 
 # NODE #######################################################################
 
-export PATH="/opt/node/bin:${PATH}"
-export LDFLAGS="-L/opt/node/lib:$LDFLAGS"
-export CPPFLAGS="-I/opt/node/include:$CPPFLAGS"
+#export PATH="/opt/node/bin:${PATH}"
+#export LDFLAGS="-L/opt/node/lib:$LDFLAGS"
+#export CPPFLAGS="-I/opt/node/include:$CPPFLAGS"
 
 export NPM_CONFIG_PREFIX="$HOME/global/npm"
 export PATH="$HOME/global/npm/bin:${PATH}"

@@ -7,3 +7,5 @@ lxpanel &
 (sleep 5 && setxkbmap -layout "us,ru" -model "pc105" -option "grp:shifts_toggle,grp_led:scroll,caps:ctrl_modifier") &
 
 echo `date` > ~/openbox-started-at.txt
+feh --bg-center backgrounds/2024-10-24-11-56-40-1685774330_en-idei-club-p-ibm-background-dizain-pinterest-17.jpg
+
