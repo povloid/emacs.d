@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keymap version="1.5.2">
+    <action id="MarkSelectedFile" keystroke="SPACE" alt_keystroke="INSERT"/>
+    <action id="Pack" keystroke="alt F5"/>
+    <action id="Rename" keystroke="F2"/>
+    <action id="ToggleTerminal" keystroke="F1"/>
+</keymap>

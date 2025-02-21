@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks version="1.5.2">
+    <bookmark>
+        <name>Document</name>
+        <location>smb://172.20.250.23/Document/</location>
+    </bookmark>
+    <bookmark>
+        <name>Копыченко</name>
+        <location>smb://172.20.250.23/Document/!Обмен/Копыченко/</location>
+    </bookmark>
+    <bookmark>
+        <name>expert-qa</name>
+        <location>sftp://expert-qa/</location>
+    </bookmark>
+    <bookmark>
+        <name>fond</name>
+        <location>/home/box/fond/</location>
+    </bookmark>
+    <bookmark>
+        <name>projects</name>
+        <location>/mnt/work/home/pk/git/inko-med/projects/</location>
+    </bookmark>
+</bookmarks>

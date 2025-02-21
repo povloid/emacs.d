@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme>
+    <file_table>
+        <border color="868686"/>
+        <inactive_border color="868686"/>
+        <outline color="3875d7"/>
+        <inactive_outline color="c0c0c0"/>
+        <font family="Go Mono" size="18"/>
+        <normal>
+            <background color="cccccc"/>
+            <inactive_background color="cccccc"/>
+        </normal>
+        <selected>
+            <background color="3875d7"/>
+            <inactive_background color="c0c0c0"/>
+            <inactive_secondary_background color="c0c0c0"/>
+            <secondary_background color="3875d7"/>
+        </selected>
+        <alternate>
+            <background color="cccccc"/>
+            <inactive_background color="cccccc"/>
+        </alternate>
+        <unmatched>
+            <background color="d1d1d1"/>
+            <foreground color="404040"/>
+        </unmatched>
+        <hidden>
+            <normal>
+                <foreground color="666666"/>
+                <inactive_foreground color="666666"/>
+            </normal>
+            <selected>
+                <foreground color="ffffff"/>
+                <inactive_foreground color="666666"/>
+            </selected>
+        </hidden>
+        <folder>
+            <normal>
+                <inactive_foreground color="000000"/>
+                <foreground color="000000"/>
+            </normal>
+            <selected>
+                <inactive_foreground color="000000"/>
+                <foreground color="ffffff"/>
+            </selected>
+        </folder>
+        <archive>
+            <normal>
+                <inactive_foreground color="000000"/>
+                <foreground color="000000"/>
+            </normal>
+            <selected>
+                <inactive_foreground color="000000"/>
+                <foreground color="ffffff"/>
+            </selected>
+        </archive>
+        <symlink>
+            <normal>
+                <inactive_foreground color="0000ee"/>
+                <foreground color="0000ee"/>
+            </normal>
+            <selected>
+                <inactive_foreground color="0000ee"/>
+                <foreground color="ffffff"/>
+            </selected>
+        </symlink>
+        <read_only>
+            <normal>
+                <inactive_foreground color="660033"/>
+                <foreground color="660033"/>
+            </normal>
+            <selected>
+            </selected>
+        </read_only>
+        <marked>
+            <normal>
+                <inactive_foreground color="cc0000"/>
+                <foreground color="cc0000"/>
+            </normal>
+            <selected>
+                <inactive_foreground color="cc0000"/>
+                <foreground color="cc0000"/>
+            </selected>
+        </marked>
+        <file>
+            <normal>
+                <inactive_foreground color="000000"/>
+                <foreground color="000000"/>
+            </normal>
+            <selected>
+                <inactive_foreground color="000000"/>
+                <foreground color="ffffff"/>
+            </selected>
+        </file>
+    </file_table>
+    <shell>
+        <font family="PT Mono" size="17" bold="true"/>
+        <normal>
+            <background color="ffffff"/>
+            <foreground color="000000"/>
+        </normal>
+        <selected>
+            <background color="3875d7"/>
+            <foreground color="ffffff"/>
+        </selected>
+    </shell>
+    <editor>
+        <font family="Go Mono" size="18"/>
+        <normal>
+            <background color="cccccc"/>
+            <foreground color="000000"/>
+        </normal>
+        <selected>
+            <background color="3875d7"/>
+            <foreground color="cccccc"/>
+        </selected>
+    </editor>
+    <location_bar>
+        <progress color="3875d7" alpha="40"/>
+        <normal>
+            <background color="ffffff"/>
+            <foreground color="000000"/>
+        </normal>
+        <selected>
+            <background color="3875d7"/>
+            <foreground color="ffffff"/>
+        </selected>
+    </location_bar>
+    <status_bar>
+        <background color="d6d6d6"/>
+        <foreground color="000000"/>
+        <border color="868686"/>
+        <ok color="5dc23c"/>
+        <warning color="f6dc6c"/>
+        <critical color="e6594e"/>
+    </status_bar>
+    <quick_list>
+        <header>
+        </header>
+        <item>
+            <normal>
+            </normal>
+            <selected>
+            </selected>
+        </item>
+    </quick_list>
+</theme>
