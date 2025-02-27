@@ -5,7 +5,7 @@
         <inactive_border color="868686"/>
         <outline color="3875d7"/>
         <inactive_outline color="c0c0c0"/>
-        <font family="Go Mono" size="18"/>
+        <font family="Anonymous Pro" size="16" bold="true"/>
         <normal>
             <background color="cccccc"/>
             <inactive_background color="cccccc"/>

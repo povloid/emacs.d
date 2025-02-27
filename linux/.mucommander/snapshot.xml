@@ -2,8 +2,8 @@
 <snapshot>
     <file_presenter>
         <show_fullscreen>false</show_fullscreen>
-        <window_position_y>26</window_position_y>
-        <window_position_x>158</window_position_x>
+        <window_position_y>369</window_position_y>
+        <window_position_x>760</window_position_x>
         <window_width>1667</window_width>
         <window_height>1008</window_height>
         <image>
@@ -43,11 +43,11 @@
         <window-0>
             <window_properties>
                 <single_panel_view>false</single_panel_view>
-                <x>-6</x>
-                <width>1932</width>
-                <y>-2</y>
+                <x>0</x>
+                <width>1920</width>
+                <y>0</y>
                 <split_orientation>vertical</split_orientation>
-                <height>1092</height>
+                <height>1080</height>
             </window_properties>
             <panels>
                 <left>
@@ -59,14 +59,14 @@
                         <selection>0</selection>
                         <count>1</count>
                         <tab-0>
-                            <location>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/all</location>
+                            <location>file://localhost/mnt/work/home/pk/Downloads/Fira_Code_v6.2.zip/ttf/</location>
                             <locked>false</locked>
                         </tab-0>
                     </tabs>
                     <file_table>
                         <date>
                             <show>true</show>
-                            <width>217</width>
+                            <width>179</width>
                             <position>3</position>
                         </date>
                         <owner>
@@ -81,12 +81,12 @@
                         </extension>
                         <size>
                             <show>true</show>
-                            <width>74</width>
+                            <width>62</width>
                             <position>2</position>
                         </size>
                         <permissions>
                             <show>true</show>
-                            <width>28</width>
+                            <width>98</width>
                             <position>4</position>
                         </permissions>
                         <name>
@@ -112,14 +112,14 @@
                         <selection>0</selection>
                         <count>1</count>
                         <tab-0>
-                            <location>file://localhost/home/box/fond/bel/xsd/XSD_Белгород.zip</location>
+                            <location>file://localhost/mnt/work/home/</location>
                             <locked>false</locked>
                         </tab-0>
                     </tabs>
                     <file_table>
                         <date>
                             <show>true</show>
-                            <width>217</width>
+                            <width>179</width>
                             <position>3</position>
                         </date>
                         <owner>
@@ -134,12 +134,12 @@
                         </extension>
                         <size>
                             <show>true</show>
-                            <width>74</width>
+                            <width>62</width>
                             <position>2</position>
                         </size>
                         <permissions>
                             <show>true</show>
-                            <width>118</width>
+                            <width>44</width>
                             <position>4</position>
                         </permissions>
                         <name>
@@ -160,74 +160,106 @@
         </window-0>
     </windows>
     <recent_locations>
-        <location-35>file://localhost/home</location-35>
-        <location-36>file://localhost/home/box</location-36>
-        <location-33>file://localhost/usr/java</location-33>
-        <location-34>file://localhost/usr</location-34>
-        <location-39>file://localhost/home/box/fond/bel/xsd/schemes</location-39>
-        <location-37>file://localhost/home/box/fond</location-37>
-        <location-38>file://localhost/home/box/fond/bel</location-38>
-        <location-31>file://localhost/home/box/Videos</location-31>
-        <location-32>file://localhost/usr/lib64</location-32>
-        <location-30>file://localhost/home/box/music</location-30>
-        <count>68</count>
-        <location-19>file://localhost/home/box/distr/debian-12.5.0-amd64-netinst.iso</location-19>
-        <location-24>file://localhost/mnt/work/home/pk/opt</location-24>
-        <location-25>file://localhost/home/box/distr/driwe.io</location-25>
-        <location-22>file://localhost/home/box/distr/vscodium</location-22>
-        <location-66>file://localhost/home/box/fond/bel/xsd</location-66>
-        <location-23>file://localhost/mnt/work/home/pk/opt/vscodium.zip</location-23>
-        <location-67>file://localhost/home/box/fond/bel/xsd/XSD_Белгород.zip</location-67>
-        <location-28>file://localhost/etc</location-28>
-        <location-29>file://localhost/home/box/distr</location-29>
-        <location-26>file://localhost/home/box/distr/libreoffice</location-26>
-        <location-27>file://localhost/home/box/distr/font</location-27>
-        <location-60>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/c/v5</location-60>
-        <location-61>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in</location-61>
-        <location-20>file://localhost/home/box/distr/debian-12.9.0-amd64-netinst.iso</location-20>
-        <location-64>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers</location-64>
-        <location-21>file://localhost/home/box/distr/vscodium/extentions</location-21>
-        <location-65>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/all</location-65>
-        <location-62>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files</location-62>
-        <location-63>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/c</location-63>
-        <location-8>file://localhost/home/box/git</location-8>
-        <location-9>file://localhost/home/box/fond/vor</location-9>
-        <location-13>file://localhost/mnt/work/home/</location-13>
-        <location-57>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel</location-57>
-        <location-14>file://localhost/mnt/work/home/pk/node_modules</location-14>
-        <location-58>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond</location-58>
-        <location-11>file://localhost/home/box/fond/kur</location-11>
-        <location-55>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific</location-55>
-        <location-12>file://localhost/home/pk</location-12>
-        <location-56>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials</location-56>
-        <location-17>file://localhost/mnt/work/home/pk/opt/schemes.zip</location-17>
-        <location-18>file://localhost/home/box/distr/bitwarden</location-18>
-        <location-15>file://localhost/home/box/fond/bel/tmp</location-15>
-        <location-59>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/c/v5/schema</location-59>
-        <location-16>file://localhost/mnt/work/home/pk/opt/mtrreestr_v1.zip</location-16>
-        <location-50>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources</location-50>
-        <location-53>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server</location-53>
-        <location-10>file://localhost/home/box/fond/kur/in</location-10>
-        <location-54>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation</location-54>
-        <location-51>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed</location-51>
-        <location-52>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert</location-52>
-        <location-46>file://localhost/mnt/work/home/pk/git/inko-med/projects</location-46>
-        <location-47>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server</location-47>
-        <location-44>file://localhost/mnt/work/home/pk/git/inko-med/xsd</location-44>
-        <location-45>file://localhost/mnt/work/home/pk/git/inko-med</location-45>
-        <location-48>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src</location-48>
-        <location-49>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main</location-49>
-        <location-6>file://localhost/home/pk/Pictures</location-6>
-        <location-7>file://localhost/etc/apparmor</location-7>
-        <location-4>file://localhost/home/pk/bin</location-4>
-        <location-5>file://localhost/home/pk/backgrounds</location-5>
-        <location-2>file://localhost/home/box/video</location-2>
-        <location-42>file://localhost/mnt/work/home/pk/git</location-42>
-        <location-3>file://localhost/home/pk/Desktop</location-3>
-        <location-43>file://localhost/mnt/work/home/pk/git/inko-med/xsd/bel</location-43>
-        <location-0>file://localhost/home/pk/global</location-0>
-        <location-40>file://localhost/</location-40>
-        <location-1>file://localhost/home/pk/git</location-1>
-        <location-41>file://localhost/mnt/work/home/pk/</location-41>
+        <location-79>file://localhost/media/pk/</location-79>
+        <location-77>file://localhost/media/pk/66F7-7E67/video</location-77>
+        <location-78>file://localhost/media/pk/66F7-7E67</location-78>
+        <location-71>file://localhost/media/pk/66F7-7E67/music/Michael Elliot - The Best Of A Retro Love (2022)</location-71>
+        <location-72>file://localhost/media/pk/66F7-7E67/music</location-72>
+        <location-70>file://localhost/home/box/books/TypeScript</location-70>
+        <location-75>file://localhost/media/pk/66F7-7E67/XML энциклопедия[torrents.ru]</location-75>
+        <location-76>file://localhost/media/pk/66F7-7E67/windows</location-76>
+        <location-73>file://localhost/media/pk/66F7-7E67/Шилдт Г. - Java. Полное руководство. 12-е издание - 2023</location-73>
+        <location-74>file://localhost/media/pk/66F7-7E67/Марк Грейвс - Проектирование баз данных на основе XML - 2002</location-74>
+        <location-68>file://localhost/home/box/books/java</location-68>
+        <location-69>file://localhost/home/box/books/git</location-69>
+        <location-66>file://localhost/media/pk/66F7-7E67/XML энциклопедия[torrents.ru]/5-94723-651-6</location-66>
+        <location-67>file://localhost/home/box/books/Docker</location-67>
+        <location-60>file://localhost/tmp</location-60>
+        <location-61>file://localhost/home/box/music/Michael Elliot - The Best Of A Retro Love (2022)</location-61>
+        <location-64>file://localhost/media/pk/66F7-7E67/XML энциклопедия[torrents.ru]/5-94723-651-6/20</location-64>
+        <location-65>file://localhost/media/pk/66F7-7E67/XML энциклопедия[torrents.ru]/5-94723-651-6/chA</location-65>
+        <location-62>file://localhost/home/box/music</location-62>
+        <location-63>file://localhost/home/box/Videos</location-63>
+        <location-57>file://localhost/mnt/work/opt</location-57>
+        <location-58>file://localhost/mnt/work</location-58>
+        <location-55>file://localhost/mnt/work/home/pk/git/inko-med/</location-55>
+        <location-56>file://localhost/mnt/work/home/pk/git</location-56>
+        <location-59>file://localhost/mnt/</location-59>
+        <location-50>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/java</location-50>
+        <location-53>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/</location-53>
+        <location-54>file://localhost/mnt/work/home/pk/git/inko-med/projects/</location-54>
+        <location-51>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main</location-51>
+        <location-52>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/</location-52>
+        <location-46>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources</location-46>
+        <location-47>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/java/inkomed/expert/server</location-47>
+        <location-44>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/</location-44>
+        <location-45>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed</location-45>
+        <location-48>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/java/inkomed/expert</location-48>
+        <location-49>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/java/inkomed</location-49>
+        <location-42>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/</location-42>
+        <location-43>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server</location-43>
+        <location-40>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/</location-40>
+        <location-41>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/</location-41>
+        <location-35>file://localhost/home/box/fond/bel/xsd/XSD_Белгород.zip</location-35>
+        <location-36>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files</location-36>
+        <location-33>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/schema</location-33>
+        <location-34>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers</location-34>
+        <location-39>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel</location-39>
+        <location-37>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in</location-37>
+        <location-38>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/</location-38>
+        <location-31>file://localhost/home/box/fond/bel/xsd/schemes</location-31>
+        <location-32>file://localhost/home/box/fond/bel/xsd</location-32>
+        <location-30>file://localhost/home/box/fond/bel</location-30>
+        <count>100</count>
+        <location-19>smb://172.20.250.23/Document/!Обмен/Мокринский/xsd/XSD_Белгород.zip</location-19>
+        <location-24>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/v</location-24>
+        <location-25>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/all</location-25>
+        <location-22>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/c</location-22>
+        <location-23>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/t</location-23>
+        <location-28>file://localhost/home/box/VirtualBox VMs</location-28>
+        <location-29>file://localhost/home/box/fond</location-29>
+        <location-26>file://localhost/home/box/VirtualBox VMs/Win732 1</location-26>
+        <location-27>file://localhost/home/box/VirtualBox VMs/Debian-QA</location-27>
+        <location-20>smb://172.20.250.23/Document/!Обмен/Мокринский/xsd/</location-20>
+        <location-21>smb://172.20.250.23/Document/!Обмен/Мокринский/</location-21>
+        <location-90>file://localhost/mnt/work/home/pk/Downloads/Fira_Mono,Roboto,Roboto_Mono.zip/Fira_Mono/</location-90>
+        <location-8>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/c/v5/schema</location-8>
+        <location-9>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/bel/fond/in/files/importers/c/v5</location-9>
+        <location-13>file://localhost/mnt/work/home/pk/git/inko-med/xsd</location-13>
+        <location-14>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/test</location-14>
+        <location-11>file://localhost/home/box/fond/bel/tmp</location-11>
+        <location-99>file://localhost/mnt/work/home/</location-99>
+        <location-12>file://localhost/mnt/work/home/pk/git/inko-med/xsd/bel</location-12>
+        <location-17>smb://172.20.250.23/Document/!Обмен/</location-17>
+        <location-18>smb://172.20.250.23/Document/!Обмен/Мокринский/IBExpert/</location-18>
+        <location-15>file://localhost/mnt/work/home/pk/git/inko-med/projects/inko-med-expert-server/src/main/resources/inkomed/expert/server/adaptation/specific/filials/vor</location-15>
+        <location-16>smb://172.20.250.23/Document/!Обмен/Копыченко/</location-16>
+        <location-93>file://localhost/mnt/work/home/pk/Downloads/Fira_Mono,Roboto,Roboto_Mono.zip</location-93>
+        <location-94>file://localhost/mnt/work/home/pk/Downloads</location-94>
+        <location-91>file://localhost/mnt/work/home/pk/Downloads/Fira_Mono,Roboto,Roboto_Mono.zip/Roboto/</location-91>
+        <location-92>file://localhost/mnt/work/home/pk/Downloads/Fira_Mono,Roboto,Roboto_Mono.zip/Roboto_Mono/</location-92>
+        <location-97>file://localhost/mnt/work/home/pk/.fonts</location-97>
+        <location-10>file://localhost/home/box/fond/bel/in</location-10>
+        <location-98>file://localhost/mnt/work/home/pk</location-98>
+        <location-95>file://localhost/mnt/work/home/pk/Downloads/Fira_Code_v6.2.zip</location-95>
+        <location-96>file://localhost/mnt/work/home/pk/Downloads/Fira_Code_v6.2.zip/ttf/</location-96>
+        <location-88>file://localhost/mnt/work/home/pk/Downloads/Roboto,Roboto_Mono.zip/Roboto/</location-88>
+        <location-89>file://localhost/mnt/work/home/pk/Downloads/Roboto,Roboto_Mono.zip</location-89>
+        <location-6>file://localhost/usr/java</location-6>
+        <location-82>file://localhost/</location-82>
+        <location-7>file://localhost/usr</location-7>
+        <location-83>file://localhost/mnt/work/home/pk/Documents</location-83>
+        <location-4>file://localhost/home/box/distr</location-4>
+        <location-80>file://localhost/home/box/books/xml</location-80>
+        <location-5>file://localhost/usr/lib64</location-5>
+        <location-81>file://localhost/media/</location-81>
+        <location-2>file://localhost/home/box/distr/font</location-2>
+        <location-86>file://localhost/home/box/</location-86>
+        <location-3>file://localhost/etc</location-3>
+        <location-87>file://localhost/home</location-87>
+        <location-0>file://localhost/home/box/distr/driwe.io</location-0>
+        <location-84>file://localhost/mnt/work/home/pk/Downloads/Roboto,Roboto_Mono.zip/Roboto_Mono/</location-84>
+        <location-1>file://localhost/home/box/distr/libreoffice</location-1>
+        <location-85>file://localhost/home/box/books/</location-85>
     </recent_locations>
 </snapshot>

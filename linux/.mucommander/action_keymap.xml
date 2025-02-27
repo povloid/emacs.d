@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <keymap version="1.5.2">
-    <action id="MarkSelectedFile" keystroke="SPACE" alt_keystroke="INSERT"/>
-    <action id="Pack" keystroke="alt F5"/>
+    <action id="GoToParent" keystroke="BACK_SPACE" alt_keystroke="ctrl H"/>
+    <action id="OpenInOtherPanel"/>
+    <action id="CompareFolders"/>
     <action id="Rename" keystroke="F2"/>
+    <action id="MarkSelectedFile" keystroke="SPACE" alt_keystroke="INSERT"/>
+    <action id="Open" keystroke="ENTER" alt_keystroke="ctrl M"/>
+    <action id="NewWindow"/>
+    <action id="SwitchActiveTable" keystroke="TAB" alt_keystroke="ctrl O"/>
+    <action id="SelectNextRow" keystroke="DOWN" alt_keystroke="ctrl N"/>
+    <action id="Pack" keystroke="alt F5"/>
     <action id="ToggleTerminal" keystroke="F1"/>
+    <action id="SelectPreviousRow" keystroke="UP" alt_keystroke="ctrl P"/>
+    <action id="Unpack" keystroke="alt DOWN"/>
 </keymap>

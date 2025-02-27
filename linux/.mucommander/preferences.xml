@@ -3,7 +3,7 @@
     <time_format>HH:mm:ss</time_format>
     <quit_confirmation>true</quit_confirmation>
     <show_splash_screen>true</show_splash_screen>
-    <preferred_encodings>UTF-8,UTF-16,ISO-8859-1,windows-1252,KOI8-R,Big5,GB18030,EUC-KR,Shift_JIS,EUC-JP</preferred_encodings>
+    <preferred_encodings>IBM866,ISO-8859-1,KOI8-R,UTF-16,UTF-8,windows-1251</preferred_encodings>
     <check_for_updates_on_startup>true</check_for_updates_on_startup>
     <language>ru</language>
     <filename_locale>en</filename_locale>
