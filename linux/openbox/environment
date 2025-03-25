@@ -4,13 +4,12 @@
 #
 
 # To set your language for displaying messages and time/date formats, use the following:
-#LANG=en_CA.UTF8
+LC_ALL=en_RU.UTF8
 
 # To set your keyboard layout, you need to modify your X config:
 # http://www.google.com/search?q=how+to+set+keyboard+layout+xorg
 
 export PATH="$HOME/bin/:${PATH}"
-
 
 eval $(gpg-agent --daemon)
 eval $(gnome-keyring-daemon)
@@ -18,5 +17,3 @@ eval $(gnome-keyring-daemon)
 #if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
 #       eval `dbus-launch --sh-syntax --exit-with-session`
 #fi
-
-LANG="ru_RU.UTF8"

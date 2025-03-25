@@ -180,9 +180,9 @@ export PATH="$HOME/global/yarn/bin:${PATH}"
 # export JAVA_HOME="/usr/local/opt/openjdk/"
 # export JDK_HOME="/usr/local/opt/openjdk/"
 
-export PATH="/opt/java/jdk/bin:$PATH"
-export JAVA_HOME="/opt/java/jdk"
-export JDK_HOME="/opt/java/jdk"
+# export PATH="/opt/java/jdk/bin:$PATH"
+# export JAVA_HOME="/opt/java/jdk"
+# export JDK_HOME="/opt/java/jdk"
 
 export PATH="/opt/java/apache-maven/bin:$PATH"
 export PATH="/opt/java/spring/bin:$PATH"
@@ -202,3 +202,6 @@ export PATH="$VCPKG_ROOT/installed/x64-linux/tools/drogon/:$PATH"
 # PostgreSQL
 
 export PATH="/opt/postgresql/17/bin:$PATH"
+export PGPASSWORD="paradox"
+export PGHOST=localhost
+export PGPORT=5432

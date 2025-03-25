@@ -10,9 +10,9 @@
     <focusNew>yes</focusNew>
     <!-- always try to focus new windows when they appear. other rules do
        apply -->
-    <followMouse>yes</followMouse>
+    <followMouse>no</followMouse>
     <!-- move focus to a window when you move the mouse into it -->
-    <focusLast>no</focusLast>
+    <focusLast>yes</focusLast>
     <!-- focus the last used window when changing desktops, instead of the one
        under the mouse pointer. when followMouse is enabled -->
     <underMouse>no</underMouse>
@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>E221</name>
+    <name>Retro 3 (16)</name>
     <titleLayout>NDLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -57,8 +57,8 @@
     <keepBorder>yes</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
-      <name>Special Elite</name>
-      <size>11</size>
+      <name>Roboto Slab</name>
+      <size>12</size>
       <!-- font size in points -->
       <weight>Bold</weight>
       <!-- 'bold' or 'normal' -->
@@ -66,8 +66,8 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="InactiveWindow">
-      <name>Special Elite</name>
-      <size>11</size>
+      <name>Roboto Slab</name>
+      <size>12</size>
       <!-- font size in points -->
       <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
@@ -75,8 +75,8 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="MenuHeader">
-      <name>Special Elite</name>
-      <size>20</size>
+      <name>Roboto Slab</name>
+      <size>23</size>
       <!-- font size in points -->
       <weight>Bold</weight>
       <!-- 'bold' or 'normal' -->
@@ -84,8 +84,8 @@
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="MenuItem">
-      <name>Special Elite</name>
-      <size>17</size>
+      <name>Roboto Slab</name>
+      <size>20</size>
       <!-- font size in points -->
       <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
@@ -120,7 +120,7 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>6</number>
+    <number>2</number>
     <firstdesk>1</firstdesk>
     <names>
       <!-- set names up here if you want to, like this:
@@ -324,11 +324,22 @@
     <!-- Keybindings for running applications -->
     <keybind key="W-e">
       <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>Konqueror</name>
-        </startupnotify>
-        <command>kfmclient openProfile filemanagement</command>
+        <command>pcmanfm</command>
+      </action>
+    </keybind>
+    <keybind key="W-w">
+      <action name="Execute">
+        <command>chromium</command>
+      </action>
+    </keybind>
+    <keybind key="W-m">
+      <action name="Execute">
+        <command>thunderbird</command>
+      </action>
+    </keybind>
+    <keybind key="W-k">
+      <action name="Execute">
+        <command>keepass2</command>
       </action>
     </keybind>
     <!-- Launch scrot when Print is pressed -->
@@ -353,7 +364,24 @@
         <command>rofi -show window</command>
       </action>
     </keybind>
+    <!-- keybind key="C-t">
+      <keybind key="r">
+	<action name="Execute">
+          <command>rofi -show run</command>
+	</action>
+      </keybind>
+      <keybind key="w">
+	<action name="Execute">
+          <command>rofi -show window</command>
+	</action>
+      </keybind>
+    </keybind -->
     <keybind key="C-A-L">
+      <action name="Execute">
+        <command>xsecurelock</command>
+      </action>
+    </keybind>
+    <keybind key="W-L">
       <action name="Execute">
         <command>xsecurelock</command>
       </action>
