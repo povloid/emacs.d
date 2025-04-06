@@ -183,8 +183,8 @@ export PATH="$HOME/global/yarn/bin:${PATH}"
 # export PATH="/opt/java/jdk/bin:$PATH"
 # export JAVA_HOME="/opt/java/jdk"
 # export JDK_HOME="/opt/java/jdk"
+# export PATH="/opt/java/apache-maven/bin:$PATH"
 
-export PATH="/opt/java/apache-maven/bin:$PATH"
 export PATH="/opt/java/spring/bin:$PATH"
 
 # C/C++ #######################################################################
