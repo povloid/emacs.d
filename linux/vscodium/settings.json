@@ -1,9 +1,10 @@
 {
-    "editor.fontFamily": "Adwaita Mono",
+    "editor.fontFamily": "Roboto Mono",
     "editor.fontLigatures": true,
-    "editor.fontWeight": "550",
+    "editor.fontWeight": "400",
     "editor.lineHeight": 0,
     "editor.lineNumbers": "off",
+    "editor.fontSize": 15,
     "editor.renderLineHighlight": "none",
     "editor.showFoldingControls": "never",
     "editor.guides.indentation": false,
@@ -70,7 +71,6 @@
     "workbench.startupEditor": "none",
     "window.customTitleBarVisibility": "auto",
     "window.experimentalControlOverlay": false,
-    "workbench.colorTheme": "Visual Studio Light",
     "chat.commandCenter.enabled": false,
     "workbench.navigationControl.enabled": false,
     "window.commandCenter": false,
@@ -86,6 +86,5 @@
     "editor.renderControlCharacters": false,
     "workbench.preferredHighContrastColorTheme": "Default Light+",
     "terminal.integrated.fontFamily": "Roboto Mono",
-    "workbench.iconTheme": "vscode-icons",
-    "editor.fontSize": 13
+    "workbench.iconTheme": "vscode-icons"
 }
