@@ -1,10 +1,9 @@
 {
-    "editor.fontFamily": "Roboto Mono",
+    "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "editor.fontWeight": "400",
     "editor.lineHeight": 0,
     "editor.lineNumbers": "off",
-    "editor.fontSize": 15,
     "editor.renderLineHighlight": "none",
     "editor.showFoldingControls": "never",
     "editor.guides.indentation": false,
@@ -19,6 +18,7 @@
     "editor.codeActionsOnSave": {
         "source.fixAll": "always",
         "source.organizeImports": "always",
+        "source.addMissingImports": "always",
         "source.sortMembers": "never"
     },
     "explorer.compactFolders": false,
@@ -86,5 +86,8 @@
     "editor.renderControlCharacters": false,
     "workbench.preferredHighContrastColorTheme": "Default Light+",
     "terminal.integrated.fontFamily": "Roboto Mono",
-    "workbench.iconTheme": "vscode-icons"
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Zenburn",
+    "workbench.statusBar.visible": false,
+    "javascript.preferences.organizeImports": {}
 }
