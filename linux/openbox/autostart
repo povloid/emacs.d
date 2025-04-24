@@ -1,11 +1,15 @@
 /usr/libexec/gsd-xsettings &
 
-lxpanel &
-
 ~/.screenlayout/monitor-settings.sh
+
+
+
 
 feh --bg-center backgrounds/2024-10-24-11-56-40-1685774330_en-idei-club-p-ibm-background-dizain-pinterest-17.jpg
 
-compton -bcCG --shadow-exclude fullscreen
+# compton -bcCG --shadow-exclude fullscreen
+
+# lxpanel &
+tint2 &
 
 echo `date` > ~/openbox-started-at.txt

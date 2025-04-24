@@ -1,0 +1,26 @@
+<application>
+  <component name="RecentProjectsManager">
+    <option name="additionalInfo">
+      <map>
+        <entry key="$USER_HOME$/git/inko-med/projects/inko-med-expert-server">
+          <value>
+            <RecentProjectMetaInfo frameTitle="inko-med-expert-server" opened="true" projectWorkspaceId="2wB8BSvY043Tfj1wyzkZoQdnbK4">
+              <option name="activationTimestamp" value="1745506055222" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="build" value="IC-243.26053.27.8" />
+              <option name="buildTimestamp" value="1745250420000" />
+              <option name="colorInfo">
+                <RecentProjectColorInfo associatedIndex="0" />
+              </option>
+              <frame x="260" y="1120" width="1400" height="1000" extendedState="6" />
+              <option name="productionCode" value="IC" />
+              <option name="projectOpenTimestamp" value="1745503472020" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastOpenedProject" value="$USER_HOME$/git/inko-med/projects/inko-med-expert-server" />
+    <option name="lastProjectLocation" value="$USER_HOME$/git/inko-med/projects" />
+  </component>
+</application>

@@ -1,0 +1,58 @@
+<application>
+  <component name="ActionHistoryManager">
+    <ids>
+      <option value="ReformatCode" />
+    </ids>
+  </component>
+  <component name="FileEditorProviderManager"><![CDATA[{}]]></component>
+  <component name="LangManager">
+    <option name="languageName" value="JAVA" />
+  </component>
+  <component name="NotRoamableUiSettings">
+    <option name="presentationModeIdeScale" value="1.75" />
+  </component>
+  <component name="PropertyService"><![CDATA[{
+  "keyToString": {
+    "FileTemplates.SelectedTemplate": "HTML File",
+    "InstalledPluginsSearchHistory": "font",
+    "LANGUAGE_DETECTOR_ASKED_BEFORE": "true",
+    "LAST_CALCULATED_COLOR_INDEX_KEY": "0",
+    "LayoutCode.optimizeImports": "false",
+    "PluginConfigurable.selectionTab": "1",
+    "RunOnceActivity.ADD_AMPLICODE_PLUGIN_REPOSITORY": "true",
+    "RunOnceActivity.VFSInitializationConditionsToFusReporter": "true",
+    "SettingsSearchHistory": "optimize\nFont\nscroll\nInlay\nShow for non",
+    "ask.about.ctrl.y.shortcut.v2": "true",
+    "build.toolwindow.Build Output.selection.state": "com.intellij.build.BuildTreeConsoleView",
+    "build.toolwindow.Sync.selection.state": "com.intellij.build.BuildTreeConsoleView",
+    "com.intellij.openapi.roots.ui.configuration.TabbedModuleEditor.selectedEditor": "Sources",
+    "defaultJdkConfigured": "true",
+    "enter_selection_count": "1",
+    "experimental.ui.on.first.startup": "true",
+    "experimental.ui.used.version": "243.26053.27.8",
+    "fileTypeChangedCounter": "1",
+    "fontSizeToResetConsole": "13.0",
+    "fontSizeToResetEditor": "13.0",
+    "input.method.disabler.muted": "true",
+    "installed.kotlin.plugin.version": "243.26053.27.8-IJ",
+    "last_opened_file_path": "/home/pk/git/inko-med/projects/inko-med-expert-server",
+    "migrated.non.roamable.values.from.general.settings": "true",
+    "previousColorScheme": "_@user_Darcula Contrast",
+    "registry.to.advanced.settings.migration.build": "IC-243.26053.27.8",
+    "settings.code.style.selected.tab.EditorConfig": "Wrapping and Braces",
+    "settings.code.style.selected.tab.Groovy": "Spaces",
+    "settings.code.style.selected.tab.JAVA": "Code Generation",
+    "settings.code.style.selected.tab.JSON": "Wrapping and Braces",
+    "settings.code.style.selected.tab.yaml": "Wrapping and Braces"
+  },
+  "keyToStringList": {
+    "file.chooser.recent.files": [
+      "/home/pk/git/inko-med/projects/inko-med-expert-server"
+    ],
+    "fileTypeDetectors": [
+      "com.intellij.ide.scratch.ScratchFileServiceImpl$Detector",
+      "org.jetbrains.plugins.textmate.TextMateFileType$TextMateFileDetector"
+    ]
+  }
+}]]></component>
+</application>
