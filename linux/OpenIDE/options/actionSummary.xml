@@ -67,7 +67,7 @@
       <i c="1" l="1745505980746" />
     </e>
     <e n="GotoAction">
-      <i c="4" l="1745505963541" />
+      <i c="5" l="1745506599981" />
     </e>
     <e n="GotoDeclaration">
       <i c="3" l="1745504256802" />
@@ -121,7 +121,7 @@
       <i c="7" l="1745505542363" />
     </e>
     <e n="com.intellij.openapi.project.DumbAwareAction$SimpleDumbAwareAction">
-      <i c="4" l="1745505863498" />
+      <i c="5" l="1745506601960" />
     </e>
     <e n="com.intellij.openapi.roots.ui.configuration.actions.ToggleSourcesStateAction">
       <i c="8" l="1745505692636" />
