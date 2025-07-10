@@ -1,7 +1,8 @@
 {
-    "editor.fontFamily": "Fira Code",
+    "editor.fontFamily": "Pt Mono",
     "editor.fontLigatures": true,
-    "editor.fontWeight": "400",
+    "editor.fontWeight": "600",
+    "editor.fontSize": 12,
     "editor.lineHeight": 0,
     "editor.lineNumbers": "off",
     "editor.renderLineHighlight": "none",
@@ -22,13 +23,9 @@
         "source.sortMembers": "never"
     },
     "explorer.compactFolders": false,
-    "redhat.telemetry.enabled": false,
-    "java.jdt.ls.java.home": "/opt/java/jdk",
-    "redHatDependencyAnalytics.mvn.executable.path": "/opt/java/apache-maven/bin/mvn",
     "git.confirmSync": false,
     "terminal.integrated.fontSize": 12,
     "window.zoomLevel": 0.5,
-    "redHatDependencyAnalytics.npm.executable.path": "/opt/node/bin/npm",
     "editor.minimap.showSlider": "always",
     "workbench.editor.tabActionCloseVisibility": false,
     "window.confirmBeforeClose": "always",
@@ -50,21 +47,6 @@
     "[xml]": {
         "editor.defaultFormatter": "redhat.vscode-xml"
     },
-    "java.configuration.detectJdksAtStart": false,
-    "java.configuration.runtimes": [
-        {
-            "name": "JavaSE-21",
-            "path": "/opt/java/jdk",
-            "default": true
-        }
-    ],
-    "rsp-ui.enableStartServerOnActivation": [
-        {
-            "id": "redhat.vscode-community-server-connector",
-            "name": "Community Server Connector",
-            "startOnActivation": true
-        }
-    ],
     "files.simpleDialog.enable": true,
     "window.title": "${rootName}",
     "sonarlint.pathToNodeExecutable": "/usr/bin/node",
@@ -85,9 +67,10 @@
     "editor.renderWhitespace": "none",
     "editor.renderControlCharacters": false,
     "workbench.preferredHighContrastColorTheme": "Default Light+",
-    "terminal.integrated.fontFamily": "Roboto Mono",
+    "terminal.integrated.fontFamily": "PT Mono",
     "workbench.iconTheme": "vscode-icons",
-    "workbench.colorTheme": "Zenburn",
-    "workbench.statusBar.visible": false,
-    "javascript.preferences.organizeImports": {}
+    "javascript.preferences.organizeImports": {},
+    "http.proxy": "socks5://localhost:35353",
+    "http.proxyStrictSSL": false,
+    "workbench.colorTheme": "Visual Studio Light",
 }

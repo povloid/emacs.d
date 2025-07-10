@@ -186,6 +186,7 @@ export PATH="$HOME/global/yarn/bin:${PATH}"
 # export PATH="/opt/java/apache-maven/bin:$PATH"
 
 export PATH="/opt/java/spring/bin:$PATH"
+export PATH="/opt/java/apache-xmlbeans/bin:$PATH"
 
 # C/C++ #######################################################################
 

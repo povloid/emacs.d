@@ -2,7 +2,7 @@
 ;;;* BEGIN System
 ;;;* tag: <system >
 ;;;*
-;;;* description: 
+;;;* description:
 ;;;*
 ;;;**************************************************************************************************
 
@@ -124,3 +124,10 @@
 ;;(global-set-key [f4] 'buffer-format)
 ;;(global-set-key [f5] 'toggle-truncate-lines)
 ;;(global-set-key [f12] 'kmacro-end-and-call-macro)
+
+
+
+;; fix seq
+(setq package-install-upgrade-built-in t)
+
+(progn (unload-feature 'seq t) (require 'seq))
