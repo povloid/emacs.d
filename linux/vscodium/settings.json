@@ -2,7 +2,6 @@
     "editor.fontFamily": "Pt Mono",
     "editor.fontLigatures": true,
     "editor.fontWeight": "600",
-    "editor.fontSize": 12,
     "editor.lineHeight": 0,
     "editor.lineNumbers": "off",
     "editor.renderLineHighlight": "none",
@@ -24,7 +23,7 @@
     },
     "explorer.compactFolders": false,
     "git.confirmSync": false,
-    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontSize": 11,
     "window.zoomLevel": 0.5,
     "editor.minimap.showSlider": "always",
     "workbench.editor.tabActionCloseVisibility": false,
@@ -72,5 +71,5 @@
     "javascript.preferences.organizeImports": {},
     "http.proxy": "socks5://localhost:35353",
     "http.proxyStrictSSL": false,
-    "workbench.colorTheme": "Visual Studio Light",
+    "workbench.colorTheme": "Visual Studio Light"
 }
