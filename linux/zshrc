@@ -202,7 +202,16 @@ export PATH="$VCPKG_ROOT/installed/x64-linux/tools/drogon/:$PATH"
 
 # PostgreSQL
 
-export PATH="/opt/postgresql/17/bin:$PATH"
-export PGPASSWORD="paradox"
-export PGHOST=localhost
-export PGPORT=5432
+#export PATH="/opt/postgresql/17/bin:$PATH"
+#export PGPASSWORD="paradox"
+#export PGHOST=localhost
+#export PGPORT=5432
+
+# Spring
+
+export SPRING_PROFILES_ACTIVE=dev
+
+
+## GO
+
+export PATH=$PATH:/usr/local/go/bin
