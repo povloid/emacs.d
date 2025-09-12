@@ -1,3 +1,4 @@
+
 Настройка брандмауэра UFW в Debian 12
 Шаг 1. Обновление Debian 12
 Перед установкой какого либо программного обеспечения, требуется убедиться, что ваша система находится в актуальном состоянии. Для этого выполните в терминале следующие команды.
@@ -77,3 +78,14 @@ sudo ufw allow in on eth1 to any
 
 Заключение
 Вот и все. Вы успешно установили UFW Firewall в Debian 12. А также немного его настроили. Спасибо, что воспользовались этим руководством для установки и настройки UFW Firewall в Debian 12 Bookworm.
+
+
+ 3089  sudo apt remove ufw
+ 9990  sudo apt install ufw
+ 9991  sudo ufw enable
+ 9992  sudo ufw default deny incoming
+ 9993  sudo ufw default allow outgoing
+ 9994  sudo ufw allow 22
+ 9995  sudo ufw status
+10005  history ufw
+10006  history | grep ufw
