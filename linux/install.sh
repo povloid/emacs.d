@@ -20,8 +20,8 @@ sudo apt upgrade
 
 # console
 sudo apt install -y \
-     git htop ncal mc tree\
-     wget nano vim htop locate p7zip p7zip-full unzip \
+     git htop ncal mc tree \
+     wget nano vim htop locate zip p7zip p7zip-full unzip \
      ispell \
      tmux zsh \
      build-essential \
@@ -29,6 +29,7 @@ sudo apt install -y \
      emacs-nox \
      ufw \
      rsync \
+     sshfs \
      silversearcher-ag
 
 # GUI
@@ -60,11 +61,29 @@ sudo apt install -y \
      stellarium \
      transmission \
      transmission-gtk   \
-     vlc
+     vlc \
+     xclip
 
 
 # Radeon Video Driver
 sudo apt install firmware-amd-graphics mesa-vulkan-drivers libgl1-mesa-dri xserver-xorg-video-all
+
+# KVM
+
+sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virtinst libvirt-daemon virt-manager -y
+
+sudo usermod -aG kvm ${USER}
+sudo usermod -aG libvirt ${USER}
+
+# docker
+
+sudo apt install docker.io docker-compose containerd runc
+
+sudo gpasswd --add ${USER} docker
+
+# rust
+
+sudo apt install rustc cargo
 
 
 # QT 6
