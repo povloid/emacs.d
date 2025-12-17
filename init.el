@@ -14,6 +14,7 @@
 (load-file "~/.emacs.d/emodules/snippets.el")
 (load-file "~/.emacs.d/emodules/flycheck.el")
 (load-file "~/.emacs.d/emodules/ru.el")
+(load-file "~/.emacs.d/emodules/clojure.el")
 
 
 (setq custom-file "~/.emacs.d/custom.el")

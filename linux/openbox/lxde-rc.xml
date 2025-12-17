@@ -34,10 +34,10 @@
     <!-- with Smart placement on a multi-monitor system, try to place new windows
        on: 'Any' - any monitor, 'Mouse' - where the mouse is, 'Active' - where
        the active window is -->
-    <primaryMonitor></primaryMonitor>
+    <primaryMonitor/>
   </placement>
   <theme>
-    <name>Mikachu</name>
+    <name>Retro 3 (16)</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -89,12 +89,15 @@
     </font>
     <font place="ActiveOnScreenDisplay">
       <name/>
+      <size>8</size>
+      <weight></weight>
+      <slant></slant>
     </font>
     <font place="InactiveOnScreenDisplay">
       <name>Sans</name>
       <size>8</size>
-      <weight></weight>
-      <slant></slant>
+      <weight/>
+      <slant/>
     </font>
   </theme>
   <desktops>

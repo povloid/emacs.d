@@ -70,7 +70,7 @@
     "javascript.preferences.organizeImports": {},
     "http.proxy": "socks5://localhost:35353",
     "http.proxyStrictSSL": false,
-    "workbench.colorTheme": "Zenburn",
+    "workbench.colorTheme": "Visual Studio Light",
     "plantuml.server": "http://127.0.0.1:8080",
     "plantuml.render": "PlantUMLServer",
     "workbench.colorCustomizations": {},
@@ -78,5 +78,6 @@
     "workbench.editorAssociations": {
         "*.docx": "default"
     },
-    "editor.find.seedSearchStringFromSelection": "always"
+    "editor.find.seedSearchStringFromSelection": "always",
+    "vsicons.dontShowNewVersionMessage": true
 }
