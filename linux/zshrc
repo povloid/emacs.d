@@ -166,9 +166,9 @@ export PATH="$HOME/bin/:${PATH}"
 #export LDFLAGS="-L/opt/node/lib:$LDFLAGS"
 #export CPPFLAGS="-I/opt/node/include:$CPPFLAGS"
 
-export NPM_CONFIG_PREFIX="$HOME/global/npm"
-export PATH="$HOME/global/npm/bin:${PATH}"
-export PATH="$HOME/global/yarn/bin:${PATH}"
+#export NPM_CONFIG_PREFIX="$HOME/global/npm"
+#export PATH="$HOME/global/npm/bin:${PATH}"
+#export PATH="$HOME/global/yarn/bin:${PATH}"
 
 # overtok default some
 
@@ -190,15 +190,15 @@ export PATH="/opt/java/apache-xmlbeans/bin:$PATH"
 
 # C/C++ #######################################################################
 
-export VCPKG_ROOT=$HOME/opt/vcpkg
-export PATH=$VCPKG_ROOT:$PATH
-export PATH=$VCPKG_ROOT/installed/x64-linux/tools/drogon:$PATH
+#export VCPKG_ROOT=$HOME/opt/vcpkg
+#export PATH=$VCPKG_ROOT:$PATH
+#export PATH=$VCPKG_ROOT/installed/x64-linux/tools/drogon:$PATH
 
 # vcpkg
 
-export VCPKG_ROOT="$HOME/global/vcpkg"
-export PATH="$VCPKG_ROOT:$PATH"
-export PATH="$VCPKG_ROOT/installed/x64-linux/tools/drogon/:$PATH"
+#export VCPKG_ROOT="$HOME/global/vcpkg"
+#export PATH="$VCPKG_ROOT:$PATH"
+#export PATH="$VCPKG_ROOT/installed/x64-linux/tools/drogon/:$PATH"
 
 # PostgreSQL
 
@@ -209,16 +209,8 @@ export PATH="$VCPKG_ROOT/installed/x64-linux/tools/drogon/:$PATH"
 
 # Spring
 
-export SPRING_PROFILES_ACTIVE=dev
-
+#export SPRING_PROFILES_ACTIVE=dev
 
 ## GO
 
-export PATH=$PATH:/usr/local/go/bin
-
-# The next line updates PATH for CLI.
-if [ -f '/home/pk/yandex-cloud/path.bash.inc' ]; then source '/home/pk/yandex-cloud/path.bash.inc'; fi
-
-# The next line enables shell command completion for yc.
-if [ -f '/home/pk/yandex-cloud/completion.zsh.inc' ]; then source '/home/pk/yandex-cloud/completion.zsh.inc'; fi
-
+#export PATH=$PATH:/usr/local/go/bin

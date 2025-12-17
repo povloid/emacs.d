@@ -3,12 +3,12 @@
 cd
 
 mkdir -p bin
-mkdir -p global/npm/bin
-mkdir -p global/yarn/bin
+#mkdir -p global/npm/bin
+#mkdir -p global/yarn/bin
 
 export PATH="bin/:${PATH}"
-export PATH="global/npm/bin/:${PATH}"
-export PATH="global/yarn/bin/:${PATH}"
+#export PATH="global/npm/bin/:${PATH}"
+#export PATH="global/yarn/bin/:${PATH}"
 
 ln -sf git/emacs.d .emacs.d
 ln -sf git/emacs.d/linux/zshrc .zshrc
@@ -22,26 +22,49 @@ sudo apt upgrade
 sudo apt install -y \
      git htop ncal mc tree\
      wget nano vim htop locate p7zip p7zip-full unzip \
-     apt-xapian-index \
      ispell \
-     tmux \
-     zsh \
+     tmux zsh \
      build-essential \
-     emacs-nox silversearcher-ag
+     smartmontools \
+     emacs-nox \
+     ufw \
+     rsync \
+     silversearcher-ag
 
 # GUI
 sudo apt install -y \
-     alacritty stellarium\
-     ttf-anonymous-pro\
-     fonts-jetbrains-mono \
-     fonts-monoid \
-     chromium \
-     fonts-league-mono \
-     fonts-paratype \
-     libavcodec-extra vlc \
-     atril \
-     gparted transmission-gtk vlc pavucontrol \
-     geany gimp inkscape audacity filezilla
+     alacritty \
+     atril  \
+     audacious \
+     audacity \
+     chromium  \
+     filezilla \
+     fonts-jetbrains-mono  \
+     fonts-league-mono  \
+     fonts-monoid  \
+     fonts-paratype  \
+     fonts-roboto \
+     fonts-roboto-fontface \
+     fonts-roboto-slab \
+     fonts-roboto-unhinted \
+     gimp \
+     gnome-shell-extension-appindicator \
+     gparted \
+     gufw \
+     inkscape \
+     libavcodec-extra \
+     memtest86+ \
+     menulibre \
+     mpv \
+     remmina \
+     stellarium \
+     transmission \
+     transmission-gtk   \
+     vlc
+
+
+# Radeon Video Driver
+sudo apt install firmware-amd-graphics mesa-vulkan-drivers libgl1-mesa-dri xserver-xorg-video-all
 
 
 # QT 6
@@ -63,29 +86,30 @@ sudo apt install -y \
 #                                    nodejs                                   #
 ###############################################################################
 
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash -&&\
-    sudo apt install -y nodejs
+sudo apt install -y nodejs
 
 ###############################################################################
 #                                     yarn                                    #
 ###############################################################################
 
-export NPM_CONFIG_PREFIX=~/global/npm
+sudo apt install -y yarnpkg
 
-npm install --global yarn
+# export NPM_CONFIG_PREFIX=~/global/npm
 
-yarn config set prefix ~/global/yarn/ \
-    && yarn global add bash-language-server \
-    && yarn global add js-beautify \
-    && yarn global add preact-cli \
-    && yarn global add prettier \
-    && yarn global add sql-formatter-cli \
-    && yarn global add typescript \
-    && yarn global add typescript-language-server
+# npm install --global yarn
+
+# yarn config set prefix ~/global/yarn/ \
+#    && yarn global add bash-language-server \
+#    && yarn global add js-beautify \
+#    && yarn global add preact-cli \
+#    && yarn global add prettier \
+#    && yarn global add sql-formatter-cli \
+#    && yarn global add typescript \
+#    && yarn global add typescript-language-server
 
 ###############################################################################
 #                                  ssh-agent                                  #
 ###############################################################################
 
-mkdir -p ~/.config/plasma-workspace/env
-cp start-ssh-agent.sh ~/.config/plasma-workspace/env/start-ssh-agent.sh
+# mkdir -p ~/.config/plasma-workspace/env
+# cp start-ssh-agent.sh ~/.config/plasma-workspace/env/start-ssh-agent.sh

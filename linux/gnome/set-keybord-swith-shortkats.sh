@@ -6,3 +6,4 @@
 
 # gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Shift>Alt_L','<Shift>Alt_R']"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Shift>Shift_R','<Shift>Shift_L']"
+gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Shift>Shift_L','<Shift>Shift_R']"
