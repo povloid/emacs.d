@@ -41,7 +41,7 @@ keymap:
       M-d: [C-delete, { set_mark: false }]
       C-h: Backspace
       # Kill line
-      C-k: [Shift-end, C-x, { set_mark: false }]
+      C-k: [Shift-end, C-c, delete, { set_mark: false }]
       # Kill word backward
       Alt-backspace: [C-backspace, {set_mark: false}]
       # set mark next word continuously.
