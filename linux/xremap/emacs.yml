@@ -33,9 +33,9 @@ keymap:
       C-j: enter
       C-o: [enter, left]
       # Copy
-      C-w: [C-x, { set_mark: false }]
-      M-w: [C-c, { set_mark: false }]
-      C-y: [C-v, { set_mark: false }]
+      C-w: [C-x, { set_mark: false }, right]
+      M-w: [C-c, { set_mark: false }, right]
+      C-y: [C-v, { set_mark: false }, right]
       # Delete
       C-d: [delete, { set_mark: false }]
       M-d: [C-delete, { set_mark: false }]
