@@ -9,7 +9,7 @@ modmap:
 keymap:
   - name: Emacs
     application:
-      not: [Alacritty]
+      not: [alacritty,Alacritty]
     remap:
       # Cursor
       C-b: { with_mark: left }
@@ -33,9 +33,9 @@ keymap:
       C-j: enter
       C-o: [enter, left]
       # Copy
-      C-w: [C-x, { set_mark: false }, right]
-      M-w: [C-c, { set_mark: false }, right]
-      C-y: [C-v, { set_mark: false }, right]
+      C-w: [C-x, { set_mark: false }, right, left]
+      M-w: [C-c, { set_mark: false }, right, left]
+      C-y: [C-v, { set_mark: false }, right, left]
       # Delete
       C-d: [delete, { set_mark: false }]
       M-d: [C-delete, { set_mark: false }]
