@@ -20,7 +20,7 @@ sudo apt upgrade
 
 # console
 sudo apt install -y \
-     git htop ncal mc tree \
+     git htop ncal mc tree pwgen\
      wget nano vim htop locate zip p7zip p7zip-full unzip \
      ispell \
      tmux zsh \
