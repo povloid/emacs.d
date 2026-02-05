@@ -25,21 +25,22 @@ shape = "Underline"
 TERM = "xterm-256color"
 
 [font]
-size = 17.0
+size = 15.0
 
 [font.normal]
-family = "Anonymous Pro"
+family = "Terminus"
+style = "Bold"
 
 [font.italic]
-family = "Anonymous Pro"
+family = "Terminus"
 style = "Light Italic"
 
 [font.bold]
-family = "Anonymous Pro"
+family = "Terminus"
 style = "Medium"
 
 [font.bold_italic]
-family = "Anonymous Pro"
+family = "Terminus"
 style = "Medium Italic"
 
 [font.offset]
