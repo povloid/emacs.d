@@ -1,0 +1,3 @@
+cat /etc/environment
+export SAL_USE_VCLPLUGIN=gen
+
