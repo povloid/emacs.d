@@ -37,7 +37,7 @@
     <primaryMonitor/>
   </placement>
   <theme>
-    <name>Artwiz-boxed</name>
+    <name>Clearlooks-Olive</name>
     <titleLayout>NLIMC</titleLayout>
     <!--       available characters are NDSLIMC, each can occur at most once.
       N: window icon
@@ -51,51 +51,51 @@
     <keepBorder>yes</keepBorder>
     <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
-      <name>sans</name>
-      <size>10</size>
+      <name>Terminus</name>
+      <size>12</size>
       <!-- font size in points -->
-      <weight>bold</weight>
+      <weight>Bold</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
     </font>
     <!-- 'italic' or 'normal' -->
     <font place="InactiveWindow">
-      <name>sans</name>
-      <size>10</size>
+      <name>Terminus</name>
+      <size>12</size>
       <!-- font size in points -->
-      <weight>bold</weight>
+      <weight>Bold</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
     </font>
     <!-- 'italic' or 'normal' -->
     <font place="MenuHeader">
-      <name>sans</name>
-      <size>10</size>
+      <name>Terminus</name>
+      <size>14</size>
       <!-- font size in points -->
-      <weight>normal</weight>
+      <weight>Bold</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
     </font>
     <!-- 'italic' or 'normal' -->
     <font place="MenuItem">
-      <name>sans</name>
-      <size>10</size>
+      <name>Terminus</name>
+      <size>14</size>
       <!-- font size in points -->
-      <weight>normal</weight>
+      <weight>Bold</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
     </font>
     <!-- 'italic' or 'normal' -->
     <font place="ActiveOnScreenDisplay">
-      <name>Sans</name>
-      <size>12</size>
-      <weight>Normal</weight>
+      <name>Terminus</name>
+      <size>22</size>
+      <weight>Bold</weight>
       <slant>Normal</slant>
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>Sans</name>
-      <size>12</size>
-      <weight>Normal</weight>
+      <name>Terminus</name>
+      <size>22</size>
+      <weight>Bold</weight>
       <slant>Normal</slant>
     </font>
   </theme>
@@ -108,7 +108,7 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>5</number>
+    <number>2</number>
     <firstdesk>1</firstdesk>
     <names/>
     <!-- set names up here if you want to, like this:

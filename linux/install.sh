@@ -62,8 +62,11 @@ sudo apt install -y \
      transmission \
      transmission-gtk   \
      vlc \
+     ibus \
      xclip
 
+
+sudo apt install ibus # Без этого крашится Eclipse
 
 # Radeon Video Driver
 sudo apt install firmware-amd-graphics mesa-vulkan-drivers libgl1-mesa-dri xserver-xorg-video-all
