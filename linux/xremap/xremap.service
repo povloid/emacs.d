@@ -1,0 +1,12 @@
+[Unit]
+Description=Xremap
+After=default.target
+
+[Service]
+ExecStart=%h/.cargo/bin/xremap --watch=device %h/git/emacs.d/linux/xremap/emacs.yml
+Restart=always
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
